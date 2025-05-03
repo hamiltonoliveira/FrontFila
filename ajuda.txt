@@ -1,0 +1,6 @@
+dentro da pasta src : 
+
+ng generate component app/menu
+ng generate module app/component/xpto --route xpto --module app/app.module
+
+
