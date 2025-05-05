@@ -12,6 +12,7 @@ const routes: Routes = [
     path: 'menu',
     component: MenuComponent,
   },
+  { path: 'cadastro-empresa', loadChildren: () => import('./component/cadastro-empresa/cadastro-empresa.module').then(m => m.CadastroEmpresaModule) },
 ];
 
 
