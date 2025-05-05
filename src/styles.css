@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+.conteudo-principal {
+  /* faz com que esse div cresça para preencher o espaço sobrando */
+  flex: 1;
+
+  /* garante que o conte;údo interno não “grude” nas bordas */
+  padding: 1.5rem;
+
+  /* opcional: para que o conteúdo role se for maior que a altura da viewport */
+  overflow-y: auto;
+
+  /* opcional: garante altura mínima igual à tela toda */
+  min-height: 100vh;
+
+  /* opcional: um fundo sutil para destacar a área de conteúdo */
+  background-color: #FFFF
+}
+
+.Titulo {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: #FFF;                 /* cor neutra, legível */
+  text-align: center;
+  margin: 1rem 0;
+
+  /* ligeira sombra para profundidade suave */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+  /* animação sutil de fade-in */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.Titulo::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  margin: 0.5rem auto 0;
+  background-color: #ccc;      /* linha de apoio discreta */
+  border-radius: 1px;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

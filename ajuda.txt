@@ -1,6 +1,6 @@
-dentro da pasta src : 
+dentro da pasta src :
 
 ng generate component app/menu
-ng generate module app/component/xpto --route xpto --module app/app.module
+ng generate module app/component/login --route login --module app/app.module
 
 
