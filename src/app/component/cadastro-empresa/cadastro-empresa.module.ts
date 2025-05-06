@@ -5,6 +5,9 @@ import { CadastroEmpresaRoutingModule } from './cadastro-empresa-routing.module'
 import { CadastroEmpresaComponent } from './cadastro-empresa.component';
 import { FormsModule } from '@angular/forms';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     CadastroEmpresaComponent
@@ -12,7 +15,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     CadastroEmpresaRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class CadastroEmpresaModule { }

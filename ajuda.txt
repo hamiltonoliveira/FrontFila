@@ -1,5 +1,7 @@
 dentro da pasta src :
 
+ng generate service services/buscep
+
 ng generate component app/menu
 ng generate module app/component/login --route login --module app/app.module
 

@@ -3,78 +3,77 @@
     <div class="col-md-8">
       <div class="card shadow">
         <div class="card-header bg-secondary text-white">
-          <h5 class="mb-0">Cadastro de Empresa</h5>
+          <h5 class="mb-0">Dados Cadastrais da Empresa</h5>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()">
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="razaoSocial" class="form-label">Razão Social</label>
-                <input type="text" id="razaoSocial" class="form-control" [(ngModel)]="empresa.razaoSocial" name="razaoSocial">
+                <label class="form-label">Razão Social</label>
+                <input type="text" class="form-control" formControlName="razaoSocial">
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
-                <input type="text" id="nomeFantasia" class="form-control" [(ngModel)]="empresa.nomeFantasia" name="nomeFantasia">
+                <label class="form-label">Nome Fantasia</label>
+                <input type="text" class="form-control" formControlName="nomeFantasia">
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="cnpj" class="form-label">CNPJ</label>
-                <input type="text" id="cnpj" class="form-control" [(ngModel)]="empresa.cnpj" name="cnpj">
+                <label class="form-label">CNPJ</label>
+                <input type="text" class="form-control" formControlName="cnpj" (blur)="verificarCnpj()">
+                <div *ngIf="cnpjInvalido" class="text-danger mt-1">CNPJ inválido.</div>
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="contato" class="form-label">Contato</label>
-                <input type="text" id="contato" class="form-control" [(ngModel)]="empresa.contato" name="contato">
+                <label class="form-label">Contato</label>
+                <input type="text" class="form-control" formControlName="contato">
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" class="form-control" [(ngModel)]="empresa.email" name="email">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email">
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="telefone" class="form-label">Telefone</label>
-                <input type="text" id="telefone" class="form-control" [(ngModel)]="empresa.telefone" name="telefone">
+                <label class="form-label">Telefone</label>
+                <input type="text" class="form-control" formControlName="telefone">
               </div>
 
               <div class="col-md-12 mb-3">
-                <label for="endereco" class="form-label">Endereço</label>
-                <input type="text" id="endereco" class="form-control" [(ngModel)]="empresa.endereco" name="endereco">
+                <label class="form-label">Endereço</label>
+                <input type="text" class="form-control" formControlName="endereco">
               </div>
 
               <div class="col-md-4 mb-3">
-                <label for="cep" class="form-label">CEP</label>
-                <input type="text" id="cep" class="form-control" [(ngModel)]="empresa.cep" name="cep">
+                <label class="form-label">CEP</label>
+                <input type="text" class="form-control" formControlName="cep" (blur)="buscarEnderecoPorCep()">
               </div>
 
               <div class="col-md-4 mb-3">
-                <label for="cidade" class="form-label">Cidade</label>
-                <input type="text" id="cidade" class="form-control" [(ngModel)]="empresa.cidade" name="cidade">
+                <label class="form-label">Cidade</label>
+                <input type="text" class="form-control" formControlName="cidade">
               </div>
 
               <div class="col-md-4 mb-3">
-                <label for="estado" class="form-label">Estado</label>
-                <input type="text" id="estado" class="form-control" [(ngModel)]="empresa.estado" name="estado">
+                <label class="form-label">Estado</label>
+                <input type="text" class="form-control" formControlName="estado">
               </div>
-
-
 
               <div class="col-md-6 mb-3">
-                <label for="senha" class="form-label">Senha</label>
-                <input type="password" id="senha" class="form-control" [(ngModel)]="empresa.senha" name="senha">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="senha" class="form-label">Senha</label>
-                <input type="password" id="confirmasenha" class="form-control" [(ngModel)]="empresa.confirmasenha" name="senha">
+                <label class="form-label">Senha</label>
+                <input type="password" class="form-control" formControlName="senha">
               </div>
 
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Confirmação de Senha</label>
+                <input type="password" class="form-control" formControlName="confirmasenha">
+              </div>
             </div>
-            <button type="submit" class="btn btn-secondary w-100">Enviar</button>
+
+            <button type="submit" class="btn btn-secondary w-100" [disabled]="empresaForm.invalid">Enviar</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-
