@@ -30,7 +30,11 @@
               <!-- CNPJ -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">CNPJ</label>
-                <input type="text" class="form-control" formControlName="cnpj" (blur)="verificarCnpj()">
+                <input type="text"
+                       class="form-control"
+                       formControlName="cnpj"
+                       (blur)="verificarCnpj()"
+                       mask="00.000.000/0000-00">
                 <div *ngIf="empresaForm.get('cnpj')?.touched && empresaForm.get('cnpj')?.invalid" class="text-danger">
                   CNPJ é obrigatório.
                 </div>
@@ -69,7 +73,9 @@
               <!-- CEP -->
               <div class="col-md-4 mb-3">
                 <label class="form-label">CEP</label>
-                <input type="text" class="form-control" formControlName="cep" (blur)="buscarEnderecoPorCep()">
+                <input type="text" class="form-control"
+                       formControlName="cep" (blur)="buscarEnderecoPorCep()"
+                       mask="00000-000">
                 <div *ngIf="empresaForm.get('cep')?.touched && empresaForm.get('cep')?.invalid" class="text-danger">
                   O CEP é obrigatório.
                 </div>

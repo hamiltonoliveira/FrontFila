@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     CadastroEmpresaRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    NgxMaskDirective
+  ],
+  providers: [provideNgxMask()],
 })
 export class CadastroEmpresaModule { }
