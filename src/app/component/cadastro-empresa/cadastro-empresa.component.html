@@ -8,68 +8,109 @@
         <div class="card-body">
           <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()">
             <div class="row">
+
+              <!-- Razão Social -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Razão Social</label>
                 <input type="text" class="form-control" formControlName="razaoSocial">
+                <div *ngIf="empresaForm.get('razaoSocial')?.touched && empresaForm.get('razaoSocial')?.invalid" class="text-danger">
+                  Razão Social é obrigatória.
+                </div>
               </div>
 
+              <!-- Nome Fantasia -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Nome Fantasia</label>
                 <input type="text" class="form-control" formControlName="nomeFantasia">
+                <div *ngIf="empresaForm.get('nomeFantasia')?.touched && empresaForm.get('nomeFantasia')?.invalid" class="text-danger">
+                  Nome Fantasia é obrigatório.
+                </div>
               </div>
 
+              <!-- CNPJ -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">CNPJ</label>
                 <input type="text" class="form-control" formControlName="cnpj" (blur)="verificarCnpj()">
-                <div *ngIf="cnpjInvalido" class="text-danger mt-1">CNPJ inválido.</div>
+                <div *ngIf="empresaForm.get('cnpj')?.touched && empresaForm.get('cnpj')?.invalid" class="text-danger">
+                  CNPJ é obrigatório.
+                </div>
+                <div *ngIf="cnpjInvalido" class="text-danger">
+                  CNPJ inválido.
+                </div>
               </div>
 
+              <!-- Contato -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Contato</label>
                 <input type="text" class="form-control" formControlName="contato">
               </div>
 
+              <!-- Email -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Email</label>
                 <input type="email" class="form-control" formControlName="email">
+                <div *ngIf="empresaForm.get('email')?.touched && empresaForm.get('email')?.invalid" class="text-danger">
+                  Informe um email válido.
+                </div>
               </div>
 
+              <!-- Telefone -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Telefone</label>
                 <input type="text" class="form-control" formControlName="telefone">
               </div>
 
+              <!-- Endereço -->
               <div class="col-md-12 mb-3">
                 <label class="form-label">Endereço</label>
                 <input type="text" class="form-control" formControlName="endereco">
               </div>
 
+              <!-- CEP -->
               <div class="col-md-4 mb-3">
                 <label class="form-label">CEP</label>
                 <input type="text" class="form-control" formControlName="cep" (blur)="buscarEnderecoPorCep()">
+                <div *ngIf="empresaForm.get('cep')?.touched && empresaForm.get('cep')?.invalid" class="text-danger">
+                  O CEP é obrigatório.
+                </div>
               </div>
 
+              <!-- Cidade -->
               <div class="col-md-4 mb-3">
                 <label class="form-label">Cidade</label>
                 <input type="text" class="form-control" formControlName="cidade">
               </div>
 
+              <!-- Estado -->
               <div class="col-md-4 mb-3">
                 <label class="form-label">Estado</label>
                 <input type="text" class="form-control" formControlName="estado">
               </div>
 
+              <!-- Senha -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Senha</label>
                 <input type="password" class="form-control" formControlName="senha">
+                <div *ngIf="empresaForm.get('senha')?.touched && empresaForm.get('senha')?.invalid" class="text-danger">
+                  Senha é obrigatória.
+                </div>
               </div>
 
+              <!-- Confirmar Senha -->
               <div class="col-md-6 mb-3">
                 <label class="form-label">Confirmação de Senha</label>
                 <input type="password" class="form-control" formControlName="confirmasenha">
+                <div *ngIf="empresaForm.get('confirmasenha')?.touched && empresaForm.get('confirmasenha')?.invalid" class="text-danger">
+                  Confirmar senha é obrigatória.
+                </div>
+                <div *ngIf="empresaForm.hasError('senhasNaoConferem') && empresaForm.get('confirmasenha')?.touched" class="text-danger">
+                  As senhas não coincidem.
+                </div>
               </div>
+
             </div>
 
+            <!-- Botão Enviar -->
             <button type="submit" class="btn btn-secondary w-100" [disabled]="empresaForm.invalid">Enviar</button>
           </form>
         </div>

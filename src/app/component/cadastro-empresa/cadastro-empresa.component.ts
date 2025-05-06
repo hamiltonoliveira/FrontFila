@@ -17,21 +17,41 @@ export class CadastroEmpresaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.empresaForm = this.fb.group({
-      razaoSocial: ['', Validators.required],
-      nomeFantasia: ['', Validators.required],
-      cnpj: ['', [Validators.required]],
-      contato: [''],
-      email: ['', [Validators.email]],
-      telefone: [''],
-      endereco: [''],
-      cidade: [''],
-      estado: [''],
-      cep: [''],
-      senha: ['', Validators.required],
-      confirmasenha: ['', Validators.required]
-    });
+    this.empresaForm = this.fb.group(
+      {
+        razaoSocial: ['', Validators.required],
+        nomeFantasia: ['', Validators.required],
+        cnpj: ['', [Validators.required]],
+        contato: [''],
+        email: ['', [Validators.email]],
+        telefone: [''],
+        endereco: [''],
+        cidade: [''],
+        estado: [''],
+        cep: [''],
+        senha: ['', [Validators.required]],
+        confirmasenha: ['', [Validators.required]]
+      },
+      {
+        // Validação customizada para comparar as senhas
+        validators: this.senhasIguaisValidator
+      }
+    );
   }
+
+  // Validação customizada para garantir que as senhas sejam iguais
+  senhasIguaisValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const senha = group.get('senha')?.value;
+    const confirmasenha = group.get('confirmasenha')?.value;
+
+    // Se as senhas não coincidirem, retorna um erro
+    if (senha && confirmasenha && senha !== confirmasenha) {
+      return { senhasNaoConferem: true };
+    }
+    return null;
+  }
+
+
 
   buscarEnderecoPorCep(): void {
     const cep = this.empresaForm.get('cep')?.value?.replace(/\D/g, '');
@@ -95,7 +115,15 @@ export class CadastroEmpresaComponent implements OnInit {
     return resultado === +digitos.charAt(1);
   }
 
-  onSubmit(){
-
+  onSubmit() {
+    if (this.empresaForm.valid) {
+      console.log('Formulário válido! Enviando dados:', this.empresaForm.value);
+      // Chame a função para enviar os dados ou fazer qualquer outra ação
+    } else {
+      // O formulário é inválido, mostre mensagens de erro ou faça outra ação
+      console.log('Formulário inválido. Verifique os campos.');
+      this.empresaForm.markAllAsTouched(); // Marca todos os campos como tocados para exibir as mensagens de erro
+    }
   }
+
 }
