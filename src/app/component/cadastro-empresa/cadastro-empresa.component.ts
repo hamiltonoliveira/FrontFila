@@ -22,13 +22,13 @@ export class CadastroEmpresaComponent implements OnInit {
         razaoSocial: ['', Validators.required],
         nomeFantasia: ['', Validators.required],
         cnpj: ['', [Validators.required]],
-        contato: [''],
+        contato: ['',[Validators.required]],
         email: ['', [Validators.email]],
-        telefone: [''],
-        endereco: [''],
-        cidade: [''],
-        estado: [''],
-        cep: [''],
+        telefone: ['',[Validators.required]],
+        endereco: ['',[Validators.required]],
+        cidade: ['',[Validators.required]],
+        estado: ['',[Validators.required]],
+        cep: ['',[Validators.required]],
         senha: ['', [Validators.required]],
         confirmasenha: ['', [Validators.required]]
       },
@@ -117,13 +117,19 @@ export class CadastroEmpresaComponent implements OnInit {
 
   onSubmit() {
     if (this.empresaForm.valid) {
-      console.log('Formulário válido! Enviando dados:', this.empresaForm.value);
-      // Chame a função para enviar os dados ou fazer qualquer outra ação
+      // Clona os dados do formulário
+      const dadosEmpresa = { ...this.empresaForm.value };
+
+      // Remove o campo 'confirmasenha'
+      delete dadosEmpresa.confirmasenha;
+
+      console.log('Formulário válido! Enviando dados:', dadosEmpresa);
+
+      // Aqui você envia apenas os dados relevantes
+      // this.servico.enviarEmpresa(dadosEmpresa).subscribe(...)
     } else {
-      // O formulário é inválido, mostre mensagens de erro ou faça outra ação
       console.log('Formulário inválido. Verifique os campos.');
-      this.empresaForm.markAllAsTouched(); // Marca todos os campos como tocados para exibir as mensagens de erro
+      this.empresaForm.markAllAsTouched();
     }
   }
-
 }
