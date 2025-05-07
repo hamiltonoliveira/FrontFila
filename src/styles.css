@@ -17,29 +17,12 @@
 
 .Titulo {
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 1.75rem;
-  color: #FFF;                 /* cor neutra, legível */
+  color: #FFF;
   text-align: center;
-  margin: 1rem 0;
-
-  /* ligeira sombra para profundidade suave */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-
-  /* animação sutil de fade-in */
-  opacity: 0;
+  background-color: #f08197;
   animation: fadeIn 0.5s ease-out forwards;
 }
 
-.Titulo::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 2px;
-  margin: 0.5rem auto 0;
-  background-color: #ccc;      /* linha de apoio discreta */
-  border-radius: 1px;
-}
 
 @keyframes fadeIn {
   to {

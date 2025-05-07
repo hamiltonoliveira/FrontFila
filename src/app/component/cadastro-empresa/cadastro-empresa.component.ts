@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BuscepService } from '../../../services/buscep.service';
 
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-cadastro-empresa',
   templateUrl: './cadastro-empresa.component.html',
@@ -13,7 +14,8 @@ export class CadastroEmpresaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private buscepService: BuscepService
+    private buscepService: BuscepService,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit() {
@@ -39,6 +41,37 @@ export class CadastroEmpresaComponent implements OnInit {
     );
   }
 
+  Sucesso(){
+    this.toastr.success('Cadastro realizado com sucesso!', 'Sucesso!', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+
+  ErroCNPJ(msg?: string){
+    this.toastr.error(msg, 'Erro!', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+
+  ErroCEP(msg?: string){
+    this.toastr.error(msg, 'Erro!', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+
+
   // Validação customizada para garantir que as senhas sejam iguais
   senhasIguaisValidator(group: FormGroup): { [key: string]: boolean } | null {
     const senha = group.get('senha')?.value;
@@ -50,8 +83,6 @@ export class CadastroEmpresaComponent implements OnInit {
     }
     return null;
   }
-
-
 
   buscarEnderecoPorCep(): void {
     const cep = this.empresaForm.get('cep')?.value?.replace(/\D/g, '');
@@ -65,22 +96,24 @@ export class CadastroEmpresaComponent implements OnInit {
               estado: dados.uf
             });
           } else {
-            alert('CEP não encontrado.');
+            this.ErroCEP("CEP não encontrado");
           }
         },
         error => {
-          console.error('Erro ao buscar CEP:', error);
-          alert('Erro ao buscar o CEP.');
+         this.ErroCEP("Erro ao buscar CEP");
         }
       );
     } else {
-      alert('CEP inválido. Deve conter 8 dígitos.');
+      this.ErroCEP("CEP inválido. Deve conter 8 dígitos.");
     }
   }
 
   verificarCnpj(): void {
     const cnpj = this.empresaForm.get('cnpj')?.value?.replace(/[^\d]+/g, '') || '';
     this.cnpjInvalido = !this.validarCNPJ(cnpj);
+    if (this.cnpjInvalido) {
+      this.ErroCNPJ("Digite corretamento o CNPJ");
+    }
   }
 
   validarCNPJ(cnpj: string): boolean {
@@ -122,13 +155,12 @@ export class CadastroEmpresaComponent implements OnInit {
 
       // Remove o campo 'confirmasenha'
       delete dadosEmpresa.confirmasenha;
-
+      this.Sucesso();
       console.log('Formulário válido! Enviando dados:', dadosEmpresa);
 
       // Aqui você envia apenas os dados relevantes
       // this.servico.enviarEmpresa(dadosEmpresa).subscribe(...)
     } else {
-      console.log('Formulário inválido. Verifique os campos.');
       this.empresaForm.markAllAsTouched();
     }
   }
