@@ -11,7 +11,7 @@
 
               <!-- Razão Social -->
               <div class="col-md-6 mb-3">
-                <label for="razaoSocial" class="form-label">Razão Social</label>
+                <label for="razaoSocial" class="form-label">Razão Social <span class="text-danger">*</span></label>
                 <input id="razaoSocial" type="text" class="form-control" formControlName="razaoSocial" placeholder="Digite a razão social">
                 <div *ngIf="empresaForm.get('razaoSocial')?.touched && empresaForm.get('razaoSocial')?.invalid" class="text-danger">
                   Razão Social é obrigatória.
@@ -20,7 +20,7 @@
 
               <!-- Nome Fantasia -->
               <div class="col-md-6 mb-3">
-                <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
+                <label for="nomeFantasia" class="form-label">Nome Fantasia <span class="text-danger">*</span></label>
                 <input id="nomeFantasia" type="text" class="form-control" formControlName="nomeFantasia" placeholder="Digite o nome fantasia">
                 <div *ngIf="empresaForm.get('nomeFantasia')?.touched && empresaForm.get('nomeFantasia')?.invalid" class="text-danger">
                   Nome Fantasia é obrigatório.
@@ -29,7 +29,7 @@
 
               <!-- CNPJ -->
               <div class="col-md-6 mb-3">
-                <label for="cnpj" class="form-label">CNPJ</label>
+                <label for="cnpj" class="form-label">CNPJ <span class="text-danger">*</span></label>
                 <input id="cnpj" type="text" class="form-control" formControlName="cnpj" (blur)="verificarCnpj()" mask="00.000.000/0000-00" placeholder="00.000.000/0000-00">
                 <div *ngIf="empresaForm.get('cnpj')?.touched && empresaForm.get('cnpj')?.invalid" class="text-danger">
                   CNPJ é obrigatório.
@@ -41,13 +41,13 @@
 
               <!-- Contato -->
               <div class="col-md-6 mb-3">
-                <label for="contato" class="form-label">Contato</label>
+                <label for="contato" class="form-label">Contato <span class="text-danger">*</span></label>
                 <input id="contato" type="text" class="form-control" formControlName="contato" placeholder="Digite o nome do contato">
               </div>
 
               <!-- Email -->
               <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                 <input id="email" type="email" class="form-control" formControlName="email" placeholder="exemplo@email.com">
                 <div *ngIf="empresaForm.get('email')?.touched && empresaForm.get('email')?.invalid" class="text-danger">
                   Informe um email válido.
@@ -56,19 +56,19 @@
 
               <!-- Telefone -->
               <div class="col-md-6 mb-3">
-                <label for="telefone" class="form-label">Telefone</label>
+                <label for="telefone" class="form-label">Telefone <span class="text-danger">*</span></label>
                 <input id="telefone" type="text" class="form-control" formControlName="telefone" placeholder="(00) 00000-0000">
               </div>
 
               <!-- Endereço -->
               <div class="col-md-12 mb-3">
-                <label for="endereco" class="form-label">Endereço</label>
+                <label for="endereco" class="form-label">Endereço <span class="text-danger">*</span></label>
                 <input id="endereco" type="text" class="form-control" formControlName="endereco" placeholder="Rua, número, complemento">
               </div>
 
               <!-- CEP -->
               <div class="col-md-4 mb-3">
-                <label for="cep" class="form-label">CEP</label>
+                <label for="cep" class="form-label">CEP <span class="text-danger">*</span></label>
                 <input id="cep" type="text" class="form-control" formControlName="cep" (blur)="buscarEnderecoPorCep()" mask="00000-000" placeholder="00000-000">
                 <div *ngIf="empresaForm.get('cep')?.touched && empresaForm.get('cep')?.invalid" class="text-danger">
                   O CEP é obrigatório.
@@ -77,19 +77,19 @@
 
               <!-- Cidade -->
               <div class="col-md-4 mb-3">
-                <label for="cidade" class="form-label">Cidade</label>
+                <label for="cidade" class="form-label">Cidade <span class="text-danger">*</span></label>
                 <input id="cidade" type="text" class="form-control" formControlName="cidade" placeholder="Cidade">
               </div>
 
               <!-- Estado -->
               <div class="col-md-4 mb-3">
-                <label for="estado" class="form-label">Estado</label>
+                <label for="estado" class="form-label">Estado <span class="text-danger">*</span></label>
                 <input id="estado" type="text" class="form-control" formControlName="estado" placeholder="Estado">
               </div>
 
               <!-- Senha -->
               <div class="col-md-6 mb-3">
-                <label for="senha" class="form-label">Senha</label>
+                <label for="senha" class="form-label">Senha <span class="text-danger">*</span></label>
                 <input id="senha" type="password" class="form-control" formControlName="senha" placeholder="Digite a senha">
                 <div *ngIf="empresaForm.get('senha')?.touched && empresaForm.get('senha')?.invalid" class="text-danger">
                   Senha é obrigatória.
@@ -98,7 +98,7 @@
 
               <!-- Confirmar Senha -->
               <div class="col-md-6 mb-3">
-                <label for="confirmasenha" class="form-label">Confirmação de Senha</label>
+                <label for="confirmasenha" class="form-label">Confirmação de Senha <span class="text-danger">*</span></label>
                 <input id="confirmasenha" type="password" class="form-control" formControlName="confirmasenha" placeholder="Confirme a senha">
                 <div *ngIf="empresaForm.get('confirmasenha')?.touched && empresaForm.get('confirmasenha')?.invalid" class="text-danger">
                   Confirmar senha é obrigatória.
