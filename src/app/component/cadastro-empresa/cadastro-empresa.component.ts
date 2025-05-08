@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BuscepService } from '../../../services/buscep.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { EmpresaService } from 'src/services/empresa.service';
+
 @Component({
   selector: 'app-cadastro-empresa',
   templateUrl: './cadastro-empresa.component.html',
@@ -15,6 +17,7 @@ export class CadastroEmpresaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private buscepService: BuscepService,
+    private empresaService: EmpresaService,
     private toastr:ToastrService
   ) {}
 
@@ -41,8 +44,8 @@ export class CadastroEmpresaComponent implements OnInit {
     );
   }
 
-  Sucesso(){
-    this.toastr.success('Cadastro realizado com sucesso!', 'Sucesso!', {
+  Sucesso(msg?: string){
+    this.toastr.success(msg, 'Sucesso!', {
       timeOut: 3000,
       progressBar: true,
       progressAnimation: 'increasing',
@@ -150,18 +153,24 @@ export class CadastroEmpresaComponent implements OnInit {
 
   onSubmit() {
     if (this.empresaForm.valid) {
-      // Clona os dados do formulário
       const dadosEmpresa = { ...this.empresaForm.value };
-
-      // Remove o campo 'confirmasenha'
       delete dadosEmpresa.confirmasenha;
-      this.Sucesso();
-      console.log('Formulário válido! Enviando dados:', dadosEmpresa);
+      this.CriarEmpresa();
 
-      // Aqui você envia apenas os dados relevantes
-      // this.servico.enviarEmpresa(dadosEmpresa).subscribe(...)
     } else {
       this.empresaForm.markAllAsTouched();
     }
   }
+
+  CriarEmpresa(): void {
+    const dadosEmpresa = { ...this.empresaForm.value };
+    delete dadosEmpresa.confirmasenha;
+      this.empresaService.enviarEmpresa(dadosEmpresa).subscribe(
+        dados => {
+          this.Sucesso("Cadastro realizado com sucesso!");
+          localStorage.setItem('cliente', JSON.stringify(dados));
+        }
+      );
+  }
 }
+
