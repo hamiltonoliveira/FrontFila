@@ -13,6 +13,6 @@ export class EmpresaService {
 
   enviarEmpresa(dados: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(this.apiUrl, JSON.stringify(dados), { headers });
+    return this.http.post(this.apiUrl, dados, { headers });
   }
 }

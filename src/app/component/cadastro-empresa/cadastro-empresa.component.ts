@@ -164,13 +164,30 @@ export class CadastroEmpresaComponent implements OnInit {
 
   CriarEmpresa(): void {
     const dadosEmpresa = { ...this.empresaForm.value };
-    delete dadosEmpresa.confirmasenha;
-      this.empresaService.enviarEmpresa(dadosEmpresa).subscribe(
-        dados => {
-          this.Sucesso("Cadastro realizado com sucesso!");
-          localStorage.setItem('cliente', JSON.stringify(dados));
-        }
-      );
+    //delete dadosEmpresa.confirmasenha;
+
+    console.log(dadosEmpresa);
+
+    // Chama o serviço para enviar os dados
+    this.empresaService.enviarEmpresa(dadosEmpresa).subscribe(
+      dados => {
+        // Exibe mensagem de sucesso
+        this.Sucesso("Cadastro realizado com sucesso!");
+
+        // Armazena os dados retornados no localStorage
+        localStorage.setItem('cliente', JSON.stringify(dados));
+
+        // (Opcional) Redireciona ou reseta o formulário
+        // this.router.navigate(['/dashboard']);
+        // this.empresaForm.reset();
+      },
+      erro => {
+        // Exibe mensagem de erro e mostra detalhes no console
+        //this.Erro("Erro ao cadastrar empresa. Tente novamente.");
+        console.error("Erro no cadastro da empresa:", erro);
+      }
+    );
   }
+
 }
 
