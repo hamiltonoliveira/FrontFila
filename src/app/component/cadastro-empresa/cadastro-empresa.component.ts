@@ -13,6 +13,7 @@ import { EmpresaService } from 'src/services/empresa.service';
 export class CadastroEmpresaComponent implements OnInit {
   empresaForm!: FormGroup;
   cnpjInvalido = false;
+  carregando = false;
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +44,15 @@ export class CadastroEmpresaComponent implements OnInit {
       }
     );
   }
+
+  spinner(valor: boolean) {
+  this.carregando = valor;
+  if (valor) {
+    setTimeout(() => {
+      this.carregando = false;
+    }, 3000);
+  }
+}
 
   Sucesso(msg?: string){
     this.toastr.success(msg, 'Sucesso!', {
@@ -155,8 +165,9 @@ export class CadastroEmpresaComponent implements OnInit {
     if (this.empresaForm.valid) {
       const dadosEmpresa = { ...this.empresaForm.value };
       delete dadosEmpresa.confirmasenha;
+      this.spinner(true);
       this.CriarEmpresa();
-
+      this.spinner(false);
     } else {
       this.empresaForm.markAllAsTouched();
     }
@@ -165,9 +176,6 @@ export class CadastroEmpresaComponent implements OnInit {
   CriarEmpresa(): void {
     const dadosEmpresa = { ...this.empresaForm.value };
     //delete dadosEmpresa.confirmasenha;
-
-    console.log(dadosEmpresa);
-
     // Chama o serviço para enviar os dados
     this.empresaService.enviarEmpresa(dadosEmpresa).subscribe(
       dados => {
