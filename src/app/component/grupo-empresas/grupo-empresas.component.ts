@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Empresa } from 'src/app/models/empresa.model';
-import { EmpresaService } from 'src/services/empresa.service';
+import { GrupoEmpresasService } from './../../../services/grupo-empresas.service';
 
 @Component({
   selector: 'app-grupo-empresas',
@@ -10,19 +10,16 @@ import { EmpresaService } from 'src/services/empresa.service';
 export class GrupoEmpresasComponent {
 empresas: Empresa[] = [];
 
-constructor(private empresaService: EmpresaService) {}
+constructor(private grupoEmpresasService: GrupoEmpresasService) {}
 
   ngOnInit(): void {
-    //this.carregarEmpresas();
+    this.carregarEmpresas();
   }
 
   carregarEmpresas(): void {
-      const clienteJson = localStorage.getItem('cliente');
-
-      if (clienteJson) {
-        const cliente = JSON.parse(clienteJson);
-        const guidCliente = cliente.guidCliente;
-        this.empresaService.enviarEmpresa(guidCliente).subscribe({
+      const guidCliente = localStorage.getItem('guidCliente');
+      if (guidCliente) {
+        this.grupoEmpresasService.listarGrupoEmpresasPorId(guidCliente).subscribe({
           next: (dados: Empresa[]) => {
             this.empresas = dados;
             console.log('Empresas carregadas:', this.empresas);

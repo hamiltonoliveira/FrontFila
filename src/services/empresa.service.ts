@@ -7,12 +7,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class EmpresaService {
-  private apiUrl = `${environment.apiUrl}/criar`;
-
+  private apiUrl = `${environment.apiUrl}`;
   constructor(private http: HttpClient) {}
 
-  enviarEmpresa(dados: any): Observable<any> {
+  enviarEmpresa(dados: any, guidCliente: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(this.apiUrl, dados, { headers });
+    const url = `${this.apiUrl}/EmpresaCliente/Criar?guidCliente=${guidCliente}`;
+    return this.http.post(url, dados, { headers });
   }
 }

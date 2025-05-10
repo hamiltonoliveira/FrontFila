@@ -25,6 +25,7 @@ export class LoginComponent {
         if (res.token) {
           localStorage.setItem('token', res.token.token);
           localStorage.setItem('refreshToken', res.token.refreshToken);
+          localStorage.setItem('guidCliente', res.guidCliente);
           // aqui sera boas vindas ou algo de marketing ou painel de controle
           this.router.navigate(['/menu']);
         } else {
