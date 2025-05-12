@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Empresa } from 'src/app/models/empresa.model';
 import { GrupoEmpresasService } from './../../../services/grupo-empresas.service';
+import { EmpresaService } from 'src/services/empresa.service';
 
 @Component({
   selector: 'app-grupo-empresas',
@@ -10,7 +11,9 @@ import { GrupoEmpresasService } from './../../../services/grupo-empresas.service
 export class GrupoEmpresasComponent {
 empresas: Empresa[] = [];
 
-constructor(private grupoEmpresasService: GrupoEmpresasService) {}
+constructor(private grupoEmpresasService: GrupoEmpresasService,
+            private empresaService: EmpresaService
+            ) {}
 
   ngOnInit(): void {
     this.carregarEmpresas();
@@ -27,4 +30,19 @@ constructor(private grupoEmpresasService: GrupoEmpresasService) {}
         });
     }
   }
-}
+
+  Status(id: number): void {
+    console.log('ID recebido:', id);
+    this.empresaService.alterarStatus(id).subscribe({
+      next: (res) => {
+        console.log('Status alterado com sucesso:', res);
+        // Atualiza a lista de empresas após alterar o status
+        this.carregarEmpresas();
+      },
+      error: (err) => {
+        console.error('Erro ao alterar status:', err);
+      }
+    });
+  }
+
+  }

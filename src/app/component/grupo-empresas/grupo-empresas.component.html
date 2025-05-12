@@ -1,19 +1,41 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      CNPJ
-    </div>
-    <div class="col-sm">
-     Razão Social
-    </div>
-    <div class="col-sm">
-     Contato
-    </div>
-    <div class="col-sm">
-     Telefone
-    </div>
-    <div class="col-sm">
-     Email
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let empresa of empresas">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ empresa.nomeFantasia }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ empresa.razaoSocial }}
+            </h6>
+            <p class="card-text mb-1">
+              <strong>CNPJ:</strong> {{ empresa.cnpj }}
+            </p>
+            <p class="card-text mb-1">
+              <strong>Contato:</strong> {{ empresa.contato }}
+            </p>
+            <p class="card-text mb-1">
+              <strong>Email:</strong> {{ empresa.email }}
+            </p>
+            <p class="card-text mb-1">
+              <strong>Telefone:</strong> {{ empresa.telefone }}
+            </p>
+            <p class="card-text mb-1">
+              <strong>Endereço:</strong> {{ empresa.endereco }},
+              {{ empresa.cidade }} - {{ empresa.estado }}
+            </p>
+            <p class="card-text"><strong>CEP:</strong> {{ empresa.cep }}</p>
+          </div>
+          <div class="card-footer text-end">
+            <button
+              class="btn btn-sm"
+              [ngClass]="empresa.ativo ? 'btn-secondary' : 'btn-danger'"
+              (click)="Status(empresa.id)">
+              {{ empresa.ativo ? "Ativo" : "Desativado" }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

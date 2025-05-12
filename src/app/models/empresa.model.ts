@@ -11,4 +11,5 @@ export interface Empresa {
   cidade: string;
   estado: string;
   cep: string;
+  ativo:boolean;
 }

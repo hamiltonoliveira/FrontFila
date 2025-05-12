@@ -15,4 +15,22 @@ export class EmpresaService {
     const url = `${this.apiUrl}/EmpresaCliente/Criar?guidCliente=${guidCliente}`;
     return this.http.post(url, dados, { headers });
   }
+
+  alterarStatus(id: number): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+
+  const url = `${this.apiUrl}/EmpresaCliente/AtivarEmpresa/${id}`;
+
+  console.log('URL:', url);
+
+
+  return this.http.put(url, {}, { headers });
+}
+
+
+
 }
