@@ -1,35 +1,33 @@
-<div class="menu-vertical">
-  <ul class="list-unstyled">
-    <div class="dropdown" style="margin-left: 10px;">
-      <button class="btn btn-secondary dropdown-toggle" style="width: 170px; margin-bottom: 10px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Cadastro
-      </button>
-      <ul class="dropdown-menu" style="background-color: #f1ecd4;">
-        <li><a routerLink="/cadastro-empresa" class="dropdown-item" href="#">Empresa</a></li>
-        <li><a class="dropdown-item" href="#">Serviços contratados</a></li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-chumbo-gradient">
+  <div class="container-fluid px-4">
+    <img src="../../assets/logo.png" class="logo" alt="VML Consultoria">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <!-- Grupo principal à esquerda -->
+      <ul class="navbar-nav" style="margin-left: 30px;">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Configuração
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" routerLink="/cadastro-empresa">Grupo Empresa</a></li>
+            <li><a class="dropdown-item" routerLink="#">Configuração de Filas</a></li> 
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Grupo Login alinhado à direita -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
       </ul>
     </div>
-
-    <div class="dropdown" style="margin-left: 10px;">
-      <button class="btn btn-secondary dropdown-toggle" style="width: 170px; margin-bottom: 10px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Relatórios
-      </button>
-      <ul class="dropdown-menu" style="background-color: #f1ecd4;">
-        <li><a routerLink="/grupo-empresas" class="dropdown-item" href="#">Grupo de Empresas</a></li>
-        <li><a class="dropdown-item" href="#">Mensagens enviadas</a></li>
-        <li><a class="dropdown-item" href="#">Filas cadastradas</a></li>
-      </ul>
-    </div>
-
-    <li><a routerLink="/login" routerLinkActive="active">Logar</a></li>
-    <li><a routerLinkActive="active">Enviar Mensagem</a></li>
-    <li><a routerLinkActive="active">Contatos</a></li>
-    <li><a routerLinkActive="active">Configurações</a></li>
-    <li><a routerLinkActive="active">Ajuda</a></li>
-  </ul>
-</div>
-
-<!-- Button to toggle the menu in mobile -->
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
+  </div>
+</nav>

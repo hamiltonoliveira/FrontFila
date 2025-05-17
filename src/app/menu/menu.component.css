@@ -1,129 +1,30 @@
-.menu-vertical {
-  background-color: #676665;
-  color: #fff;
-  width: 200px;
-  padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
+.bg-chumbo-gradient {
+  background: linear-gradient(to right, #2c3e50, #34495e, #4f5965);
+  color: white;
 }
 
-.menu-vertical ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  font-family: 'Segoe UI', Roboto, sans-serif;
+.bg-chumbo-gradient a,
+.bg-chumbo-gradient .navbar-brand,
+.bg-chumbo-gradient .nav-link {
+  color: white !important;
 }
 
-.menu-vertical ul li {
-  margin: 0.5rem 0;
+.bg-chumbo-gradient .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.menu-vertical ul li a {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 0.25rem;
-  background-color: #6c757d;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+/* Dropdown com fundo cinza claro */
+.bg-chumbo-gradient .dropdown-menu {
+  background-color: #f0f0f0; /* Cinza claro */
+  border: none;
+  border-radius: 0.5rem;
 }
 
-.menu-vertical ul li a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: #f08197;
-  transition: width 0.3s ease, left 0.3s ease;
+.bg-chumbo-gradient .dropdown-menu .dropdown-item {
+  color: #333333 !important; /* Texto cinza escuro */
 }
 
-.menu-vertical ul li a:hover {
-  background-color: #f08197;
+.bg-chumbo-gradient .dropdown-menu .dropdown-item:hover {
+  background-color: #d0d0d0; /* Cinza médio no hover */
 }
 
-.menu-vertical ul li a:hover::after {
-  width: 100%;
-  left: 0;
-}
-
-.menu-vertical ul li a.active {
-  background-color: #b9296c;
-}
-
-.menu-vertical ul li a.active::after {
-  background-color: #ffffff;
-  width: 100%;
-  left: 0;
-}
-
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: auto;
-  font-family: 'Segoe UI', Roboto, sans-serif;
-}
-
-ul li {
-  margin: 0.5rem 0;
-}
- ul li a {
-  position: relative;
-  display: inline-block;
-  margin-left: 10px;
-  max-width: 170px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-
-  text-decoration: none;
-  border-radius: 0.25rem;
-  background-color: #000;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-}
-
-ul li a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  transition: width 0.3s ease, left 0.3s ease;
-}
-
-ul li a:hover {
-  background-color: #0d1a23;
-}
-
-ul li a:hover::after {
-  width: 100%;
-  left: 0;
-}
-
-ul li a.active {
-  background-color: #2980b9;
-}
-
-ul li a.active::after {
-  background-color: #ffffff;
-  width: 100%;
-  left: 0;
-}
