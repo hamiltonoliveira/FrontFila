@@ -19,8 +19,8 @@ export class CadastroEmpresaComponent implements OnInit {
     private fb: FormBuilder,
     private buscepService: BuscepService,
     private empresaService: EmpresaService,
-    private toastr:ToastrService
-  ) {}
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.empresaForm = this.fb.group(
@@ -28,13 +28,13 @@ export class CadastroEmpresaComponent implements OnInit {
         razaoSocial: ['', Validators.required],
         nomeFantasia: ['', Validators.required],
         cnpj: ['', [Validators.required]],
-        contato: ['',[Validators.required]],
+        contato: ['', [Validators.required]],
         email: ['', [Validators.email]],
-        telefone: ['',[Validators.required]],
-        endereco: ['',[Validators.required]],
-        cidade: ['',[Validators.required]],
-        estado: ['',[Validators.required]],
-        cep: ['',[Validators.required]],
+        telefone: ['', [Validators.required]],
+        endereco: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
+        estado: ['', [Validators.required]],
+        cep: ['', [Validators.required]],
         senha: ['', [Validators.required]],
         confirmasenha: ['', [Validators.required]]
       },
@@ -46,15 +46,15 @@ export class CadastroEmpresaComponent implements OnInit {
   }
 
   spinner(valor: boolean) {
-  this.carregando = valor;
-  if (valor) {
-    setTimeout(() => {
-      this.carregando = false;
-    }, 3000);
+    this.carregando = valor;
+    if (valor) {
+      setTimeout(() => {
+        this.carregando = false;
+      }, 3000);
+    }
   }
-}
 
-  Sucesso(msg?: string){
+  Sucesso(msg?: string) {
     this.toastr.success(msg, 'Sucesso!', {
       timeOut: 3000,
       progressBar: true,
@@ -64,7 +64,7 @@ export class CadastroEmpresaComponent implements OnInit {
     });
   }
 
-  ErroCNPJ(msg?: string){
+  ErroCNPJ(msg?: string) {
     this.toastr.error(msg, 'Erro!', {
       timeOut: 3000,
       progressBar: true,
@@ -74,7 +74,7 @@ export class CadastroEmpresaComponent implements OnInit {
     });
   }
 
-  ErroCEP(msg?: string){
+  ErroCEP(msg?: string) {
     this.toastr.error(msg, 'Erro!', {
       timeOut: 3000,
       progressBar: true,
@@ -113,7 +113,7 @@ export class CadastroEmpresaComponent implements OnInit {
           }
         },
         error => {
-         this.ErroCEP("Erro ao buscar CEP");
+          this.ErroCEP("Erro ao buscar CEP");
         }
       );
     } else {
@@ -179,7 +179,7 @@ export class CadastroEmpresaComponent implements OnInit {
     this.empresaService.enviarEmpresa(dadosEmpresa, guidCliente).subscribe(
       dados => {
         this.Sucesso("Cadastro realizado com sucesso!");
-       },
+      },
       erro => {
         console.error("Erro no cadastro da empresa:", erro);
       }

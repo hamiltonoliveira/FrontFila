@@ -1,7 +1,6 @@
 /* Estilo do container */
 .container {
   margin-top: -20px;
-  padding-left: 105px;
 }
 
 /* Estilo das colunas */
@@ -17,18 +16,3 @@
   color: #fff; /* Cor do texto agora é branca */
 }
 
-/* Ajustes para responsividade em telas menores */
-@media (max-width: 768px) {
-  .col-sm {
-    font-size: 0.9rem; /* Reduz o tamanho da fonte em dispositivos móveis */
-    padding: 10px; /* Reduz o padding */
-  }
-}
-
-
-/* Estilo de borda ao passar o mouse */
-.col-sm:hover {
-  background-color: #f08197; /* Cor de fundo mais escura ao passar o mouse */
-  border-color: #f08197; /* Cor da borda ao passar o mouse */
-  cursor: pointer; /* Mostra o cursor como uma mãozinha */
-}
