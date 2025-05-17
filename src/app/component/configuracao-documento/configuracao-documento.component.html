@@ -1,0 +1,54 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow p-4" style="width: 100%; max-width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title mb-4 text-center Titulo">Configuração da Fila</h5>
+
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+          <label for="tipoServico" class="form-label">Tipo de Serviço <span class="text-danger">*</span></label>
+          <input id="tipoServico" formControlName="tipoServico" type="text" class="form-control"
+            [ngClass]="{ 'is-invalid': formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid }" />
+          <div class="invalid-feedback" *ngIf="formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid">
+            Campo obrigatório.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="tipoArquivo" class="form-label">Tipo de Arquivo <span class="text-danger">*</span></label>
+          <input id="tipoArquivo" formControlName="tipoArquivo" type="text" class="form-control"
+            [ngClass]="{ 'is-invalid': formulario.get('tipoArquivo')?.touched && formulario.get('tipoArquivo')?.invalid }" />
+          <div class="invalid-feedback" *ngIf="formulario.get('tipoArquivo')?.touched && formulario.get('tipoArquivo')?.invalid">
+            Campo obrigatório.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="dataInicio" class="form-label">Data Início <span class="text-danger">*</span></label>
+          <input id="dataInicio" formControlName="dataInicio" type="date" class="form-control"
+            [ngClass]="{ 'is-invalid': formulario.get('dataInicio')?.touched && formulario.get('dataInicio')?.invalid }" />
+          <div class="invalid-feedback" *ngIf="formulario.get('dataInicio')?.touched && formulario.get('dataInicio')?.invalid">
+            Campo obrigatório.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="dataFinal" class="form-label">Data Final <span class="text-danger">*</span></label>
+          <input id="dataFinal" formControlName="dataFinal" type="date" class="form-control"
+            [ngClass]="{ 'is-invalid': formulario.get('dataFinal')?.touched && formulario.get('dataFinal')?.invalid }" />
+          <div class="invalid-feedback" *ngIf="formulario.get('dataFinal')?.touched && formulario.get('dataFinal')?.invalid">
+            Campo obrigatório.
+          </div>
+        </div>
+
+        <!-- <div *ngIf="formulario.errors?.dataInvalida" class="text-danger mb-3">
+          A data final não pode ser anterior à data inicial.
+        </div> -->
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-secondary w-100">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
