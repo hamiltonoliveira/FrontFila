@@ -39,9 +39,6 @@ export class GrupoEmpresasComponent {
       this.grupoEmpresasService.listarGrupoEmpresasPorId(guidCliente).subscribe({
         next: (dados: Empresa[]) => {
           this.empresas = dados;
-          if (!this.localStorageService.exists("empresas-grupo")) {
-            this.localStorageService.setItem("empresas-grupo", dados);
-          }
         }
       });
     }

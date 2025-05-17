@@ -18,7 +18,7 @@
               {{ empresa.razaoSocial }}
             </h6>
             <p class="card-text mb-1">
-              <strong>CNPJ:</strong> {{ empresa.cnpj }}
+              <strong>CNPJ:</strong> {{ (empresa.cnpj | cnpjMask ) }}
             </p>
             <p class="card-text mb-1">
               <strong>Contato:</strong> {{ empresa.contato }}
@@ -27,13 +27,13 @@
               <strong>Email:</strong> {{ empresa.email }}
             </p>
             <p class="card-text mb-1">
-              <strong>Telefone:</strong> {{ empresa.telefone }}
+              <strong>Telefone:</strong> {{ (empresa.telefone | telefoneMask ) }}
             </p>
             <p class="card-text mb-1">
               <strong>Endereço:</strong> {{ empresa.endereco }},
               {{ empresa.cidade }} - {{ empresa.estado }}
             </p>
-            <p class="card-text"><strong>CEP:</strong> {{ empresa.cep }}</p>
+            <p class="card-text"><strong>CEP:</strong> {{ empresa.cep | cepMask }}</p>
           </div>
           <div class="card-footer text-end">
             <button class="btn btn-sm" [ngClass]="empresa.ativo ? 'btn-secondary' : 'btn-danger'"
