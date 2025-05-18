@@ -13,7 +13,6 @@ const routes: Routes = [
     component: MenuComponent,
   },
   { path: 'cadastro-empresa', loadChildren: () => import('./component/cadastro-empresa/cadastro-empresa.module').then(m => m.CadastroEmpresaModule) },
-  { path: 'grupo-empresas', loadChildren: () => import('./component/grupo-empresas/grupo-empresas.module').then(m => m.GrupoEmpresasModule) },
   { path: 'configuracao-documento', loadChildren: () => import('./component/configuracao-documento/configuracao-documento.module').then(m => m.ConfiguracaoDocumentoModule) },
 ];
 
