@@ -3,4 +3,5 @@ export interface ConfiguracaoDocumentoMQDTO {
   tipoArquivo: string;
   dataInicio: string; 
   dataFinal: string;
+  descricao: string;
 }

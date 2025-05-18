@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ConfiguracaoDocumentoComponent implements OnInit {
   formulario!: FormGroup;
+  dataHoje: string = '';
 
   constructor(private fb: FormBuilder) {}
 
@@ -16,8 +17,10 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       tipoServico: ['', Validators.required],
       tipoArquivo: ['', Validators.required],
       dataInicio: ['', Validators.required],
-      dataFinal: ['', Validators.required]
+      dataFinal: ['', Validators.required],
+      descricao: ['', [Validators.required, Validators.minLength(10)]]
     }, { validators: this.dataValida });
+    this.setarDataAtual();
   }
  
   dataValida(form: FormGroup) {
@@ -26,6 +29,15 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
     return fim >= inicio ? null : { dataInvalida: true };
   }
+
+  setarDataAtual(): void {
+  const hoje = new Date();
+  this.dataHoje = hoje.toISOString().split('T')[0]; // usado no atributo [min]
+  this.formulario.patchValue({
+    dataInicio: this.dataHoje,
+    dataFinal: this.dataHoje
+  });
+}
 
   onSubmit() {
     if (this.formulario.valid) {
