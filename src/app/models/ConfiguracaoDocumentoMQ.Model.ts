@@ -4,4 +4,5 @@ export interface ConfiguracaoDocumentoMQDTO {
   dataInicio: string; 
   dataFinal: string;
   descricao: string;
+  ativo:boolean;
 }

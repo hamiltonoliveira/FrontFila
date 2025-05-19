@@ -27,8 +27,6 @@ export class LoginComponent {
           localStorage.setItem('refreshToken', res.token.refreshToken);
           localStorage.setItem('guidCliente', res.guidCliente);
 
-          // aqui sera boas vindas ou algo de marketing ou painel de controle
-          this.router.navigate(['/menu']);
         } else {
           console.warn('Token não recebido!');
         }

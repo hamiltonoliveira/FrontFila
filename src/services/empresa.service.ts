@@ -24,10 +24,6 @@ export class EmpresaService {
   });
 
   const url = `${this.apiUrl}/EmpresaCliente/AtivarEmpresa/${id}`;
-
-  console.log('URL:', url);
-
-
   return this.http.put(url, {}, { headers });
 }
 
