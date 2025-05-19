@@ -1,6 +1,7 @@
 // configuracao-documento.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'src/app/local-storage.service';
 import { ConfiguracaoDocumentoService } from 'src/services/configuracao-documento.service';
 
@@ -15,7 +16,8 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
-    private localStorageService: LocalStorageService) { }
+    private localStorageService: LocalStorageService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.formulario = this.fb.group({
@@ -75,14 +77,34 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
     this.configuracaoDocumentoService.criarFila(guidCliente, payload).subscribe({
       next: (res) => {
-        console.log('Fila criada com sucesso:', res);
+        this.Sucesso('Fila criada com sucesso');
       },
       error: (err) => {
-        console.error('Erro ao criar fila:', err);
+       this.Erro('Erro ao criar fila');
       }
     });
   }
 
+  
+  Sucesso(msg?: string) {
+    this.toastr.success(msg, 'Sucesso!', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+  }
+
+  Erro(msg?: string) {
+    this.toastr.error(msg, 'Erro!', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+  }
 
   onSubmit() {
     if (this.formulario.valid) {
