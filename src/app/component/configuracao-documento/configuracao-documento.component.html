@@ -6,10 +6,10 @@
 
           <div class="col-md-1 d-flex align-items-center">
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="ativo" formControlName="ativo" checked
-                (change)="mudarStatus()">
+              <input class="form-check-input" style="background-color: rgb(102, 194, 191);" type="checkbox" id="ativo"
+                formControlName="ativo" checked (change)="mudarStatus()">
               <label class="form-check-label" for="ativo"
-                [ngStyle]="{color: statusAtivo === 'On' ? 'black' : 'red', 'font-weight': 'bold'}"
+                [ngStyle]="{color: statusAtivo === 'ON' ? 'black' : 'red', 'font-weight': 'bold'}"
                 style="font-size: 0.75rem; font-family: 'Montserrat', sans-serif;">
                 {{ statusAtivo }}
               </label>
@@ -18,14 +18,19 @@
 
           <!-- Tipo de Serviço -->
           <div class="col-md-3" style="margin-left: 29px;">
-            <label for="tipoServico" class="form-label">Tipo de Serviço <span class="text-danger">*</span></label>
+            <label for="tipoServico" class="form-label">
+              Tipo de Serviço <span class="text-danger">*</span>
+            </label>
+
             <select id="tipoServico" formControlName="tipoServico" class="form-select"
               [ngClass]="{ 'is-invalid': formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid }">
+
               <option value="" disabled selected>Selecione...</option>
-              <option value=1>Atendimento</option>
-              <option value=2>Suporte</option>
-              <option value=3>Financeiro</option>
+              <option *ngFor="let tipo of tiposServico" [value]="tipo.valor">
+                {{ tipo.chave }}
+              </option>
             </select>
+
             <div class="invalid-feedback"
               *ngIf="formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid">
               Campo obrigatório.
@@ -38,9 +43,9 @@
             <select id="tipoArquivo" formControlName="tipoArquivo" class="form-select"
               [ngClass]="{ 'is-invalid': formulario.get('tipoArquivo')?.touched && formulario.get('tipoArquivo')?.invalid }">
               <option value="" disabled selected>Selecione...</option>
-              <option value=1>PDF</option>
-              <option value=2>CSV</option>
-              <option value=3>XML</option>
+              <option *ngFor="let tipo of tiposArquivo" [value]="tipo.valor">
+                {{ tipo.chave }}
+              </option>
             </select>
             <div class="invalid-feedback"
               *ngIf="formulario.get('tipoArquivo')?.touched && formulario.get('tipoArquivo')?.invalid">
@@ -107,53 +112,50 @@
       </form>
 
       <br>
-      <div class="table table-responsive">
-        <table class="table  table-bordered small-font table-striped">
-          <thead class="thead">
-            <tr>
-              <th class="text-center">Tipo de Serviço</th>
-              <th class="text-center">Tipo de Arquivo</th>
-              <th class="text-center">Data Início</th>
-              <th class="text-center">Data Final</th>
-              <th class="text-justify">Descrição</th>
-              <th class="text-center">Ativo</th>
+      <div class="scroll-box">
+        <div class="table table-responsive">
+          <table class="table  table-bordered small-font table-striped">
+            <thead class="thead">
+              <tr>
+                <th class="text-center">Tipo de Serviço</th>
+                <th class="text-center">Tipo de Arquivo</th>
+                <th class="text-center">Data Início</th>
+                <th class="text-center">Data Final</th>
+                <th class="text-justify">Descrição</th>
+                <th class="text-center">Ativo</th>
+              </tr>
+            </thead>
+
+            <tr *ngFor="let fila of ConfiguracaoDocumento">
+              <td class="text-center">
+                {{fila.tipoServico}}
+              </td>
+              <td class="text-center">
+                {{fila.tipoArquivo }}
+              </td>
+              <td class="text-center">
+                {{fila.dataInicio | date: 'dd/MM/yyyy'}}
+              </td>
+              <td class="text-center">
+                {{fila.dataFinal | date: 'dd/MM/yyyy'}}
+              </td>
+              <td>
+                {{fila.descricao}}
+              </td>
+              <td class="text-center">
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ fila.ativo? 'Disponível' : 'Inativo' }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" (click)="alternarStatus(fila.id)">On/Off</a></li>
+                  </ul>
+                </div>
+              </td>
             </tr>
-          </thead>
-
-          <tr *ngFor="let fila of ConfiguracaoDocumento">
-            <td class="text-center">
-              {{fila.tipoServico}}
-            </td>
-            <td class="text-center">
-              {{fila.tipoArquivo }}
-            </td>
-            <td class="text-center">
-              {{fila.dataInicio | date: 'dd/MM/yyyy'}}
-            </td>
-            <td class="text-center">
-              {{fila.dataFinal | date: 'dd/MM/yyyy'}}
-            </td>
-            <td>
-              {{fila.descricao}}
-            </td>
-            <td class="text-center">
-              <div class="dropdown">
-                <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                   {{ fila.ativo? 'Disponível' : 'Inativo' }}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" (click)="alternarStatus(fila.id)">On/Off</a></li> 
-                </ul>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-
-
-
-
+          </table>
+        </div>
       </div>
     </div>
   </div>

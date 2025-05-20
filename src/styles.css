@@ -17,6 +17,7 @@
 
 body, html {
   font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
 }
 
  .Titulo {
@@ -80,6 +81,38 @@ body, html {
 
 
 .thead th {
-  background-color: rgb(108, 228, 224);
+  background-color: rgb(102, 194, 191);
   color: white;
 }
+
+
+.scroll-box {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+/* Scrollbar estilizado para navegadores baseados em WebKit */
+.scroll-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-box::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 8px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 8px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+

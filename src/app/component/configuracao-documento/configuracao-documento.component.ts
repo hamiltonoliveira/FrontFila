@@ -6,6 +6,9 @@ import { LocalStorageService } from 'src/app/local-storage.service';
 import { ConfiguracaoDocumentoService } from 'src/services/configuracao-documento.service';
 import { ConfiguracaoDocumentoMQDTO } from 'src/app/models/ConfiguracaoDocumentoMQ.Model';
 
+import { TipoServico } from '../../models/tipo-servico.enum';
+import { TipoArquivo } from 'src/app/models/tipo-arquivo.enum';
+
 @Component({
   selector: 'app-configuracao-documento',
   templateUrl: './configuracao-documento.component.html'
@@ -14,9 +17,13 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   formulario!: FormGroup;
   dataHoje: string = '';
   caracteresDigitados: number = 0;
-  statusAtivo: string = 'On';
+  statusAtivo: string = 'ON';
   ConfiguracaoDocumento: ConfiguracaoDocumentoMQDTO[] = [];
 
+  tiposServico: { chave: string; valor: number }[] = [];
+  tiposArquivo: { chave: string; valor: number }[] = [];
+ 
+ 
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
     private localStorageService: LocalStorageService,
@@ -37,11 +44,32 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.caracteresDigitados = valor?.length || 0;
     });
     this.carregaDocumentos();
+    this.ServicoEnum();
+    this.ServicoArquivioEnum();
   }
 
+  ServicoEnum(){
+     this.tiposServico = Object.keys(TipoServico)
+      .filter(key => isNaN(Number(key))) // só as chaves (nomes)
+      .map(key => ({
+        chave: key,
+        valor: TipoServico[key as keyof typeof TipoServico]
+      }));
+  }
+
+   ServicoArquivioEnum(){
+     this.tiposArquivo = Object.keys(TipoArquivo)
+      .filter(key => isNaN(Number(key))) // só as chaves (nomes)
+      .map(key => ({
+        chave: key,
+        valor: TipoArquivo[key as keyof typeof TipoArquivo]
+      }));
+  }
+ 
+  
   mudarStatus() {
     const valor = this.formulario.get('ativo')?.value;
-    this.statusAtivo = valor ? 'On' : 'Off';
+    this.statusAtivo = valor ? 'ON' : 'OFF';
   }
 
   atualizarContador() {
@@ -98,6 +126,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.configuracaoDocumentoService.criarFila(guidCliente, payload).subscribe({
       next: (res) => {
         this.Sucesso('Fila criada com sucesso');
+        this.carregaDocumentos();
       },
       error: (err) => {
         this.Erro('Erro ao criar fila');
@@ -139,9 +168,8 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
 
   onSubmit() {
-    if (this.formulario.valid) {
-      console.log(this.formulario.value)
-      //this.criarFila(); 
+    if (this.formulario.valid) { 
+      this.criarFila(); 
     } else {
       this.formulario.markAllAsTouched();
     }
