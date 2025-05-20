@@ -1,4 +1,5 @@
 export interface ConfiguracaoDocumentoMQDTO {
+  id:number;
   tipoServico: string;
   tipoArquivo: string;
   dataInicio: string; 

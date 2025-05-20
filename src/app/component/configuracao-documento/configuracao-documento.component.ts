@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'src/app/local-storage.service';
 import { ConfiguracaoDocumentoService } from 'src/services/configuracao-documento.service';
+import { ConfiguracaoDocumentoMQDTO } from 'src/app/models/ConfiguracaoDocumentoMQ.Model';
 
 @Component({
   selector: 'app-configuracao-documento',
@@ -13,6 +14,8 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   formulario!: FormGroup;
   dataHoje: string = '';
   caracteresDigitados: number = 0;
+  statusAtivo: string = 'On';
+  ConfiguracaoDocumento: ConfiguracaoDocumentoMQDTO[] = [];
 
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
@@ -28,10 +31,17 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       dataFinal: ['', Validators.required],
       descricao: ['', [Validators.required, Validators.minLength(10)]]
     }, { validators: this.dataValida });
+
     this.setarDataAtual();
     this.formulario.get('descricao')?.valueChanges.subscribe(valor => {
       this.caracteresDigitados = valor?.length || 0;
     });
+    this.carregaDocumentos();
+  }
+
+  mudarStatus() {
+    const valor = this.formulario.get('ativo')?.value;
+    this.statusAtivo = valor ? 'On' : 'Off';
   }
 
   atualizarContador() {
@@ -55,6 +65,20 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     });
   }
 
+  alternarStatus(id: number) {
+    console.log(id)
+    this.configuracaoDocumentoService.Status(id).subscribe({
+      next: (res) => {
+        this.Sucesso('Status alterado da Fila');
+        this.carregaDocumentos();
+      },
+      error: (err) => {
+        this.Erro('Erro ao alterar o status da Fila');
+      }
+    });
+  }
+
+
   criarFila(): void {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
@@ -63,8 +87,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
     const guidCliente = this.localStorageService.getItem("guidCliente") as string;
     const dados = this.formulario.value;
-
-    
     const payload = {
       ...dados,
       dataInicio: new Date(dados.dataInicio).toISOString(),
@@ -73,19 +95,29 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       tipoArquivo: Number(this.formulario.value.tipoArquivo)
     };
 
-    console.log(payload)
-
     this.configuracaoDocumentoService.criarFila(guidCliente, payload).subscribe({
       next: (res) => {
         this.Sucesso('Fila criada com sucesso');
       },
       error: (err) => {
-       this.Erro('Erro ao criar fila');
+        this.Erro('Erro ao criar fila');
       }
     });
   }
 
-  
+  carregaDocumentos(): void {
+    const guidCliente = localStorage.getItem('guidCliente');
+    if (guidCliente) {
+      this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
+        next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
+          this.ConfiguracaoDocumento = dados;
+          console.log(dados)
+        }
+      });
+    }
+  }
+
+
   Sucesso(msg?: string) {
     this.toastr.success(msg, 'Sucesso!', {
       timeOut: 3000,
@@ -106,10 +138,11 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     });
   }
 
+
   onSubmit() {
     if (this.formulario.valid) {
-      this.criarFila();
-      //console.log('Dados enviados:', this.formulario.value);
+      console.log(this.formulario.value)
+      //this.criarFila(); 
     } else {
       this.formulario.markAllAsTouched();
     }
