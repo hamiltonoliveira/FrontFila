@@ -111,7 +111,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
         next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
           this.ConfiguracaoDocumento = dados;
-          console.log(dados)
         }
       });
     }
