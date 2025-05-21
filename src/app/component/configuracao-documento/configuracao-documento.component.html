@@ -128,11 +128,11 @@
 
             <tr *ngFor="let fila of ConfiguracaoDocumento">
               <td class="text-center">
-                {{fila.tipoServico}}
+                {{ getTipoServicoDescricao(+fila.tipoServico) }}  
               </td>
               <td class="text-center">
-                {{fila.tipoArquivo }}
-              </td>
+               {{ getTipoArquivoDescricao(+fila.tipoArquivo) }}
+              </td> 
               <td class="text-center">
                 {{fila.dataInicio | date: 'dd/MM/yyyy'}}
               </td>

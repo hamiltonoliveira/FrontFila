@@ -140,11 +140,19 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
         next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
           this.ConfiguracaoDocumento = dados;
+          
         }
       });
     }
   }
 
+  getTipoArquivoDescricao(valor: number): string {
+  return TipoArquivo[valor];
+  }
+
+   getTipoServicoDescricao(valor: number): string {
+  return TipoServico[valor];
+  }
 
   Sucesso(msg?: string) {
     this.toastr.success(msg, 'Sucesso!', {
