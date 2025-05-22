@@ -149,7 +149,7 @@
                     {{ fila.ativo? 'Disponível' : 'Inativo' }}
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" (click)="alternarStatus(fila.id)">On/Off</a></li>
+                    <li><a class="dropdown-item" (click)="alternarStatus(fila.guid)">On/Off</a></li>
                   </ul>
                 </div>
               </td>

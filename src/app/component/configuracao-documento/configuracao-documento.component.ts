@@ -93,9 +93,9 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     });
   }
 
-  alternarStatus(id: number) {
-    console.log(id)
-    this.configuracaoDocumentoService.Status(id).subscribe({
+  alternarStatus(guid: string) {
+    console.log(guid)
+    this.configuracaoDocumentoService.Status(guid).subscribe({
       next: (res) => {
         this.Sucesso('Status alterado da Fila');
         this.carregaDocumentos();
@@ -140,7 +140,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
         next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
           this.ConfiguracaoDocumento = dados;
-          
+          console.log(dados);
         }
       });
     }
@@ -173,7 +173,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       positionClass: 'toast-top-right'
     });
   }
-
 
   onSubmit() {
     if (this.formulario.valid) { 

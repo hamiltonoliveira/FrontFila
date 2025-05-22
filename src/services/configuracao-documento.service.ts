@@ -24,14 +24,14 @@ export class ConfiguracaoDocumentoService {
     return this.http.post(url, dados, { headers });
   }
 
-  Status(id: number): Observable<any> {
+  Status(guid: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
 
-    const url = `${this.apiUrl}/ConfiguracaoDocumento/MudarStatus?id=${id}`;
+    const url = `${this.apiUrl}/ConfiguracaoDocumento/MudarStatus?guid=${guid}`;
     return this.http.post(url, null, { headers });
   }
 

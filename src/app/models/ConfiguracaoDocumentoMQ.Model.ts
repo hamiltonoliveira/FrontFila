@@ -6,4 +6,5 @@ export interface ConfiguracaoDocumentoMQDTO {
   dataFinal: string;
   descricao: string;
   ativo:boolean;
+  guid:string
 }
