@@ -9,4 +9,8 @@ ng generate component app/menu
 ng generate module app/component/login --route login --module app/app.module
 ng generate module app/component/grupo-empresas --route grupo-empresas --module app/app.module
 ng generate module app/component/ConfiguracaoDocumento --route ConfiguracaoDocumento --module app/app.module
+ng generate module app/component/assinaturas --route assinaturas --module app/app.module
 
+
+Uso de cookies - Guardamos estatísticas de visitas para melhorar sua experiência de navegação. Ao continuar, você concorda com nossa
+política de privacidade.

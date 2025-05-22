@@ -6,7 +6,7 @@
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <!-- Grupo principal à esquerda -->
       <ul class="navbar-nav" style="margin-left: 30px;">
@@ -17,24 +17,32 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" routerLink="/cadastro-empresa">Grupo Empresa</a></li>
-            <li><a class="dropdown-item" routerLink="/configuracao-documento">Configuração de Filas</a></li> 
+            <li><a class="dropdown-item" routerLink="/configuracao-documento">Configuração de Filas</a></li>
           </ul>
         </li>
       </ul>
 
-       <ul class="navbar-nav" style="margin-left: 10px;">
+      <ul class="navbar-nav ms-3">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
-            Instruções
+              Planos & Suporte
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="#">Implementar</a></li>
-           </ul>
+            <li>
+              <a class="dropdown-item" routerLink="/assinatura">
+                 Contratar Planos de Assinatura
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/instrucoes">
+                 Instruções e Informações do Serviço
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
 
-      
       <!-- Grupo Login alinhado à direita -->
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">

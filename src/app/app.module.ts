@@ -21,7 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    BrowserAnimationsModule, // required animations module
+    BrowserAnimationsModule,  
     ToastrModule.forRoot()
   ],
   providers: [],

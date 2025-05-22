@@ -1,0 +1,101 @@
+/* Estilo geral */
+.container {
+  background-color: white;  
+  border-radius: 12px;
+  padding: 40px 20px;
+}
+
+/* Título */
+.container h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: rgb(90, 199, 195);
+  text-align: center;
+  width: 100%;
+  height: 40px; 
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Cartões */
+.card {
+  border: none;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #f8f9fa;
+  color: #1d3557;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Títulos dos planos */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1d3557;
+}
+
+/* Preço */
+.card-subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Lista de recursos */
+.card ul {
+  padding-left: 0;
+  font-size: 1rem;
+}
+
+.card ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Botões */
+.card .btn {
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Botão outline primário */
+.btn-outline-primary {
+  color: #457b9d;
+  border-color: #457b9d;
+}
+
+.btn-outline-primary:hover {
+  background-color: #457b9d;
+  color: white;
+}
+
+/* Botão azul sólido */
+.btn-primary {
+  background-color: #457b9d;
+  border-color: #457b9d;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #355c73;
+  border-color: #355c73;
+}
+
+/* Botão escuro */
+.btn-outline-dark {
+  color: #343a40;
+  border-color: #343a40;
+}
+
+.btn-outline-dark:hover {
+  background-color: #343a40;
+  color: white;
+}
