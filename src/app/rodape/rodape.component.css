@@ -1,0 +1,17 @@
+.rodape {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  font-size: 0.75rem;
+  color: #333;
+  border-top: 1px solid #ccc;
+  text-align: center;
+  z-index: 1000; /* garante que fique sobre outros elementos se necessário */
+}
+
+.empresa-info, .locaweb-info {
+  margin-bottom: 0.5rem;
+}
