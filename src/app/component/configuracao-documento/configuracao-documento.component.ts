@@ -22,7 +22,8 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
   tiposServico: { chave: string; valor: number }[] = [];
   tiposArquivo: { chave: string; valor: number }[] = [];
- 
+  carregando = false;
+
  
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
@@ -43,6 +44,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.formulario.get('descricao')?.valueChanges.subscribe(valor => {
       this.caracteresDigitados = valor?.length || 0;
     });
+    this. spinner(true);
     this.carregaDocumentos();
     this.ServicoEnum();
     this.ServicoArquivioEnum();
@@ -66,6 +68,14 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       }));
   }
  
+  spinner(valor: boolean) {
+    this.carregando = valor;
+    if (valor) {
+      setTimeout(() => {
+        this.carregando = false;
+      }, 1000);
+    }
+  }
   
   mudarStatus() {
     const valor = this.formulario.get('ativo')?.value;
@@ -140,7 +150,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
         next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
           this.ConfiguracaoDocumento = dados;
-         }
+        }
       });
     }
   }

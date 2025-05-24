@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { LocalStorageService } from './../local-storage.service';
 
 @Component({
   selector: 'app-assinatura-eletronica',
@@ -11,34 +12,38 @@ export class AssinaturaEletronicaComponent {
   private ctx!: CanvasRenderingContext2D;
   private desenhando = false;
   imagemAssinatura: string | null = null;
+  codigoAssinatura: string | null = null;
+
+  constructor(private localStorageService: LocalStorageService) { }
+
+  ngOnInit(): void {
+    this.codigoNumeracao();
+  }
+
+  codigoNumeracao(): void {
+    const prefixo = 'AE'; // Assinatura Eletrônica
+    const data = new Date();
+    const timestamp = data.getTime(); // milissegundos desde 1970
+    const random = Math.floor(1000 + Math.random() * 9000); // 4 dígitos aleatórios
+    this.codigoAssinatura = `${prefixo}-${timestamp}-${random}`;
+  }
 
   ngAfterViewInit(): void {
-  const canvas = this.canvasRef.nativeElement;
-
-  canvas.width = 500;  // largura do canvas
-  canvas.height = 150; // altura do canvas
-
-  this.ctx = canvas.getContext('2d')!;
-  this.ctx.strokeStyle = '#000';
-  this.ctx.lineWidth = 2;
-
-  // Limpa o canvas antes de desenhar
-  this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Configura fonte para desenhar texto (use a fonte Montserrat importada no index.html)
-  this.ctx.font = '24px Montserrat, sans-serif';
-  this.ctx.fillStyle = '#000';  // cor do texto
-  this.ctx.textAlign = 'center';
-  this.ctx.textBaseline = 'middle';
-
-  // Calcula o centro do canvas
-  const x = canvas.width / 2;
-  const y = canvas.height / 2;
-
-  // Desenha a frase no centro do canvas
-  this.ctx.fillText('Hamilton do Vale Oliveira', x, y);
-}
-
+    const canvas = this.canvasRef.nativeElement;
+    canvas.width = 500;
+    canvas.height = 150;
+    this.ctx = canvas.getContext('2d')!;
+    this.ctx.strokeStyle = '#000';
+    this.ctx.lineWidth = 2;
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.font = '14px Montserrat, sans-serif';
+    this.ctx.fillStyle = '#000';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    const x = (canvas.width / 2) - 160;
+    const y = (canvas.height / 2) + 60;
+    this.ctx.fillText(this.codigoAssinatura || '', x, y);
+  }
 
   startDrawing(event: MouseEvent): void {
     this.desenhando = true;
@@ -62,11 +67,12 @@ export class AssinaturaEletronicaComponent {
     const canvas = this.canvasRef.nativeElement;
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.imagemAssinatura = null;
+    this.ngAfterViewInit();
   }
 
   salvar(): void {
     const canvas = this.canvasRef.nativeElement;
     this.imagemAssinatura = canvas.toDataURL('image/png');
-    // Aqui você pode enviar para o backend, salvar localmente etc.
+    console.table(this.imagemAssinatura);
   }
 }

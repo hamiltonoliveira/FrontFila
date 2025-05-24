@@ -50,7 +50,7 @@ export class CadastroEmpresaComponent implements OnInit {
     if (valor) {
       setTimeout(() => {
         this.carregando = false;
-      }, 3000);
+      }, 1000);
     }
   }
 
