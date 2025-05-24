@@ -23,7 +23,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   tiposServico: { chave: string; valor: number }[] = [];
   tiposArquivo: { chave: string; valor: number }[] = [];
   carregando = false;
-
  
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
@@ -70,11 +69,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
  
   spinner(valor: boolean) {
     this.carregando = valor;
-    if (valor) {
-      setTimeout(() => {
-        this.carregando = false;
-      }, 1000);
-    }
   }
   
   mudarStatus() {
@@ -116,7 +110,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     });
   }
 
-
   criarFila(): void {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
@@ -150,6 +143,9 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
         next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
           this.ConfiguracaoDocumento = dados;
+          if(dados){
+            this.spinner(false);
+          }
         }
       });
     }
