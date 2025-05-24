@@ -49,6 +49,7 @@ export class LoginComponent {
           localStorage.setItem('refreshToken', res.token.refreshToken);
           localStorage.setItem('guidCliente', res.guidCliente);
           this.Sucesso("Seja bem-vindo.");
+          this.router.navigate(['/configuracao-documento']);
         } else {
           this.Erro("Token não recebido!");
         }

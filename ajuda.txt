@@ -17,3 +17,76 @@ ng generate module app/component/assinaturas --route assinaturas --module app/ap
 
 Uso de cookies - Guardamos estatísticas de visitas para melhorar sua experiência de navegação. Ao continuar, você concorda com nossa
 política de privacidade.
+
+
+
+### ✅ 1. **Planejamento**
+
+Antes de tudo, pense:
+
+* **Qual é o objetivo da apresentação?**
+* **Quem é o público-alvo?**
+* **Quantos slides pretende fazer?**
+* **Quais telas (prints) precisa mostrar?**
+
+---
+
+### ✅ 2. **Tirando os prints de tela**
+
+Você pode usar o teclado para tirar capturas:
+
+* **Windows**: `Windows + Shift + S` → seleciona a área e salva na área de transferência.
+* **Mac**: `Command + Shift + 4`
+* Depois cole no PowerPoint ou outro editor (`Ctrl + V`).
+
+---
+
+### ✅ 3. **Criando os slides**
+
+Você pode usar:
+
+* **PowerPoint**
+* **Google Apresentações (Slides)** – online e gratuito
+* **Canva** – visual bonito e fácil de usar
+
+---
+
+### ✅ 4. **Montando cada slide**
+
+Exemplo de estrutura:
+
+| Slide nº | Título                   | Conteúdo                            |
+| -------- | ------------------------ | ----------------------------------- |
+| 1        | Introdução               | Breve descrição do sistema          |
+| 2        | Tela de Login            | Print da tela + descrição simples   |
+| 3        | Tela de Cadastro         | Print + passo a passo se necessário |
+| 4        | Tela de Listagem         | Print + destaque de funcionalidades |
+| ...      | Outras telas importantes | Continue o padrão                   |
+| Final    | Conclusão ou Contato     | Fechamento e agradecimento          |
+
+---
+
+### ✅ 5. **Dicas para os slides**
+
+* Use **pouco texto**: o print já mostra muito.
+* Destaque partes importantes com **setas, caixas, texto em negrito**.
+* Se possível, use **animações leves**, como aparecer aos poucos.
+
+---
+
+### ✅ 6. **Apresentação final**
+
+* Teste antes de apresentar.
+* Deixe tudo salvo em **.pptx** (PowerPoint) ou **.pdf** (se for só visual).
+* Se for online, use Google Slides e compartilhe o link.
+
+---
+
+Se quiser, posso montar um **modelo de apresentação para você com base no que está fazendo**. Basta me dizer:
+
+1. Qual é o tema da apresentação?
+2. Quantas telas você quer mostrar?
+3. Deseja fazer no PowerPoint, Google Slides ou Canva?
+
+Posso até gerar um modelo com base nos prints que você me enviar. É só mandar!
+
