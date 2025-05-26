@@ -116,7 +116,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       return;
     }
 
-    const guidCliente = this.localStorageService.getItem("guidCliente") as string;
+    const guidCliente = localStorage.getItem("guidCliente") as string;
     const dados = this.formulario.value;
     const payload = {
       ...dados,

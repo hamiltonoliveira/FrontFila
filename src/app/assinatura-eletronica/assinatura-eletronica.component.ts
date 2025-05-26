@@ -61,7 +61,7 @@ export class AssinaturaEletronicaComponent {
     this.ctx.strokeStyle = '#000';
     this.ctx.lineWidth = 2;
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-    this.ctx.font = '14px Montserrat, sans-serif';
+    this.ctx.font = '12px Montserrat, sans-serif';
     this.ctx.fillStyle = '#000';
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'middle';
@@ -99,10 +99,13 @@ export class AssinaturaEletronicaComponent {
     const canvas = this.canvasRef.nativeElement;
     this.imagemAssinatura = canvas.toDataURL('image/png');
 
-    if (this.imagemAssinatura.length > 6000) {
+    const assinaturaValida = this.imagemAssinatura.length > 6000;
+    const planoValido = Number(this.numeroPlano) > 0;
+
+    if (assinaturaValida && planoValido) {
       this.criarAssinatura();
     } else {
-      this.toastr.error("Ops! É necessário estar com a assinatura ativa.");
+      this.toastr.error("Ops! escolha o plano e assine.");
     }
   }
 

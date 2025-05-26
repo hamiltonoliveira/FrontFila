@@ -12,6 +12,7 @@ export class AssinaturaEletronicaService {
   constructor(private http: HttpClient) { }
 
   criarFila(dados: any): Observable<any> {
+
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
