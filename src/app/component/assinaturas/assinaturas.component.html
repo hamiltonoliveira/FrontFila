@@ -11,7 +11,7 @@
             <li>Suporte por e-mail</li>
             <li>Integração via API</li>
           </ul>
-          <button class="btn btn-outline-primary">Assinar</button>
+          <button class="btn btn-outline-primary" (click)="selecionarPlano(1)">Assinar</button>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
             <li>Suporte por chat</li>
             <li>Integração via API</li>
           </ul>
-          <button class="btn btn-primary">Assinar</button>
+          <button class="btn btn-primary" (click)="selecionarPlano(2)">Assinar</button>
         </div>
       </div>
     </div>
@@ -43,16 +43,17 @@
             <li>Suporte prioritário</li>
             <li>Dashboard personalizado</li>
           </ul>
-          <button class="btn btn-outline-dark">Fale com a gente</button>
+          <button class="btn btn-outline-dark" (click)="selecionarPlano(3)">Fale com a gente</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Área do componente de assinatura eletrônica -->
   <div class="row">
-    <div class="col-12" style="margin-bottom: 40px;">
-     <span class="centralizado" >Assinatura Eletrônica</span>
-    <app-assinatura-eletronica></app-assinatura-eletronica>
+    <div class="col-12 mt-5">
+      <span class="centralizado">Assinatura Eletrônica {{ this.planoSelecionado}}</span>
+      <app-assinatura-eletronica [codigoPlano]="planoSelecionado || ''"></app-assinatura-eletronica>
     </div>
   </div>
 </div>

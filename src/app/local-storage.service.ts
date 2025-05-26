@@ -15,8 +15,8 @@ export class LocalStorageService {
 
   // Recupera um item do localStorage
   getItem<T>(key: string): T | null {
-    const item = localStorage.getItem(key);
-    return item ? item as T : null;
+  const item = localStorage.getItem(key);
+  return item ? JSON.parse(item) as T : null;
   }
 
   // Remove um item do localStorage

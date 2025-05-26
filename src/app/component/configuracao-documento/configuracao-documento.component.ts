@@ -23,7 +23,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   tiposServico: { chave: string; valor: number }[] = [];
   tiposArquivo: { chave: string; valor: number }[] = [];
   carregando = false;
- 
+
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
     private localStorageService: LocalStorageService,
@@ -43,14 +43,14 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.formulario.get('descricao')?.valueChanges.subscribe(valor => {
       this.caracteresDigitados = valor?.length || 0;
     });
-    this. spinner(true);
+    this.spinner(true);
     this.carregaDocumentos();
     this.ServicoEnum();
     this.ServicoArquivioEnum();
   }
 
-  ServicoEnum(){
-     this.tiposServico = Object.keys(TipoServico)
+  ServicoEnum() {
+    this.tiposServico = Object.keys(TipoServico)
       .filter(key => isNaN(Number(key))) // só as chaves (nomes)
       .map(key => ({
         chave: key,
@@ -58,19 +58,19 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       }));
   }
 
-   ServicoArquivioEnum(){
-     this.tiposArquivo = Object.keys(TipoArquivo)
+  ServicoArquivioEnum() {
+    this.tiposArquivo = Object.keys(TipoArquivo)
       .filter(key => isNaN(Number(key))) // só as chaves (nomes)
       .map(key => ({
         chave: key,
         valor: TipoArquivo[key as keyof typeof TipoArquivo]
       }));
   }
- 
+
   spinner(valor: boolean) {
     this.carregando = valor;
   }
-  
+
   mudarStatus() {
     const valor = this.formulario.get('ativo')?.value;
     this.statusAtivo = valor ? 'ON' : 'OFF';
@@ -139,24 +139,30 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
   carregaDocumentos(): void {
     const guidCliente = localStorage.getItem('guidCliente');
-    if (guidCliente) {
-      this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
-        next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
-          this.ConfiguracaoDocumento = dados;
-          if(dados){
-            this.spinner(false);
-          }
+    if (!guidCliente) return;
+    this.spinner(true);
+    this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
+      next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
+        this.ConfiguracaoDocumento = dados ?? [];
+
+        if (!dados || dados.length === 0) {
+          this.Erro('Nenhuma configuração de documento encontrada.');
         }
-      });
-    }
+        this.spinner(false);
+      },
+      error: (erro) => { 
+        this.Erro('Erro ao carregar configurações de documento:');
+        this.spinner(false);
+      }
+    });
   }
 
   getTipoArquivoDescricao(valor: number): string {
-  return TipoArquivo[valor];
+    return TipoArquivo[valor];
   }
 
-   getTipoServicoDescricao(valor: number): string {
-  return TipoServico[valor];
+  getTipoServicoDescricao(valor: number): string {
+    return TipoServico[valor];
   }
 
   Sucesso(msg?: string) {
@@ -180,8 +186,8 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.formulario.valid) { 
-      this.criarFila(); 
+    if (this.formulario.valid) {
+      this.criarFila();
     } else {
       this.formulario.markAllAsTouched();
     }

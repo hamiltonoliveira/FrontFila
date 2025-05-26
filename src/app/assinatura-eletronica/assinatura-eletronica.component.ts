@@ -1,5 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { LocalStorageService } from './../local-storage.service';
+import { AssinaturaEletronicaService } from 'src/services/assinatura-eletronica.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-assinatura-eletronica',
@@ -14,10 +16,33 @@ export class AssinaturaEletronicaComponent {
   imagemAssinatura: string | null = null;
   codigoAssinatura: string | null = null;
 
-  constructor(private localStorageService: LocalStorageService) { }
+  @Input() codigoPlano: string = '';
+  numeroPlano: number | null = null;
+
+  constructor(private localStorageService: LocalStorageService,
+    private assinaturaEletronicaService: AssinaturaEletronicaService,
+    private toastr: ToastrService) { }
+
 
   ngOnInit(): void {
     this.codigoNumeracao();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['codigoPlano']) {
+      console.log('Novo plano no filho (string):', this.codigoPlano);
+      this.numeroPlano = this.converterPlanoParaNumero(this.codigoPlano);
+      console.log('Plano convertido para número:', this.numeroPlano);
+    }
+  }
+
+  private converterPlanoParaNumero(codigo: string): number | null {
+    const mapa: { [key: string]: number } = {
+      'basico': 1,
+      'profissional': 2,
+      'empresarial': 3
+    };
+    return mapa[codigo] ?? null;
   }
 
   codigoNumeracao(): void {
@@ -73,6 +98,29 @@ export class AssinaturaEletronicaComponent {
   salvar(): void {
     const canvas = this.canvasRef.nativeElement;
     this.imagemAssinatura = canvas.toDataURL('image/png');
-    console.table(this.imagemAssinatura);
+
+    if (this.imagemAssinatura.length > 6000) {
+      this.criarAssinatura();
+    } else {
+      this.toastr.error("Ops! É necessário estar com a assinatura ativa.");
+    }
+  }
+
+  criarAssinatura(): void {
+    const guidCliente = localStorage.getItem("guidCliente");
+    const payload = {
+      PlanoId: this.numeroPlano,
+      GuidCliente: guidCliente,
+      Assinatura: this.imagemAssinatura
+    };
+
+    this.assinaturaEletronicaService.criarFila(payload).subscribe(
+      dados => {
+        this.toastr.success('Assinatura arquivada.');
+      },
+      erro => {
+        this.toastr.error("Erro na assinatura eletrônica.");
+      }
+    );
   }
 }
