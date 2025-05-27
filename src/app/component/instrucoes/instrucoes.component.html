@@ -24,7 +24,7 @@
 
             <!-- Textarea para colar o conteúdo JSON/XML -->
             <div class="mb-3">
-                <label for="mensagem" class="form-label">Mensagem (JSON ou XML):</label>
+                <label for="mensagem" class="form-label">Mensagem (JSON ou XML): <span class="mensagem-fila"> {{tipoMensagem}} </span></label>
                 <textarea class="form-control" id="mensagem" rows="10" [(ngModel)]="conteudoMensagem"
                     placeholder="Cole aqui o conteúdo da mensagem..."></textarea>
             </div>

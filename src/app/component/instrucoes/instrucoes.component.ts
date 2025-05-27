@@ -4,6 +4,9 @@ import { ConfiguracaoDocumentoMQDTO } from 'src/app/models/ConfiguracaoDocumento
 import { ToastrService } from 'ngx-toastr';
 import { PublicarService } from 'src/services/publicar.service';
 import { ConfiguracaoDocumentoService } from 'src/services/configuracao-documento.service';
+ 
+import { TipoArquivo } from './../../models/tipo-arquivo.enum';
+
 
 @Component({
   selector: 'app-instrucoes',
@@ -17,6 +20,7 @@ export class InstrucoesComponent implements OnInit {
   ConfiguracaoDocumento: ConfiguracaoDocumentoMQDTO[] = [];
   carregando = true;
   tipoArquivo = 0;
+  tipoMensagem = '';
 
   constructor(private http: HttpClient,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
@@ -27,6 +31,12 @@ export class InstrucoesComponent implements OnInit {
     this.carregaDocumentos();
   }
 
+    verificarTipo(valor: number) {
+    const tipo = TipoArquivo[valor]; 
+    this.tipoMensagem = `O objeto será enviado para a fila no formato: ${tipo}.`;
+   }
+
+
   spinner(valor: boolean) {
     this.carregando = valor;
   }
@@ -34,6 +44,7 @@ export class InstrucoesComponent implements OnInit {
   onSelecionarTipo(tipo: any): void {
     this.tipoArquivo = tipo.tipoArquivo;
     this.filaSelecionada = tipo.id;
+    this.verificarTipo(this.tipoArquivo);
   }
 
   enviarMensagem(): void {
