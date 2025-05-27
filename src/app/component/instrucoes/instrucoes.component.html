@@ -1,0 +1,40 @@
+<div class="container mt-5">
+    <div *ngIf="carregando" class="d-flex justify-content-center align-items-center flex-column"
+        style="position: fixed; inset: 0; width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.8); z-index: 1050;">
+
+        <div class="spinner-grow text-info" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+    <div class="card shadow">
+
+
+        <div class="card-body">
+            <!-- Select de Filas -->
+            <div class="mb-3">
+                <label for="filaSelect" class="form-label">Selecione a Fila:</label>
+                <select class="form-select" id="filaSelect" name="fila" [(ngModel)]="filaSelecionada"
+                    (change)="onSelecionarTipo(filaSelecionada)">
+                    <option *ngFor="let tipo of ConfiguracaoDocumento" [ngValue]="tipo" [disabled]="!tipo.ativo">
+                        {{ tipo.descricao }}
+                    </option>
+                </select>
+            </div>
+
+
+            <!-- Textarea para colar o conteúdo JSON/XML -->
+            <div class="mb-3">
+                <label for="mensagem" class="form-label">Mensagem (JSON ou XML):</label>
+                <textarea class="form-control" id="mensagem" rows="10" [(ngModel)]="conteudoMensagem"
+                    placeholder="Cole aqui o conteúdo da mensagem..."></textarea>
+            </div>
+
+            <!-- Botão de envio -->
+            <div class="d-flex justify-content-end">
+                <button class="btn" style="background-color: #1a2c44; color: #ffffff;" (click)="enviarMensagem()">
+                    Enviar Mensagem
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

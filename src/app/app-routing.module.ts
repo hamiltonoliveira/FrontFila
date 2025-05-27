@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'cadastro-empresa', loadChildren: () => import('./component/cadastro-empresa/cadastro-empresa.module').then(m => m.CadastroEmpresaModule) },
   { path: 'configuracao-documento', loadChildren: () => import('./component/configuracao-documento/configuracao-documento.module').then(m => m.ConfiguracaoDocumentoModule) },
   { path: 'assinatura', loadChildren: () => import('./component/assinaturas/assinaturas.module').then(m => m.AssinaturasModule) },
+  { path: 'instrucoes', loadChildren: () => import('./component/instrucoes/instrucoes.module').then(m => m.InstrucoesModule) },
 ];
 
 

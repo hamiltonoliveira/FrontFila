@@ -44,10 +44,10 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.caracteresDigitados = valor?.length || 0;
     });
     this.spinner(true);
-    this.carregaDocumentos();
     this.ServicoEnum();
     this.ServicoArquivioEnum();
-  }
+    this.carregaDocumentos();
+   }
 
   ServicoEnum() {
     this.tiposServico = Object.keys(TipoServico)
