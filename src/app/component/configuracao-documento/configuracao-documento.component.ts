@@ -146,7 +146,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
         this.ConfiguracaoDocumento = dados ?? [];
 
         if (!dados || dados.length === 0) {
-          this.Erro('Nenhuma configuração de documento encontrada.');
+          this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
         }
         this.spinner(false);
       },

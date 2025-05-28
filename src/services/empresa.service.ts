@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EmpresaService {
   private apiUrl = `${environment.apiUrl}`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   enviarEmpresa(dados: any, guidCliente: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -17,16 +17,13 @@ export class EmpresaService {
   }
 
   alterarStatus(id: number): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  });
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
 
-  const url = `${this.apiUrl}/EmpresaCliente/AtivarEmpresa/${id}`;
-  return this.http.put(url, {}, { headers });
-}
-
-
-
+    const url = `${this.apiUrl}/EmpresaCliente/AtivarEmpresa/${id}`;
+    return this.http.put(url, {}, { headers });
+  }
 }

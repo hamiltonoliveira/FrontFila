@@ -4,7 +4,7 @@ import { ConfiguracaoDocumentoMQDTO } from 'src/app/models/ConfiguracaoDocumento
 import { ToastrService } from 'ngx-toastr';
 import { PublicarService } from 'src/services/publicar.service';
 import { ConfiguracaoDocumentoService } from 'src/services/configuracao-documento.service';
- 
+
 import { TipoArquivo } from './../../models/tipo-arquivo.enum';
 
 
@@ -31,10 +31,10 @@ export class InstrucoesComponent implements OnInit {
     this.carregaDocumentos();
   }
 
-    verificarTipo(valor: number) {
-    const tipo = TipoArquivo[valor]; 
+  verificarTipo(valor: number) {
+    const tipo = TipoArquivo[valor];
     this.tipoMensagem = `O objeto será enviado para a fila no formato: ${tipo}.`;
-   }
+  }
 
 
   spinner(valor: boolean) {
@@ -49,7 +49,7 @@ export class InstrucoesComponent implements OnInit {
 
   enviarMensagem(): void {
     if (!this.filaSelecionada || !this.conteudoMensagem) {
-      alert('Por favor, selecione uma fila e insira a mensagem.');
+      this.toastr.warning('Por favor, selecione uma fila e insira a mensagem.');
       return;
     }
 
@@ -80,9 +80,9 @@ export class InstrucoesComponent implements OnInit {
           this.toastr.success('Carregado apenas filas ativas.');
         }
         this.ConfiguracaoDocumento = dados ?? [];
-    
+
         if (!dados || dados.length === 0) {
-          this.toastr.error('Nenhuma configuração de documento encontrada.');
+          this.toastr.warning('Nenhuma configuração de documento encontrada.');
         }
         this.spinner(false);
       },

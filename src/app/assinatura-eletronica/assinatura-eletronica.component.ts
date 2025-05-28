@@ -30,9 +30,7 @@ export class AssinaturaEletronicaComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['codigoPlano']) {
-      console.log('Novo plano no filho (string):', this.codigoPlano);
       this.numeroPlano = this.converterPlanoParaNumero(this.codigoPlano);
-      console.log('Plano convertido para número:', this.numeroPlano);
     }
   }
 
@@ -46,10 +44,10 @@ export class AssinaturaEletronicaComponent {
   }
 
   codigoNumeracao(): void {
-    const prefixo = 'AE'; // Assinatura Eletrônica
+    const prefixo = 'AE';  
     const data = new Date();
-    const timestamp = data.getTime(); // milissegundos desde 1970
-    const random = Math.floor(1000 + Math.random() * 9000); // 4 dígitos aleatórios
+    const timestamp = data.getTime();  
+    const random = Math.floor(1000 + Math.random() * 9000);  
     this.codigoAssinatura = `${prefixo}-${timestamp}-${random}`;
   }
 

@@ -61,6 +61,7 @@ export class LoginComponent {
           localStorage.setItem('token', res.token.token);
           localStorage.setItem('refreshToken', res.token.refreshToken);
           localStorage.setItem('guidCliente', res.guidCliente);
+       
           this.Sucesso(`Seja bem-vindo. ${this.nomeFantasia}`);
           this.router.navigate(['/configuracao-documento']);
         } else {
