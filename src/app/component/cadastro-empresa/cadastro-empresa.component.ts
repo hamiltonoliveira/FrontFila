@@ -15,12 +15,18 @@ export class CadastroEmpresaComponent implements OnInit {
   cnpjInvalido = false;
   carregando = false;
 
+  captchaPergunta: string = '';
+  respostaCorreta: number = 0;
+  respostaUsuario: string = '';
+  captchaInvalido: boolean = false;
+
+
   constructor(
     private fb: FormBuilder,
     private buscepService: BuscepService,
     private empresaService: EmpresaService,
     private toastr: ToastrService
-  ) { }
+  ) { this.gerarCaptcha(); }
 
   ngOnInit() {
     this.empresaForm = this.fb.group(
@@ -36,13 +42,27 @@ export class CadastroEmpresaComponent implements OnInit {
         estado: ['', [Validators.required]],
         cep: ['', [Validators.required]],
         senha: ['', [Validators.required]],
-        confirmasenha: ['', [Validators.required]]
+        confirmasenha: ['', [Validators.required]],
+        captcha: ['', Validators.required]
       },
       {
         // Validação customizada para comparar as senhas
         validators: this.senhasIguaisValidator
       }
     );
+
+  }
+
+  gerarCaptcha() {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    this.respostaCorreta = num1 + num2;
+    this.captchaPergunta = `Quanto é ${num1} + ${num2}?`;
+    this.captchaInvalido = false;
+  }
+
+  limparFormulario() {
+    this.empresaForm.reset();
   }
 
   spinner(valor: boolean) {
@@ -162,12 +182,19 @@ export class CadastroEmpresaComponent implements OnInit {
   }
 
   onSubmit() {
+    if (Number(this.empresaForm.get('captcha')?.value) !== Number(this.respostaCorreta)) {
+      this.captchaInvalido = true;
+      this.gerarCaptcha();
+      return;
+    }
+
     if (this.empresaForm.valid) {
       const dadosEmpresa = { ...this.empresaForm.value };
       delete dadosEmpresa.confirmasenha;
       this.spinner(true);
       this.CriarEmpresa();
       this.spinner(false);
+      this.limparFormulario();
     } else {
       this.empresaForm.markAllAsTouched();
     }

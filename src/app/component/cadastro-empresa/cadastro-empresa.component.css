@@ -1,0 +1,12 @@
+.Captcha {
+    background-color: rgb(228, 227, 215);
+    border-radius: 5px;
+    padding: 8px 13px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; 
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    color: #bfa600; /* Amarelo suave */
+    border-color: #bfa600;
+}
