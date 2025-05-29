@@ -135,7 +135,8 @@
             <div class="row">
               <!-- Captcha Simples -->
               <div class="col-md-6 mb-3">
-                <label class="form-label"> {{ captchaPergunta }} <span class="text-danger">*</span></label>
+                 <label class="form-label"><span class="text-danger"> {{ captchaPergunta}} </span></label>
+
                 <input id="captcha"  type="number" class="form-control" class="form-control Captcha" formControlName="captcha">
                 <div *ngIf="captchaInvalido" class="text-danger mt-1">
                   Resposta incorreta. Tente novamente.
