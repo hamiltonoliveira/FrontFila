@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'configuracao-documento', loadChildren: () => import('./component/configuracao-documento/configuracao-documento.module').then(m => m.ConfiguracaoDocumentoModule) },
   { path: 'assinatura', loadChildren: () => import('./component/assinaturas/assinaturas.module').then(m => m.AssinaturasModule) },
   { path: 'instrucoes', loadChildren: () => import('./component/instrucoes/instrucoes.module').then(m => m.InstrucoesModule) },
+  { path: 'integracao', loadChildren: () => import('./component/manuais/integracao/integracao.module').then(m => m.IntegracaoModule) },
 ];
 
 

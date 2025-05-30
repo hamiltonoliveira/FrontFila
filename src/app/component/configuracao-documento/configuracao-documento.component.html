@@ -17,10 +17,10 @@
 
           <div class="col-md-1 d-flex align-items-center">
             <div class="form-check form-switch">
-              <input class="form-check-input" style="background-color: rgb(102, 194, 191);" type="checkbox" id="ativo"
+              <input class="form-check-input" style="background-color: #fcaf14; border-color: #fcaf14;" type="checkbox" id="ativo"
                 formControlName="ativo" checked (change)="mudarStatus()">
               <label class="form-check-label" for="ativo"
-                [ngStyle]="{color: statusAtivo === 'ON' ? 'black' : 'red', 'font-weight': 'bold'}"
+                [ngStyle]="{color: statusAtivo === 'ON' ? 'black' : 'red', 'font-weight': 'normal'}"
                 style="font-size: 0.75rem; font-family: 'Montserrat', sans-serif;">
                 {{ statusAtivo }}
               </label>
@@ -134,6 +134,7 @@
                 <th class="text-center">Data Final</th>
                 <th class="text-justify">Descrição</th>
                 <th class="text-center">Ativo</th>
+                <th class="text-center">Documentação</th>
               </tr>
             </thead>
 
@@ -141,7 +142,7 @@
               <td class="text-center">
                 {{ getTipoServicoDescricao(+fila.tipoServico) }}  
               </td>
-              <td class="text-center">
+              <td class="text-justify">
                {{ getTipoArquivoDescricao(+fila.tipoArquivo) }}
               </td> 
               <td class="text-center">
@@ -164,6 +165,9 @@
                   </ul>
                 </div>
               </td>
+               <td class="text-center">
+                <i class="bi bi-download" (click)="baixarArquivo(fila.guid)"></i>
+               </td>
             </tr>
           </table>
         </div>

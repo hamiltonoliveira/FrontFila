@@ -18,7 +18,7 @@ ng generate module app/component/assinaturas --route assinaturas --module app/ap
 ng generate module app/component/instrucoes --route instrucoes --module app/app.module
 
 
-
+ng generate module app/component/manuais/integracao --route integracao --module app/app.module
 
 
 

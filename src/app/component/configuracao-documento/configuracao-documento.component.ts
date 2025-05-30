@@ -49,6 +49,10 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.carregaDocumentos();
    }
 
+  baixarArquivo(guid: string){
+    alert(guid)
+  }
+
   ServicoEnum() {
     this.tiposServico = Object.keys(TipoServico)
       .filter(key => isNaN(Number(key))) // só as chaves (nomes)
