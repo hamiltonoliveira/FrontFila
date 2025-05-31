@@ -7,8 +7,6 @@
         </div>
     </div>
     <div class="card shadow">
-
-
         <div class="card-body">
             <!-- Select de Filas -->
             <div class="mb-3">
@@ -17,19 +15,17 @@
                     (change)="onSelecionarTipo(filaSelecionada)">
                     <option *ngFor="let tipo of ConfiguracaoDocumento" [ngValue]="tipo" [disabled]="!tipo.ativo">
                         {{ tipo.descricao }}
-                       </option>
+                    </option>
                 </select>
             </div>
-
-
-            <!-- Textarea para colar o conteúdo JSON/XML -->
+ 
             <div class="mb-3">
-                <label for="mensagem" class="form-label">Mensagem a ser colocada na fila: <span class="mensagem-fila"> {{tipoMensagem}} </span></label>
+                <label for="mensagem" class="form-label">Mensagem a ser colocada na fila: <span class="mensagem-fila">
+                        {{tipoMensagem}} </span></label>
                 <textarea class="form-control" id="mensagem" rows="10" [(ngModel)]="conteudoMensagem"
                     placeholder="Cole aqui o conteúdo da mensagem..."></textarea>
             </div>
-
-            <!-- Botão de envio -->
+         
             <div class="d-flex justify-content-end">
                 <button class="btn" style="background-color: #1a2c44; color: #ffffff;" (click)="enviarMensagem()">
                     Enviar Mensagem

@@ -4,9 +4,7 @@ import { ConfiguracaoDocumentoMQDTO } from 'src/app/models/ConfiguracaoDocumento
 import { ToastrService } from 'ngx-toastr';
 import { PublicarService } from 'src/services/publicar.service';
 import { ConfiguracaoDocumentoService } from 'src/services/configuracao-documento.service';
-
 import { TipoArquivo } from './../../models/tipo-arquivo.enum';
-
 
 @Component({
   selector: 'app-instrucoes',
