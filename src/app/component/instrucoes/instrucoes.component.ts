@@ -34,7 +34,7 @@ export class InstrucoesComponent implements OnInit {
 
   verificarTipo(valor: number) {
     const tipo = TipoArquivo[valor];
-    this.tipoMensagem = `O objeto será enviado para a fila no formato: ${tipo}.`;
+    this.tipoMensagem = `no formato ${tipo}.`;
   }
 
 
