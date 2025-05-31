@@ -14,13 +14,14 @@ import { TipoArquivo } from './../../models/tipo-arquivo.enum';
   styleUrls: ['./instrucoes.component.css']
 })
 export class InstrucoesComponent implements OnInit {
-  filas: string[] = [];
-  filaSelecionada = '';
+  //filas: string[] = [];
+  filaSelecionada = [];
   conteudoMensagem = '';
   ConfiguracaoDocumento: ConfiguracaoDocumentoMQDTO[] = [];
   carregando = true;
   tipoArquivo = 0;
   tipoMensagem = '';
+  guid = '';
 
   constructor(private http: HttpClient,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
@@ -42,9 +43,10 @@ export class InstrucoesComponent implements OnInit {
   }
 
   onSelecionarTipo(tipo: any): void {
-    this.tipoArquivo = tipo.tipoArquivo;
-    this.filaSelecionada = tipo.id;
-    this.verificarTipo(this.tipoArquivo);
+    const tipoObj = typeof tipo === 'string' ? JSON.parse(tipo) : tipo;
+    this.verificarTipo(Number(JSON.stringify(tipoObj.tipoArquivo)));
+    this.guid = JSON.stringify(tipoObj.guid);
+    this.tipoArquivo = Number(JSON.stringify(tipoObj.tipoArquivo));
   }
 
   enviarMensagem(): void {
@@ -56,13 +58,12 @@ export class InstrucoesComponent implements OnInit {
     const payload = {
       fila: Number(this.filaSelecionada),
       mensagem: this.conteudoMensagem,
-      TipoArquivo: this.tipoArquivo
     };
 
 
-    this.publicarService.Publicar(payload.mensagem, payload.fila, payload.TipoArquivo).subscribe({
+    this.publicarService.Publicar(payload.mensagem, this.guid, this.tipoArquivo).subscribe({
       next: (res) => {
-        this.toastr.success(`O arquivo ${payload.TipoArquivo === 1 ? 'JSON' : 'XML'} (ID: ${payload.fila}) foi publicado com sucesso.`
+        this.toastr.success(`O arquivo ${this.tipoArquivo === 1 ? 'JSON' : 'XML'} (ID: ${payload.fila}) foi publicado com sucesso.`
         );
       },
       error: (err) => {

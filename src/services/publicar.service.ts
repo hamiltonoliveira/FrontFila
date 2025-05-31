@@ -11,20 +11,18 @@ export class PublicarService {
 
   constructor(private http: HttpClient) { }
 
-  Publicar(payload: any, id: number, tipoArquivo: number): Observable<any> {
+  Publicar(payload: any, guid: string, tipoArquivo: number): Observable<any> {
     const token = localStorage.getItem('token');
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
 
     const params = new HttpParams()
-      .set('id', id.toString())
-      .set('TipoArquivo', tipoArquivo.toString());
-
+      .set('Guid', guid)
+      .set('TipoArquivo', tipoArquivo);
+ 
     const url = `${this.apiUrl}/Publicar/PublicarMSG`;
-
     return this.http.post(url, payload, { headers, params });
   }
 
