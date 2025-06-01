@@ -9,7 +9,7 @@ import { ConfiguracaoDocumentoMQDTO } from 'src/app/models/ConfiguracaoDocumento
 import { HttpClient } from '@angular/common/http';
 
 import { TipoServico } from '../../models/tipo-servico.enum';
-import { TipoArquivo } from 'src/app/models/tipo-arquivo.enum'; 
+import { TipoArquivo } from 'src/app/models/tipo-arquivo.enum';
 
 @Component({
   selector: 'app-configuracao-documento',
@@ -32,7 +32,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
     private localStorageService: LocalStorageService,
     private toastr: ToastrService,
-    private http: HttpClient) {}
+    private http: HttpClient) { }
 
   ngOnInit() {
     this.formulario = this.fb.group({
@@ -54,23 +54,21 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.carregaDocumentos();
   }
 
-  carregarHtml() {
+  carregarHtml(documento: any) {
     this.http.get('assets/html/modelo-integracao.html', { responseType: 'text' })
       .subscribe({
         next: (html) => {
-          const titulo = 'Título substituído dinamicamente';  
-          this.htmlConteudo =  html.replace('$titulo', titulo);  
+          const monstarHTML = documento;
+          this.htmlConteudo = html.replace('$descricao', monstarHTML.descricao);
         },
         error: () => {
           this.toastr.error('Erro ao carregar conteúdo HTML.');
         }
       });
   }
-   
 
   baixarArquivo(guid: string) {
     this.carregaDocumentosGuid(guid);
-    this.carregarHtml();
   }
 
   ServicoEnum() {
@@ -168,7 +166,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
         this.ConfiguracaoDocumento = dados ?? [];
-         if (!dados || dados.length === 0) {
+        if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
         }
         this.spinner(false);
@@ -180,13 +178,11 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     });
   }
 
-   carregaDocumentosGuid(guid: string): void {
+  carregaDocumentosGuid(guid: string): void {
     this.configuracaoDocumentoService.listarConfiguracaoGuid(guid).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
         this.Documentacao = dados ?? [];
-
-        console.log(this.Documentacao);
-
+        this.carregarHtml(this.Documentacao);
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
         }
