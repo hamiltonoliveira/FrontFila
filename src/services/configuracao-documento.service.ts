@@ -44,4 +44,14 @@ export class ConfiguracaoDocumentoService {
     const params = guidCliente;
     return this.http.get(`${this.apiUrl}/ConfiguracaoDocumento/Listar/${params}`, { headers });
   }
+
+   listarConfiguracaoGuid(guid: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    const params = guid;
+    return this.http.get(`${this.apiUrl}/ConfiguracaoDocumento/GetGuid/${params}`, { headers });
+  }
 }
