@@ -8,34 +8,33 @@
 
 <body>
   <div class="section">
-  <p><span class="label">Descrição da fila:</span> <span class="fst-italic">$descricao</span></p>
+    <p><span class="label">Descrição da fila:</span> <span class="fst-italic">$descricao</span></p>
     <p>
       <span class="label">Chave:</span> <b>$chave</b><br>
-      <small>◇ Esta chave é de uso exclusivo para a fila cadastrada e somente poderá ser utilizada para essa
+      <small>◇ Esta chave é de uso exclusivo da fila cadastrada e somente poderá ser utilizada para essa
         finalidade.</small>
     </p>
-
     <p>
       <span class="label">Data início:</span> $dataInicio /
       <span class="label">Data final:</span> $dataFinal<br>
       <small>◇ A fila possui um período de validade definido. Caso seja necessária uma fila com características
-        semelhantes,
-        será necessário realizar um novo cadastro.</small>
+        semelhantes, será preciso realizar um novo cadastro.</small>
     </p>
 
     <p>
       <span class="label">Token:</span><br>
-      <small>◇ Por medidas de segurança, é necessário inserir o <b>token</b> no cabeçalho (<b>header</b>) da requisição.
-        A obtenção do token foi encaminhada para o e-mail cadastrado.</small>
+      <small>◇ Por questões de segurança, é necessário inserir o <b>token</b> no cabeçalho (<b>header</b>) da
+        requisição.
+        O token foi enviado para o e-mail cadastrado.</small>
     </p>
 
     <p>
       <span class="label">Endpoint:</span> <b>https://{dominio}/api/recurso</b><br>
       <span class="label">Body:</span> <b>conteúdo da requisição no formato JSON</b><br>
       <small>
-        ◇ A mensagem no formato JSON deve ser enviada no corpo (<b>body</b>) da requisição utilizando o método HTTP
+        ◇ A mensagem no formato JSON deve ser enviada no corpo (<b>body</b>) da requisição, utilizando o método HTTP
         POST.<br>
-        Certifique-se de que o cabeçalho 'Content-Type' esteja definido como 'application/json'.
+        Certifique-se de que o cabeçalho <code>Content-Type</code> esteja definido como <code>application/json</code>.
       </small>
     </p>
   </div>
@@ -139,4 +138,5 @@ public class MensagemController {
   </div>
 
 </body>
+
 </html>
