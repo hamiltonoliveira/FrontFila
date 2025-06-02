@@ -50,7 +50,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class MensagemService {
-  private apiUrl = 'https://localhost:7295/api';
+  private apiUrl = 'https://{dominio}/api';
 
   constructor(private http: HttpClient) {}
 
