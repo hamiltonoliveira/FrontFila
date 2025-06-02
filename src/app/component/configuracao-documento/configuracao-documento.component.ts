@@ -10,11 +10,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { TipoServico } from '../../models/tipo-servico.enum';
 import { TipoArquivo } from 'src/app/models/tipo-arquivo.enum';
+ 
 
 @Component({
   selector: 'app-configuracao-documento',
   templateUrl: './configuracao-documento.component.html'
 })
+
 export class ConfiguracaoDocumentoComponent implements OnInit {
   formulario!: FormGroup;
   dataHoje: string = '';
@@ -27,6 +29,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   tiposArquivo: { chave: string; valor: number }[] = [];
   carregando = false;
   htmlConteudo: string = '';
+  
 
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
@@ -53,13 +56,20 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.ServicoArquivioEnum();
     this.carregaDocumentos();
   }
+  
 
   carregarHtml(documento: any) {
     this.http.get('assets/html/modelo-integracao.html', { responseType: 'text' })
       .subscribe({
         next: (html) => {
           const monstarHTML = documento;
-          this.htmlConteudo = html.replace('$descricao', monstarHTML.descricao);
+          const datainicio = this.formatarData(monstarHTML.dataInicio);
+          const datafinal = this.formatarData(monstarHTML.dataFinal);
+
+          this.htmlConteudo = html.replace('$descricao', monstarHTML.descricao)
+                              .replace('$chave', monstarHTML.guid)
+                              .replace('$dataInicio', datainicio)
+                              .replace('$dataFinal', datafinal);
         },
         error: () => {
           this.toastr.error('Erro ao carregar conteúdo HTML.');
@@ -70,6 +80,21 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   baixarArquivo(guid: string) {
     this.carregaDocumentosGuid(guid);
   }
+
+  formatarData(dataString: string): string {
+  const data = new Date(dataString);
+
+  if (isNaN(data.getTime())) {
+    throw new Error('Data inválida');
+  }
+
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+
+  return `${dia}/${mes}/${ano}`;
+}
+
 
   ServicoEnum() {
     this.tiposServico = Object.keys(TipoServico)
@@ -231,3 +256,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     }
   }
 }
+function html2pdf() {
+  throw new Error('Function not implemented.');
+}
+

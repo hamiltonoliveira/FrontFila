@@ -1,10 +1,143 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <title>Decrição da fila: $descricao</title>
+  <!-- <h5 class="title">Integração da mensageria</title></h5> -->
+  <link rel="stylesheet" href="./../css/estilo.css">
 </head>
+
 <body>
+  <div class="section">
+  <p><span class="label">Descrição da fila:</span> <span class="fst-italic">$descricao</span></p>
+    <p>
+      <span class="label">Chave:</span> <b>$chave</b><br>
+      <small>- Esta chave é de uso exclusivo para a fila cadastrada e somente poderá ser utilizada para essa
+        finalidade.</small>
+    </p>
+
+    <p>
+      <span class="label">Data início:</span> $dataInicio /
+      <span class="label">Data final:</span> $dataFinal<br>
+      <small>- A fila possui um período de validade definido. Caso seja necessária uma fila com características
+        semelhantes,
+        será necessário realizar um novo cadastro.</small>
+    </p>
+
+    <p>
+      <span class="label">Token:</span><br>
+      <small>- Por medidas de segurança, é necessário inserir o <b>token</b> no cabeçalho (<b>header</b>) da requisição.
+        A obtenção do token foi encaminhada para o e-mail cadastrado.</small>
+    </p>
+
+    <p>
+      <span class="label">Endpoint:</span> <b>https://{dominio}/api/recurso</b><br>
+      <span class="label">Body:</span> <b>conteúdo da requisição no formato JSON</b><br>
+      <small>
+        A mensagem no formato JSON deve ser enviada no corpo (<b>body</b>) da requisição utilizando o método HTTP
+        POST.<br>
+        Certifique-se de que o cabeçalho 'Content-Type' esteja definido como 'application/json'.
+      </small>
+    </p>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <h3>🔹 1. Angular – Serviço para Enviar Requisição</h3>
+    <pre><code>// src/app/services/mensagem.service.ts
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
+export class MensagemService {
+  private apiUrl = 'https://localhost:7295/api';
+
+  constructor(private http: HttpClient) {}
+
+  enviarMensagem(payload: any, chave: string, token: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'chave': chave,
+      'token': token
+    });
+
+    return this.http.post(this.apiUrl, payload, { headers });
+  }
+}</code></pre>
+  </div>
+
+  <div class="section">
+    <h3>🔹 2. C# .NET – Controller que recebe o JSON com headers</h3>
+    <pre><code>// Controllers/MensagemController.cs
+[ApiController]
+[Route("api")]
+public class MensagemController : ControllerBase
+{
+    [HttpPost]
+    public IActionResult ReceberMensagem([FromBody] object dados)
+    {
+        var chave = Request.Headers["chave"].ToString();
+        var token = Request.Headers["token"].ToString();
+
+        if (string.IsNullOrEmpty(chave) || string.IsNullOrEmpty(token))
+            return BadRequest("Cabeçalhos 'chave' e 'token' são obrigatórios.");
+
+        // Processar a mensagem
+        return Ok(new { mensagem = "Recebido com sucesso!", dados });
+    }
+}</code></pre>
+  </div>
+
+  <div class="section">
+    <h3>🔹 3. Node.js com Express</h3>
+    <pre><code>// index.js
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+app.post('/api', (req, res) => {
+  const chave = req.header('chave');
+  const token = req.header('token');
+
+  if (!chave || !token) {
+    return res.status(400).json({ erro: 'Cabeçalhos "chave" e "token" são obrigatórios.' });
+  }
+
+  const dados = req.body;
+  // Processar os dados...
+
+  res.json({ mensagem: 'Mensagem recebida com sucesso!', dados });
+});
+
+app.listen(7295, () => console.log('API rodando na porta 7295'));</code></pre>
+  </div>
+
+  <div class="section">
+    <h3>🔹 4. Java com Spring Boot</h3>
+    <pre><code>// MensagemController.java
+@RestController
+@RequestMapping("/api")
+public class MensagemController {
+
+    @PostMapping
+    public ResponseEntity&lt;?&gt; receberMensagem(
+            @RequestHeader("chave") String chave,
+            @RequestHeader("token") String token,
+            @RequestBody Map&lt;String, Object&gt; dados) {
+
+        if (chave == null || token == null) {
+            return ResponseEntity.badRequest().body("Cabeçalhos 'chave' e 'token' são obrigatórios.");
+        }
+
+        // Processar os dados...
+        return ResponseEntity.ok(Map.of(
+            "mensagem", "Mensagem recebida com sucesso!",
+            "dados", dados
+        ));
+    }
+}</code></pre>
+  </div>
 
 </body>
 </html>
