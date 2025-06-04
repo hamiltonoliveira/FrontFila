@@ -6,6 +6,7 @@ ng generate service services/grupo-empresas
 ng generate service services/configuracaoDocumento
 ng generate service services/assinatura-eletronica
 ng generate service services/publicar
+ng generate service services/painel
 
 ng generate component app/menu
 ng generate component app/rodape
@@ -18,6 +19,8 @@ ng generate module app/component/grupo-empresas --route grupo-empresas --module 
 ng generate module app/component/ConfiguracaoDocumento --route ConfiguracaoDocumento --module app/app.module
 ng generate module app/component/assinaturas --route assinaturas --module app/app.module
 ng generate module app/component/instrucoes --route instrucoes --module app/app.module
+ng generate module app/component/painel --route painel --module app/app.module
+
 
 
 Uso de cookies - Guardamos estatísticas de visitas para melhorar sua experiência de navegação. Ao continuar, você concorda com nossa
