@@ -20,8 +20,6 @@ export class PainelService {
       'Authorization': `Bearer ${token}`
     });
     const params = guidCliente;
-
-    console.log(`${this.apiUrlLista}/Painel/painel/${params}`)
     return this.http.get(`${this.apiUrlLista}/Painel/painel/?guidcliente=${params}`, { headers });
   }
 }
