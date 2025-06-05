@@ -68,13 +68,19 @@ html, body {
 
 .thead th {
   font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
   background-color: #f6a504;
   color: white;
 }
 
+.tr{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: #000;
+}
 
 .scroll-box {
-  max-height: 200px;
+  max-height: 400px;
   overflow-y: auto;
   background-color: #f9f9f9;
   border: 1px solid #ccc;

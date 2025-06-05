@@ -1,11 +1,12 @@
 export interface DocumentoMSG {
-  Status:string;
-  NomeFila: string;
-  DataProcessamento: Date;
-  DataEnvio: Date; 
-  QuantidadeBytes: number;
-  QueueName:string;
+  status:string;
+  nomeFila: string;
+  dataProcessamento: Date;
+  dataEnvio: Date; 
+  quantidadeBytes: number;
+  registros: number;
+  queueName:string;
   descricao: string;
-  TipoArquivo:number;
-  TipoServico:number
+  tipoArquivo:number;
+  tipoServico:number;
 } 

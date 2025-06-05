@@ -15,6 +15,17 @@ export class PainelComponent {
    this. carregaDocumentos();
   }
 
+  calcularPreco(bytes: number): string {
+  const precoPorMB = 25.00
+  const mb = bytes / (1024 * 1024);
+  let preco = mb * precoPorMB;
+  preco = Math.max(preco, 0.01);
+  return preco.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 2
+  });
+}
 
   carregaDocumentos(): void {
       const guidCliente = localStorage.getItem('guidCliente');
@@ -23,9 +34,6 @@ export class PainelComponent {
       this.painelService.listarMGS(guidCliente).subscribe({
         next: (dados: DocumentoMSG[]) => {
           this.Documentacao = dados ?? [];
-
-          console.log(this.Documentacao);
-
           if (!dados || dados.length === 0) {
             //this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
           }
