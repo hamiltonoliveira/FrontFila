@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { PainelRoutingModule } from './painel-routing.module';
 import { PainelComponent } from './painel.component';
 
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -11,7 +13,8 @@ import { PainelComponent } from './painel.component';
   ],
   imports: [
     CommonModule,
-    PainelRoutingModule
+    PainelRoutingModule,
+    FormsModule
   ]
 })
 export class PainelModule { }

@@ -1,45 +1,68 @@
 <div class="d-flex justify-content-center mt-5">
-      <div *ngIf="carregando" class="d-flex justify-content-center align-items-center flex-column"
+  <div *ngIf="carregando" class="d-flex justify-content-center align-items-center flex-column"
     style="position: fixed; inset: 0; width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.8); z-index: 1050;">
-
     <div class="spinner-grow text-info" role="status" style="width: 3rem; height: 3rem;">
       <span class="visually-hidden">Carregando...</span>
     </div>
-
-    <p class="mt-3 fs-5 fw-medium"><span style="font-family: 'Montserrat', sans-serif; color: red;">Por favor,
-        aguarde...</span></p>
+    <p class="mt-3 fs-5 fw-medium">
+      <span style="font-family: 'Montserrat', sans-serif; color: red;">Por favor, aguarde...</span>
+    </p>
   </div>
 
-    <div class="card w-75 shadow">
-        <div class="card-body p-0">
-            <div class="scroll-box">
-                <div class="table table-responsive">
-                    <table class="table  table-bordered small-font table-striped">
-                        <thead class="thead">
-                            <tr class="tr">
-                                <th>&nbsp;</th>
-                                <th>Status</th>
-                                <th>Fila criada pelo sistema</th>
-                                <th>Data envio</th>
-                                <th>Descrição</th>
-                                <th>Tipo de arquivo</th>
-                                <th>Quantidade registros</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of Documentacao; let i = index"  class="tr">
-                                <td>{{ i + 1 }}</td>
-                                <td>{{ item.status }}</td>
-                                <td>{{ item.queueName }}</td>
-                                <td>{{ item.dataEnvio }}</td>
-                                <td>{{ item.descricao }}</td>
-                                <td>{{ item.tipoArquivo }}</td>
-                                <td>{{ item.registros }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <div class="card w-75 shadow">
+    <div class="card-body p-0">
+      <div class="scroll-box">
+        <div class="table table-responsive">
+          <table class="table table-bordered small-font table-striped">
+            <thead class="thead align-middle">
+              <tr>
+                <th> </th>
+                <th>
+                  Status
+                  <input type="text" class="form-control form-control-sm mt-1"
+                         [(ngModel)]="filtroStatus" placeholder="Filtrar status">
+                </th>
+                <th>
+                  Fila criada
+                  <input type="text" class="form-control form-control-sm mt-1"
+                         [(ngModel)]="filtroFila" placeholder="Filtrar fila">
+                </th>
+                <th>
+                  Data envio
+                  <input type="text" class="form-control form-control-sm mt-1"
+                         [(ngModel)]="filtroData" placeholder="Filtrar data">
+                </th>
+                <th>
+                  Finalidade e Uso
+                  <input type="text" class="form-control form-control-sm mt-1"
+                         [(ngModel)]="filtroDescricao" placeholder="Filtrar uso">
+                </th>
+                <th>
+                  Tipo de arquivo
+                  <input type="text" class="form-control form-control-sm mt-1"
+                         [(ngModel)]="filtroTipo" placeholder="Filtrar tipo">
+                </th>
+                <th>
+                  Qtd. registros
+                  <input type="number" class="form-control form-control-sm mt-1"
+                         [(ngModel)]="filtroRegistros" placeholder="Filtrar">
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of getDocumentacaoFiltrada(); let i = index" class="tr">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.queueName }}</td>
+                <td>{{ item.dataEnvio }}</td>
+                <td>{{ item.descricao }}</td>
+                <td>{{ item.tipoArquivo }}</td>
+                <td>{{ item.registros }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </div>

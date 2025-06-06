@@ -9,40 +9,61 @@ import { PainelService } from 'src/services/painel.service';
 })
 export class PainelComponent {
 
-   Documentacao: DocumentoMSG[] = [];
-   carregando = false;
-     
-  constructor(private painelService: PainelService) { 
-   this. carregaDocumentos();
+  Documentacao: DocumentoMSG[] = [];
+  documentacaoOriginal: DocumentoMSG[] = [];
+  carregando = false;
+
+  filtroStatus: string = '';
+  filtroFila: string = '';
+  filtroData: string = '';
+  filtroDescricao: string = '';
+  filtroTipo: string = '';
+  filtroRegistros?: number;
+
+  constructor(private painelService: PainelService) {
+    this.carregaDocumentos();
   }
 
   spinner(valor: boolean) {
     this.carregando = valor;
-    if (valor) {
-      setTimeout(() => {
-        this.carregando = false;
-      }, 1000);
-    }
   }
 
-   carregaDocumentos(): void {
-      const guidCliente = localStorage.getItem('guidCliente');
-      if (!guidCliente) return;
-      this.painelService.listarMGS(guidCliente).subscribe({
-        next: (dados: DocumentoMSG[]) => {
-          this.Documentacao = dados ?? [];
-          if (!dados || dados.length === 0) {
-            //this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
-          }
-          this.spinner(false);
-        },
-        error: (erro) => {
-          //this.Erro('Erro ao carregar configurações de documento:');
-          this.spinner(false);
-        }
-      });
-    }
-  
+  carregaDocumentos(): void {
+    const guidCliente = localStorage.getItem('guidCliente');
+    if (!guidCliente) return;
+    this.spinner(true);
+    this.painelService.listarMGS(guidCliente).subscribe({
+      next: (dados: DocumentoMSG[]) => {
+        this.documentacaoOriginal = dados ?? [];
+        this.Documentacao = [...this.documentacaoOriginal];
+        this.spinner(false);
+      },
+      error: () => {
+        this.spinner(false);
+      }
+    });
+  }
 
 
+  getDocumentacaoFiltrada(): DocumentoMSG[] {
+    const includesIgnoreCase = (value: any, filter?: string) => {
+      if (!filter) return true;
+      if (value == null) return false;
+      return value.toString().toLowerCase().includes(filter.toLowerCase());
+    };
+
+    return this.documentacaoOriginal.filter(item => {
+      const dataEnvioStr = item.dataEnvio ? item.dataEnvio.toString() : '';
+      const dataEnvioMatch = !this.filtroData || dataEnvioStr.toLowerCase().includes(this.filtroData.toLowerCase());
+
+      return (
+        includesIgnoreCase(item.status, this.filtroStatus) &&
+        includesIgnoreCase(item.queueName, this.filtroFila) &&
+        dataEnvioMatch &&
+        includesIgnoreCase(item.descricao, this.filtroDescricao) &&
+        includesIgnoreCase(item.tipoArquivo, this.filtroTipo) &&
+        (!this.filtroRegistros || item.registros === this.filtroRegistros)
+      );
+    });
+  }
 }

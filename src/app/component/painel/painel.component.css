@@ -1,0 +1,22 @@
+input.form-control.form-control-sm.mt-1 {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: 2px solid #f6a504;  
+  border-radius: 8px;
+  background-color: #f8f9fa;  
+  box-shadow: inset 1px 1px 5px rgba(0, 123, 255, 0.15);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+input.form-control.form-control-sm.mt-1:focus {
+  border-color: #f6a504; 
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
+  outline: none;
+}
+
+input.form-control.form-control-sm.mt-1::placeholder {
+  color: #6c757d;
+  font-style: italic;
+  opacity: 0.7;
+}
