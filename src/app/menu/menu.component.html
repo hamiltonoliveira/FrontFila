@@ -16,9 +16,25 @@
             Cadastro e Configuração
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="/cadastro-empresa">Informação da Empresa</a></li>
-            <li><a class="dropdown-item" routerLink="#">Contrato de prestação de serviço</a></li>
-            <li><a class="dropdown-item" routerLink="/configuracao-documento">Configuração de Filas</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/cadastro-empresa">
+                Informação da Empresa
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" routerLink="#" [class.disabled]="logado" [class.text-muted]="logado"
+                [style.pointer-events]="logado ? 'auto' : 'none'">
+                Contrato de prestação de serviço
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" routerLink="/configuracao-documento" [class.disabled]="logado"
+                [class.text-muted]="logado" [style.pointer-events]="logado ? 'auto' : 'none'">
+                Configuração de Filas
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
@@ -29,20 +45,24 @@
             data-bs-toggle="dropdown" aria-expanded="false">
             Publicações e Envios
           </a>
+
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li>
-              <a class="dropdown-item" routerLink="/painel">
+              <a class="dropdown-item" routerLink="/painel" [class.disabled]="logado" [class.text-muted]="logado"
+                [style.pointer-events]="logado ? 'auto' : 'none'">
                 Publicações realizadas
               </a>
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/instrucoes">
+              <a class="dropdown-item" routerLink="/instrucoes" [class.disabled]="logado" [class.text-muted]="logado"
+                [style.pointer-events]="logado ? 'auto' : 'none'">
                 Enviar MSG pelo serviço manualmente
               </a>
             </li>
           </ul>
         </li>
       </ul>
+
 
       <!-- Grupo Login alinhado à direita -->
       <ul class="navbar-nav ms-auto">
