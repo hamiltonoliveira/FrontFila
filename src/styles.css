@@ -78,7 +78,7 @@ html, body {
   font-size: 15px;
   color: #000;
 }
-
+ 
 .scroll-box {
   max-height: 400px;
   overflow-y: auto;
@@ -108,6 +108,19 @@ html, body {
 .scroll-box::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
+
+input.form-check-input {
+  background-color: #f33d6e;
+  border-color: #f33d6e;
+  color: #fff; /* cor do texto, caso necessário */
+}
+
+/* Opcional: se quiser que o elemento mantenha a cor ao ser marcado */
+input.form-check-input:checked {
+  background-color: #f33d6e;
+  border-color: #f33d6e;
+}
+
  
 
 

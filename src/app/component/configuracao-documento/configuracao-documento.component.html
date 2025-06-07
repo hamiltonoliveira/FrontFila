@@ -17,7 +17,7 @@
 
           <div class="col-md-1 d-flex align-items-center">
             <div class="form-check form-switch">
-              <input class="form-check-input" style="background-color: #f33d6e; border-color: #f33d6e;" type="checkbox"
+              <input class="form-check-input" type="checkbox"
                 id="ativo" formControlName="ativo" checked (change)="mudarStatus()">
               <label class="form-check-label" for="ativo"
                 [ngStyle]="{color: statusAtivo === 'ON' ? 'black' : 'red', 'font-weight': 'normal'}"
