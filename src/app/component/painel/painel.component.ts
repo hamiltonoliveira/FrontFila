@@ -27,6 +27,9 @@ export class PainelComponent {
   spinner(valor: boolean) {
     this.carregando = valor;
   }
+abrirCalculadora(valor: any): void {
+  console.log('Abrindo calculadora para:', valor); 
+}
 
   carregaDocumentos(): void {
     const guidCliente = localStorage.getItem('guidCliente');

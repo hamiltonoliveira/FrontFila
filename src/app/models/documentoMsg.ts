@@ -1,4 +1,5 @@
 export interface DocumentoMSG {
+  guid:string;
   status:string;
   nomeFila: string;
   dataProcessamento: Date;
