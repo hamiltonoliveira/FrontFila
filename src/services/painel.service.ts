@@ -22,4 +22,14 @@ export class PainelService {
     const params = guidCliente;
     return this.http.get(`${this.apiUrlLista}/Painel/painel/?guidcliente=${params}`, { headers });
   }
+
+   CalculadoraGuid(guid: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    const params = guid;
+    return this.http.get(`${this.apiUrlLista}/Painel/calculadora/?guid=${params}`, { headers });
+  }
 }

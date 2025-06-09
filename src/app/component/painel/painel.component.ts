@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Calculadora } from 'src/app/models/calculadora.model';
 import { DocumentoMSG } from 'src/app/models/documentoMsg';
 import { PainelService } from 'src/services/painel.service';
 
@@ -11,6 +12,7 @@ export class PainelComponent {
 
   Documentacao: DocumentoMSG[] = [];
   documentacaoOriginal: DocumentoMSG[] = [];
+  calculadora: Calculadora[] = [];
   carregando = false;
 
   filtroStatus: string = '';
@@ -19,6 +21,17 @@ export class PainelComponent {
   filtroDescricao: string = '';
   filtroTipo: string = '';
   filtroRegistros?: number;
+ 
+  dataEnvio!: Date;
+  diasRetencao : string = '';
+  limiteRegistrosMensal : string = '';
+  nomeFila : string = '';
+  registros : string = '';
+  status : string = '';
+  valorMensal : string = '';
+  valorPorRegistroExcedente : string = '';
+  valorRetencaoExtraPorDia : string = '';
+
 
   constructor(private painelService: PainelService) {
     this.carregaDocumentos();
@@ -30,7 +43,35 @@ export class PainelComponent {
 
   abrirCalculadora(valor: any): void {
     console.log('Abrindo calculadora para:', valor);
+    this.carregaCalculadora(valor);
   }
+
+  carregaCalculadora(guid: string): void {
+  this.painelService.CalculadoraGuid(guid).subscribe({
+    next: (dados: Calculadora[]) => {
+      this.calculadora = dados ?? [];
+
+      if (this.calculadora.length > 0) {
+        const calculo = this.calculadora[0];
+
+        this.dataEnvio = calculo.dataEnvio ?? '';
+        this.diasRetencao = calculo.diasRetencao?.toString() ?? '';
+        this.limiteRegistrosMensal = calculo.limiteRegistrosMensal?.toString() ?? '';
+        this.nomeFila = calculo.nomeFila ?? '';
+        this.registros = calculo.registros?.toString() ?? '';
+        this.status = calculo.status ?? '';
+        this.valorMensal = calculo.valorMensal?.toString() ?? '';
+        this.valorPorRegistroExcedente = calculo.valorPorRegistroExcedente?.toString() ?? '';
+        this.valorRetencaoExtraPorDia = calculo.valorRetencaoExtraPorDia?.toString() ?? '';
+       }
+    },
+    error: () => {
+      this.spinner(false);
+    }
+  });
+}
+
+
 
   carregaDocumentos(): void {
     const guidCliente = localStorage.getItem('guidCliente');
@@ -85,8 +126,8 @@ export class PainelComponent {
     const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
 
     if (dias === 0) return 'bg-norma-soft';
-    if (dias > 0 && dias <= 5) return 'bg-atencao-soft';
-    if (dias > 5) return 'bg-tomato-soft';
+    if (dias >= 1 && dias < 10) return 'bg-atencao-soft';
+    if (dias >= 10) return 'bg-tomato-soft';
     return 'bg-danger-subtle text-dark';
   }
 }

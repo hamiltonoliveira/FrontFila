@@ -58,5 +58,5 @@ input.form-control.form-control-sm.mt-1::placeholder {
   font-size: 15px;
   color: #000;
   font-weight: bold;
-  font-style: italic;
+  font-style: italic; 
 }
