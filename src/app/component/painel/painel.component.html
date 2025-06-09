@@ -78,9 +78,9 @@
                 <td>{{ item.tipoArquivo }}</td>
                 <td class="text-center">{{ item.registros }}</td>
                 <td class="text-center align-middle">
-                  <button type="button" class="btn btn-light" (click)="abrirCalculadora(item.guid)"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="bi bi-calculator " style="cursor:pointer"></i>
+                  <button [disabled]="item.status !== 'Pendente'" type="button" class="btn btn-light"
+                    (click)="abrirCalculadora(item.guid)" data-bs-toggle="modal" data-bs-target="#calculadoraModal">
+                    <i class="bi bi-calculator" style="cursor:pointer"></i>
                   </button>
                 </td>
               </tr>
@@ -94,20 +94,49 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="calculadoraModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Calculadora de preço com base na data atual</h5>
+        <h5 class="modal-title" id="ModalLabel">Calculadora de preço com base na data atual</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <table>
+        <table class="table table-borderless">
           <tr>
-            <td>Data do envio: {{dataEnvio}}</td>
-         
+            <td>Situação: {{ status }}</td>
           </tr>
+
+          <tr>
+            <td>Data do envio: {{ dataEnvio }}</td>
+          </tr>
+
+          <tr>
+            <td>Dias de retenção: {{ diasRetencao }}</td>
+          </tr>
+
+          <tr>
+            <td>Valor da prestação: {{ valorMensal | currency:'R$ ':'symbol':'1.2-2' }}</td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <hr class="my-2">
+            </td>
+          </tr>
+
+          <tr>
+            <td>Registros publicados: {{ registros }}</td>
+          </tr>
+
+          <tr>
+            <td>Dias em atraso: {{ diasAtraso(dataEnvio) }}</td>
+          </tr>
+
+
+
         </table>
+
       </div>
     </div>
   </div>

@@ -130,4 +130,20 @@ export class PainelComponent {
     if (dias >= 10) return 'bg-tomato-soft';
     return 'bg-danger-subtle text-dark';
   }
+  
+  
+diasAtraso(dataEnvio: Date): number {
+  const hoje = new Date();
+  const envio = new Date(dataEnvio);
+
+  // Normaliza as datas para ignorar horas, minutos, segundos e milissegundos
+  envio.setHours(0, 0, 0, 0);
+  hoje.setHours(0, 0, 0, 0);
+
+  const diffEmMs = hoje.getTime() - envio.getTime();
+  const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
+ 
+  return dias > 0 ? dias : 0;
+}
+
 }
