@@ -27,9 +27,10 @@ export class PainelComponent {
   spinner(valor: boolean) {
     this.carregando = valor;
   }
-abrirCalculadora(valor: any): void {
-  console.log('Abrindo calculadora para:', valor); 
-}
+
+  abrirCalculadora(valor: any): void {
+    console.log('Abrindo calculadora para:', valor);
+  }
 
   carregaDocumentos(): void {
     const guidCliente = localStorage.getItem('guidCliente');
@@ -68,5 +69,24 @@ abrirCalculadora(valor: any): void {
         (!this.filtroRegistros || item.registros === this.filtroRegistros)
       );
     });
+  }
+
+  getCorLinha(dataEnvio: Date, pendente: string): string {
+    if (pendente !== 'Pendente') {
+      return ''; // ou uma classe neutra, como 'bg-body' ou 'bg-white'
+    }
+
+    const hoje = new Date();
+    const envio = new Date(dataEnvio);
+    envio.setHours(0, 0, 0, 0);
+    hoje.setHours(0, 0, 0, 0);
+
+    const diffEmMs = hoje.getTime() - envio.getTime();
+    const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
+
+    if (dias === 0) return 'bg-norma-soft';
+    if (dias > 0 && dias <= 5) return 'bg-atencao-soft';
+    if (dias > 5) return 'bg-tomato-soft';
+    return 'bg-danger-subtle text-dark';
   }
 }

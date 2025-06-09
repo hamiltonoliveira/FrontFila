@@ -9,9 +9,21 @@
     </p>
   </div>
 
-  <div class="card w-75 shadow">
+  <div class="card w-65 shadow">
+    <table style="margin-left: 15px; margin-top: 20px; margin-bottom: 20px;">
+      <tr>
+        <td class="alinhado-centro">
+          <span class="cor-quadrado bg-atencao-soft"></span>
+          <span class="text-dark-custom">&nbsp;&nbsp;Até 5 dias em atraso&nbsp;&nbsp;</span>
+        </td>
+        <td class="alinhado-centro">
+          <span class="cor-quadrado  bg-tomato-soft"></span>
+          <span class="text-dark-custom">&nbsp;&nbsp;Acima de 5 dias em atraso</span>
+        </td>
+      </tr>
+    </table>
     <div class="card-body p-0">
-      <div class="scroll-box" style="max-height: 75vh; overflow-y: auto;">
+      <div class="scroll-box" style="max-height: 70vh; overflow-y: auto;">
         <div class="table table-responsive">
           <table class="table table-bordered small-font table-striped">
             <thead class="thead align-middle">
@@ -19,37 +31,41 @@
                 <th> </th>
                 <th>
                   Status atual
-                  <input type="text" class="form-control form-control-sm mt-1"
-                         [(ngModel)]="filtroStatus" placeholder="Filtrar status">
+                  <input type="text" class="form-control form-control-sm mt-1" [(ngModel)]="filtroStatus"
+                    placeholder="Filtrar status">
                 </th>
                 <th>
                   Fila criada e em uso
-                  <input type="text" class="form-control form-control-sm mt-1"
-                         [(ngModel)]="filtroFila" placeholder="Filtrar fila">
+                  <input type="text" class="form-control form-control-sm mt-1" [(ngModel)]="filtroFila"
+                    placeholder="Filtrar fila">
                 </th>
                 <th>
                   Data da publicação
-                  <input type="text" class="form-control form-control-sm mt-1"
-                         [(ngModel)]="filtroData" placeholder="Filtrar data">
+                  <input type="text" class="form-control form-control-sm mt-1" [(ngModel)]="filtroData"
+                    placeholder="Filtrar data">
                 </th>
                 <th>
                   Definição da fila
-                  <input type="text" class="form-control form-control-sm mt-1"
-                         [(ngModel)]="filtroDescricao" placeholder="Filtrar uso">
+                  <input type="text" class="form-control form-control-sm mt-1" [(ngModel)]="filtroDescricao"
+                    placeholder="Filtrar uso">
                 </th>
                 <th>
                   Tipo de arquivo
-                  <input type="text" class="form-control form-control-sm mt-1"
-                         [(ngModel)]="filtroTipo" placeholder="Filtrar tipo">
+                  <input type="text" class="form-control form-control-sm mt-1" [(ngModel)]="filtroTipo"
+                    placeholder="Filtrar tipo">
                 </th>
                 <th>
                   Quantidade registros
-                  <input type="number" class="form-control form-control-sm mt-1"
-                         [(ngModel)]="filtroRegistros" placeholder="Filtrar">
+                  <input type="number" class="form-control form-control-sm mt-1" [(ngModel)]="filtroRegistros"
+                    placeholder="Filtrar">
                 </th>
-                 <th class="text-center align-top">
-                    Calculadora
-                 </th>
+                <th class="text-center align-middle">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-calculator-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z" />
+                  </svg>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -57,11 +73,16 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.status }}</td>
                 <td class="text-center">{{ item.queueName }}</td>
-                <td>{{ item.dataEnvio }}</td>
+                <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.dataEnvio }}</td>
                 <td>{{ item.descricao }}</td>
                 <td>{{ item.tipoArquivo }}</td>
                 <td class="text-center">{{ item.registros }}</td>
-                <td class="text-center align-middle"><i class="bi bi-calculator" (click)="abrirCalculadora(item.guid)" style="cursor:pointer"></i></td>
+                <td class="text-center align-middle">
+                  <button type="button" class="btn btn-light" (click)="abrirCalculadora(item.guid)"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-calculator " style="cursor:pointer"></i>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -70,3 +91,21 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Calculadora</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- model -->
