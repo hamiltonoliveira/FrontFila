@@ -1,5 +1,6 @@
 export interface Calculadora {
   status: string;
+  ativo: boolean;
   nomeFila: string;
   quantidadeBytes: number;
   registros: number;

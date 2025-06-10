@@ -71,15 +71,16 @@
             <tbody>
               <tr *ngFor="let item of getDocumentacaoFiltrada(); let i = index" class="tr">
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.status }}</td>
+                <td  [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.ativo ? item.status : 'Pago' }}</td>
                 <td class="text-center">{{ item.queueName }}</td>
-                <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.dataEnvio }}</td>
+                <td>{{ item.dataEnvio }}</td>
                 <td>{{ item.descricao }}</td>
                 <td>{{ item.tipoArquivo }}</td>
                 <td class="text-center">{{ item.registros }}</td>
                 <td class="text-center align-middle">
-                  <button [disabled]="item.status !== 'Pendente'" type="button" class="btn btn-light"
-                    (click)="abrirCalculadora(item.guid)" data-bs-toggle="modal" data-bs-target="#calculadoraModal">
+                  <button [disabled]="item.status !== 'Pendente' && item.status !== 'Atrasado'" type="button"
+                    class="btn btn-light" (click)="abrirCalculadora(item.guid)" data-bs-toggle="modal"
+                    data-bs-target="#calculadoraModal">
                     <i class="bi bi-calculator" style="cursor:pointer"></i>
                   </button>
                 </td>
@@ -135,7 +136,7 @@
           </tr>
 
           <tr>
-            <td>Dias em atraso:<strong>{{ diasAtraso(dataEnvio) }}</strong></td>
+            <td>Dias em atraso:<strong>{{ diasAtraso(dataEnvio, ativo) }}</strong></td>
           </tr>
 
           <tr>

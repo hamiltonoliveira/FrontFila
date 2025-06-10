@@ -23,6 +23,7 @@ export class PainelComponent {
   filtroRegistros?: number;
 
   dataEnvio!: Date;
+  ativo: boolean = true;
   diasRetencao: string = '';
   limiteRegistrosMensal: string = '';
   nomeFila: string = '';
@@ -48,7 +49,6 @@ export class PainelComponent {
   }
 
   abrirCalculadora(valor: any): void {
-    console.log('Abrindo calculadora para:', valor);
     this.carregaCalculadora(valor);
   }
 
@@ -56,9 +56,9 @@ export class PainelComponent {
     this.painelService.CalculadoraGuid(guid).subscribe({
       next: (dados: Calculadora[]) => {
         this.calculadora = dados ?? [];
-
         if (this.calculadora.length > 0) {
           const calculo = this.calculadora[0];
+
 
           this.dataEnvio = calculo.dataEnvio ?? '';
           this.diasRetencao = calculo.diasRetencao?.toString() ?? '';
@@ -70,14 +70,15 @@ export class PainelComponent {
           this.valorPorRegistroExcedente = calculo.valorPorRegistroExcedente?.toString() ?? '';
           this.valorRetencaoExtraPorDia = calculo.valorRetencaoExtraPorDia?.toString() ?? '';
 
+          this.ativo = calculo.ativo;
 
-          const dias = Number(this.diasAtraso(this.dataEnvio));
+          const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
           this.valorExcedente = (dias > 10)
             ? ((dias - 10) * 0.50).toString()
             : '0';
- 
 
-         this.equacao = "Dias em atraso > 10 então (dias -10) * 0,50";
+
+          this.equacao = "Dias em atraso > 10 então (dias -10) * 0,50";
 
         }
       },
@@ -128,38 +129,45 @@ export class PainelComponent {
     });
   }
 
-  getCorLinha(dataEnvio: Date, pendente: string): string {
-    if (pendente !== 'Pendente') {
-      return ''; // ou uma classe neutra, como 'bg-body' ou 'bg-white'
+  getCorLinha(dataEnvio: Date, status: string): string {
+ 
+    if (status !== 'Pendente' && status !== 'Atrasado' && status !== 'Pago') {
+      return ''; // Classe padrão pode ser 'bg-white', se desejar
     }
 
     const hoje = new Date();
     const envio = new Date(dataEnvio);
+
+    // Normaliza para comparar apenas as datas, ignorando hora
     envio.setHours(0, 0, 0, 0);
     hoje.setHours(0, 0, 0, 0);
 
-    const diffEmMs = hoje.getTime() - envio.getTime();
-    const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
+    const dias = Math.floor((hoje.getTime() - envio.getTime()) / (1000 * 60 * 60 * 24));
 
+    if(status === 'Pago')return 'bg-pago-soft';
     if (dias === 0) return 'bg-norma-soft';
-    if (dias >= 1 && dias < 10) return 'bg-atencao-soft';
+    if (dias < 10) return 'bg-atencao-soft';
     if (dias >= 10) return 'bg-tomato-soft';
-    return 'bg-danger-subtle text-dark';
+
+    return 'bg-danger-subtle text-dark'; // Fallback
   }
 
 
-  diasAtraso(dataEnvio: Date): number {
-    const hoje = new Date();
-    const envio = new Date(dataEnvio);
+  diasAtraso(dataEnvio: Date, ativo: boolean): number {
+    if (ativo == true) {
+      const hoje = new Date();
+      const envio = new Date(dataEnvio);
 
-    // Normaliza as datas para ignorar horas, minutos, segundos e milissegundos
-    envio.setHours(0, 0, 0, 0);
-    hoje.setHours(0, 0, 0, 0);
+      envio.setHours(0, 0, 0, 0);
+      hoje.setHours(0, 0, 0, 0);
 
-    const diffEmMs = hoje.getTime() - envio.getTime();
-    const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
+      const diffEmMs = hoje.getTime() - envio.getTime();
+      const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
 
-    return dias > 0 ? dias : 0;
+      return dias > 0 ? dias : 0;
+    }
+    else {
+      return 0;
+    }
   }
-
 }

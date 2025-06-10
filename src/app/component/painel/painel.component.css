@@ -51,6 +51,12 @@ input.form-control.form-control-sm.mt-1::placeholder {
   color: #212529;  
 }
 
+.bg-pago-soft {
+  background-color: #78aa91;  
+  color: #ffffff; 
+}
+
+
 .text-dark-custom {
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
