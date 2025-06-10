@@ -98,45 +98,59 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalLabel">Calculadora de preço com base na data atual</h5>
+        <h5 class="modal-title" id="ModalLabel"><strong>Calculadora de preço com base na data atual</strong></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <table class="table table-borderless">
           <tr>
-            <td>Situação: {{ status }}</td>
-          </tr>
-
-          <tr>
-            <td>Data do envio: {{ dataEnvio }}</td>
-          </tr>
-
-          <tr>
-            <td>Dias de retenção: {{ diasRetencao }}</td>
-          </tr>
-
-          <tr>
-            <td>Valor da prestação: {{ valorMensal | currency:'R$ ':'symbol':'1.2-2' }}</td>
-          </tr>
-
-          <tr>
-            <td colspan="2">
-              <hr class="my-2">
+            <td>
+              Situação:<strong>{{status}}</strong>
+              <small class="text-muted fst-italic">Visualizado em:{{hoje | date:'dd/MM/yyyy HH:mm'}}</small>
             </td>
           </tr>
 
           <tr>
-            <td>Registros publicados: {{ registros }}</td>
+            <td>Data do envio:{{ dataEnvio }}</td>
           </tr>
 
           <tr>
-            <td>Dias em atraso: {{ diasAtraso(dataEnvio) }}</td>
+            <td class="justify-text">Decorridos<b>{{ diasRetencao }}</b>dias vencidos, haverá cobrança proporcional
+              pelos Dias de Retenção.</td>
           </tr>
 
+          <tr>
+            <td class="justify-text">Conforme contrato, o valor é único e não varia com o número de filas da prestação.
+              {{ valorMensal | currency:'R$ ':'symbol':'1.2-2' }}</td>
+          </tr>
 
+          <tr>
+            <td>
+              <hr class="my-1">
+            </td>
+          </tr>
 
+          <tr>
+            <td>Registros publicados:<strong>{{ registros }}</strong></td>
+          </tr>
+
+          <tr>
+            <td>Dias em atraso:<strong>{{ diasAtraso(dataEnvio) }}</strong></td>
+          </tr>
+
+          <tr>
+            <table>
+              <tr>
+                <td>Valor excedente da fila após 10 dias:
+                  <strong> {{ valorExcedente | currency:'R$ ':'symbol':'1.2-2' }}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Equação efetuada:<strong> {{ this.equacao }}</strong></td>
+              </tr>
+            </table>
+          </tr>
         </table>
-
       </div>
     </div>
   </div>

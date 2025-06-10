@@ -21,20 +21,26 @@ export class PainelComponent {
   filtroDescricao: string = '';
   filtroTipo: string = '';
   filtroRegistros?: number;
- 
-  dataEnvio!: Date;
-  diasRetencao : string = '';
-  limiteRegistrosMensal : string = '';
-  nomeFila : string = '';
-  registros : string = '';
-  status : string = '';
-  valorMensal : string = '';
-  valorPorRegistroExcedente : string = '';
-  valorRetencaoExtraPorDia : string = '';
 
+  dataEnvio!: Date;
+  diasRetencao: string = '';
+  limiteRegistrosMensal: string = '';
+  nomeFila: string = '';
+  registros: string = '';
+  status: string = '';
+  valorMensal: string = '';
+  valorPorRegistroExcedente: string = '';
+  valorRetencaoExtraPorDia: string = '';
+  hoje: Date | undefined;
+  valorExcedente: string = '';
+  equacao: string = '';
 
   constructor(private painelService: PainelService) {
     this.carregaDocumentos();
+  }
+
+  ngOnInit() {
+    this.hoje = new Date();
   }
 
   spinner(valor: boolean) {
@@ -47,29 +53,39 @@ export class PainelComponent {
   }
 
   carregaCalculadora(guid: string): void {
-  this.painelService.CalculadoraGuid(guid).subscribe({
-    next: (dados: Calculadora[]) => {
-      this.calculadora = dados ?? [];
+    this.painelService.CalculadoraGuid(guid).subscribe({
+      next: (dados: Calculadora[]) => {
+        this.calculadora = dados ?? [];
 
-      if (this.calculadora.length > 0) {
-        const calculo = this.calculadora[0];
+        if (this.calculadora.length > 0) {
+          const calculo = this.calculadora[0];
 
-        this.dataEnvio = calculo.dataEnvio ?? '';
-        this.diasRetencao = calculo.diasRetencao?.toString() ?? '';
-        this.limiteRegistrosMensal = calculo.limiteRegistrosMensal?.toString() ?? '';
-        this.nomeFila = calculo.nomeFila ?? '';
-        this.registros = calculo.registros?.toString() ?? '';
-        this.status = calculo.status ?? '';
-        this.valorMensal = calculo.valorMensal?.toString() ?? '';
-        this.valorPorRegistroExcedente = calculo.valorPorRegistroExcedente?.toString() ?? '';
-        this.valorRetencaoExtraPorDia = calculo.valorRetencaoExtraPorDia?.toString() ?? '';
-       }
-    },
-    error: () => {
-      this.spinner(false);
-    }
-  });
-}
+          this.dataEnvio = calculo.dataEnvio ?? '';
+          this.diasRetencao = calculo.diasRetencao?.toString() ?? '';
+          this.limiteRegistrosMensal = calculo.limiteRegistrosMensal?.toString() ?? '';
+          this.nomeFila = calculo.nomeFila ?? '';
+          this.registros = calculo.registros?.toString() ?? '';
+          this.status = calculo.status ?? '';
+          this.valorMensal = calculo.valorMensal?.toString() ?? '';
+          this.valorPorRegistroExcedente = calculo.valorPorRegistroExcedente?.toString() ?? '';
+          this.valorRetencaoExtraPorDia = calculo.valorRetencaoExtraPorDia?.toString() ?? '';
+
+
+          const dias = Number(this.diasAtraso(this.dataEnvio));
+          this.valorExcedente = (dias > 10)
+            ? ((dias - 10) * 0.50).toString()
+            : '0';
+ 
+
+         this.equacao = "Dias em atraso > 10 então (dias -10) * 0,50";
+
+        }
+      },
+      error: () => {
+        this.spinner(false);
+      }
+    });
+  }
 
 
 
@@ -130,20 +146,20 @@ export class PainelComponent {
     if (dias >= 10) return 'bg-tomato-soft';
     return 'bg-danger-subtle text-dark';
   }
-  
-  
-diasAtraso(dataEnvio: Date): number {
-  const hoje = new Date();
-  const envio = new Date(dataEnvio);
 
-  // Normaliza as datas para ignorar horas, minutos, segundos e milissegundos
-  envio.setHours(0, 0, 0, 0);
-  hoje.setHours(0, 0, 0, 0);
 
-  const diffEmMs = hoje.getTime() - envio.getTime();
-  const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
- 
-  return dias > 0 ? dias : 0;
-}
+  diasAtraso(dataEnvio: Date): number {
+    const hoje = new Date();
+    const envio = new Date(dataEnvio);
+
+    // Normaliza as datas para ignorar horas, minutos, segundos e milissegundos
+    envio.setHours(0, 0, 0, 0);
+    hoje.setHours(0, 0, 0, 0);
+
+    const diffEmMs = hoje.getTime() - envio.getTime();
+    const dias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
+
+    return dias > 0 ? dias : 0;
+  }
 
 }

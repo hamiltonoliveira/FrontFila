@@ -36,12 +36,10 @@ input.form-control.form-control-sm.mt-1::placeholder {
   border: 1px solid #ccc;
 }
 
-
 .bg-tomato-soft {
-  background-color: #f33d6e; 
-  color: #212529;
+  background-color: #ff6347;  
+  color: #ffffff; 
 }
-
 
 .bg-atencao-soft {
   background-color: #fff9c4;  
@@ -60,3 +58,27 @@ input.form-control.form-control-sm.mt-1::placeholder {
   font-weight: bold;
   font-style: italic; 
 }
+
+.table {
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+}
+
+.justify-text {
+  text-align: justify;
+  line-height: 1.6;
+}
+
+.table td {
+  padding: 8px 12px;
+  vertical-align: top;
+}
+
+hr.my-2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
