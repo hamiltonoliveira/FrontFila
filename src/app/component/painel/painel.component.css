@@ -36,11 +36,6 @@ input.form-control.form-control-sm.mt-1::placeholder {
   border: 1px solid #ccc;
 }
 
-.bg-tomato-soft {
-  background-color: #ff6347;  
-  color: #ffffff; 
-}
-
 .bg-atencao-soft {
   background-color: #fff9c4;  
   color: #212529;  
@@ -51,11 +46,20 @@ input.form-control.form-control-sm.mt-1::placeholder {
   color: #212529;  
 }
 
-.bg-pago-soft {
-  background-color: #78aa91;  
+.bg-atrasado-soft {
+  background-color: #ff1964;  
   color: #ffffff; 
 }
 
+.bg-pago-soft {
+  background-color: #81f1f3;  
+  color: #ffffff;   
+}
+
+.bg-processado-soft{
+   background-color: #babffb;  
+  color: #ffffff;
+}
 
 .text-dark-custom {
   font-family: 'Montserrat', sans-serif;

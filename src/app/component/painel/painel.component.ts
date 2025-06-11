@@ -131,7 +131,7 @@ export class PainelComponent {
 
   getCorLinha(dataEnvio: Date, status: string): string {
  
-    if (status !== 'Pendente' && status !== 'Atrasado' && status !== 'Pago') {
+    if (status !== 'Pendente' && status !== 'Atrasado' && status !== 'Pago' && status !== 'Processado') {
       return ''; // Classe padrão pode ser 'bg-white', se desejar
     }
 
@@ -144,10 +144,11 @@ export class PainelComponent {
 
     const dias = Math.floor((hoje.getTime() - envio.getTime()) / (1000 * 60 * 60 * 24));
 
-    if(status === 'Pago')return 'bg-pago-soft';
+    if(status === 'Pago') return 'bg-pago-soft';
+    if(status === 'Processado') return 'bg-processado-soft';
     if (dias === 0) return 'bg-norma-soft';
     if (dias < 10) return 'bg-atencao-soft';
-    if (dias >= 10) return 'bg-tomato-soft';
+    if (dias >= 10) return 'bg-atrasado-soft';
 
     return 'bg-danger-subtle text-dark'; // Fallback
   }

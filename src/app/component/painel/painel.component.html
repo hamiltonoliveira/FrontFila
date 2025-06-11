@@ -17,8 +17,16 @@
           <span class="text-dark-custom">&nbsp;&nbsp;Até 10 dias em atraso&nbsp;&nbsp;</span>
         </td>
         <td class="alinhado-centro">
-          <span class="cor-quadrado  bg-tomato-soft"></span>
-          <span class="text-dark-custom">&nbsp;&nbsp;Acima de 10 dias em atraso</span>
+          <span class="cor-quadrado  bg-atrasado-soft"></span>
+          <span class="text-dark-custom">&nbsp;&nbsp;Acima de 10 dias em atraso&nbsp;&nbsp;</span>
+        </td>
+        <td class="alinhado-centro">
+          <span class="cor-quadrado bg-processado-soft"></span>
+          <span class="text-dark-custom">&nbsp;&nbsp;Processado&nbsp;&nbsp;</span>
+        </td>
+        <td class="alinhado-centro">
+          <span class="cor-quadrado  bg-pago-soft"></span>
+          <span class="text-dark-custom">&nbsp;&nbsp;Pago</span>
         </td>
       </tr>
     </table>
@@ -71,7 +79,7 @@
             <tbody>
               <tr *ngFor="let item of getDocumentacaoFiltrada(); let i = index" class="tr">
                 <td>{{ i + 1 }}</td>
-                <td  [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.ativo ? item.status : 'Pago' }}</td>
+                <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.ativo ? item.status : 'Pago' }}</td>
                 <td class="text-center">{{ item.queueName }}</td>
                 <td>{{ item.dataEnvio }}</td>
                 <td>{{ item.descricao }}</td>
