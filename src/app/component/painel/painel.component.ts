@@ -78,7 +78,7 @@ export class PainelComponent {
             : '0';
 
 
-          this.equacao = "Dias em atraso > 10 então (dias -10) * 0,50";
+        this.equacao = "Para dias em atraso superiores a 10, aplica-se a fórmula: (dias - 10) × 0,50";
 
         }
       },
@@ -131,7 +131,7 @@ export class PainelComponent {
 
   getCorLinha(dataEnvio: Date, status: string): string {
  
-    if (status !== 'Pendente' && status !== 'Atrasado' && status !== 'Pago' && status !== 'Processado') {
+    if (status !== 'Pendente' && status !== 'Atrasado') {
       return ''; // Classe padrão pode ser 'bg-white', se desejar
     }
 
@@ -144,8 +144,6 @@ export class PainelComponent {
 
     const dias = Math.floor((hoje.getTime() - envio.getTime()) / (1000 * 60 * 60 * 24));
 
-    if(status === 'Pago') return 'bg-pago-soft';
-    if(status === 'Processado') return 'bg-processado-soft';
     if (dias === 0) return 'bg-norma-soft';
     if (dias < 10) return 'bg-atencao-soft';
     if (dias >= 10) return 'bg-atrasado-soft';

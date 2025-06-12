@@ -18,15 +18,9 @@
         </td>
         <td class="alinhado-centro">
           <span class="cor-quadrado  bg-atrasado-soft"></span>
-          <span class="text-dark-custom">&nbsp;&nbsp;Acima de 10 dias em atraso&nbsp;&nbsp;</span>
-        </td>
-        <td class="alinhado-centro">
-          <span class="cor-quadrado bg-processado-soft"></span>
-          <span class="text-dark-custom">&nbsp;&nbsp;Processado&nbsp;&nbsp;</span>
-        </td>
-        <td class="alinhado-centro">
-          <span class="cor-quadrado  bg-pago-soft"></span>
-          <span class="text-dark-custom">&nbsp;&nbsp;Pago</span>
+          <span class="text-dark-custom">
+            &nbsp;&nbsp;Atrasos acima de 10 dias estão sujeitos à cobrança de tarifa adicional.&nbsp;&nbsp;
+          </span>
         </td>
       </tr>
     </table>
@@ -79,7 +73,7 @@
             <tbody>
               <tr *ngFor="let item of getDocumentacaoFiltrada(); let i = index" class="tr">
                 <td>{{ i + 1 }}</td>
-                <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.ativo ? item.status : 'Pago' }}</td>
+                <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.status }}</td>
                 <td class="text-center">{{ item.queueName }}</td>
                 <td>{{ item.dataEnvio }}</td>
                 <td>{{ item.descricao }}</td>
@@ -124,8 +118,10 @@
           </tr>
 
           <tr>
-            <td class="justify-text">Decorridos<b>{{ diasRetencao }}</b>dias vencidos, haverá cobrança proporcional
-              pelos Dias de Retenção.</td>
+            <td class="justify-text">
+              A cobrança proporcional pelos Dias de Retenção terá início após <b>{{ diasRetencao }}</b> dias corridos do
+              vencimento.
+            </td>
           </tr>
 
           <tr>
@@ -150,13 +146,18 @@
           <tr>
             <table>
               <tr>
-                <td>Valor excedente da fila após 10 dias:
-                  <strong> {{ valorExcedente | currency:'R$ ':'symbol':'1.2-2' }}</strong>
-                </td>
-              </tr>
-              <tr>
                 <td>Equação efetuada:<strong> {{ this.equacao }}</strong></td>
               </tr>
+
+              <tr>
+                <td>
+                  Valor excedente da fila após 10 dias do vencimento:
+                  <strong>
+                    {{ valorExcedente | currency:'BRL':'symbol':'1.2-2' }}
+                  </strong>
+                </td>
+              </tr>
+
             </table>
           </tr>
         </table>
