@@ -33,7 +33,7 @@ input.form-control.form-control-sm.mt-1::placeholder {
   height: 20px;
   border-radius: 4px;  
   margin-right: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #6c757d;
 }
 
 .bg-atencao-soft {
@@ -47,7 +47,7 @@ input.form-control.form-control-sm.mt-1::placeholder {
 }
 
 .bg-atrasado-soft {
-  background-color: #fe59c2;  
+   background-color: lch(51.08% 1.21 19.22);  
   color: #ffffff; 
 }
 

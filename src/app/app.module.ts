@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';  
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';  
 import { FormsModule } from '@angular/forms';  
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RodapeComponent } from './rodape/rodape.component';
 
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { RodapeComponent } from './rodape/rodape.component';
     BrowserAnimationsModule,  
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
