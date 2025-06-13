@@ -3,7 +3,7 @@
     "id": 1,
     "nome": "Básico",
     "preco": "89,00",
-    "periodicidade": "mês",
+    "periodicidade": "Mês",
     "destaque": false,
     "recursos": ["1.000 requisições","Tarifa de R$ 0,50 excedente após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "nome": "Intermediário",
     "preco": "120,00",
-    "periodicidade": "mês",
+    "periodicidade": "Mês",
     "destaque": true,
     "recursos": ["20.000 requisições","Tarifa de R$ 0,50 excedente após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
   },

@@ -7,12 +7,12 @@
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">
                             R$ {{ plano.preco }}
-                            <small class="text-muted">
+                             <span class="texto-menor-negrito">
                                 {{ plano.id === 3 ? '' : plano.periodicidade }}
-                            </small>
+                             </span>
                         </h1>
                         <ul class="list-unstyled mt-3 mb-4">
-                            <li *ngFor="let item of plano.recursos">{{ item }}</li>
+                            <li *ngFor="let item of plano.recursos"><span style="font-size: 18px; font-family: 'Montserrat', sans-serif;">{{ item }}</span></li>
                         </ul>
                         <button type="button" class="btn btn-outline-secondary w-100" (click)="escolherPlano(plano.id)">
                             <strong style="font-size: 25px;  font-family: 'Montserrat', sans-serif;">
@@ -22,5 +22,17 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-3"></div>
+        <div class="col-5" style="margin-left: 58px;">
+            <canvas #assinaturaCanvas (mousedown)="startDrawing($event)" (mouseup)="stopDrawing()"
+                (mouseleave)="stopDrawing()" (mousemove)="draw($event)" style="border: 2px dotted #f33d6e;  ">
+            </canvas>
+            <br>
+            <button class="botoes-assinatura" (click)="limpar()">Limpar</button>
+        </div>
+        <div class="col-3"></div>
     </div>
 </div>

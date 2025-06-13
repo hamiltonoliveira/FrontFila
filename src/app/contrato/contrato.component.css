@@ -67,9 +67,49 @@
 /* Destaque visual para plano em destaque */
 
 .border-danger {
-  border:#f33d6e; 
+  border: #f33d6e;
 }
 
 .border-dark {
-  border: 2px solid rgba(0, 0, 0, 0.3) !important;  
+  border: 2px solid rgba(0, 0, 0, 0.3) !important;
+}
+
+.canvas{
+  background-color: #f1f1f1;
+}
+
+.canvas-e-botoes {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center; 
+  align-items: center;  
+}
+
+.botoes-assinatura {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  background-color:#45525b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 120px;
+}
+
+.botoes-assinatura:hover {
+  background-color: #bac6d3;
+}
+ 
+.card {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.texto-menor-negrito {
+  font-weight: bold;
+  font-size:  18px;
 }

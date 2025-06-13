@@ -32,7 +32,6 @@
   background-color: #0056b3;
 }
 
-
 .painel-esquerdo{
     border: dotted;
     max-width: 100%;
@@ -41,5 +40,4 @@
 .painel-direito{
   border: dotted;
   max-width: 100%;
-}
-
+} 
