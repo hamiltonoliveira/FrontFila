@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RodapeComponent } from './rodape/rodape.component';
+import { ContratoComponent } from './contrato/contrato.component';
 
  
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    RodapeComponent
+    RodapeComponent,
+    ContratoComponent
   ],
   imports: [
     BrowserModule,

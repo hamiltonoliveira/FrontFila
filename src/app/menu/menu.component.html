@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-chumbo-gradient">
   <div class="container-fluid px-4">
-    <img src="../../assets/logo.png" class="logo" alt="VML Consultoria">
+    <img src="../../assets/logo.png" class="logo" alt="VML Consultoria" routerLink="/contrato">
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,14 +21,12 @@
                 Informação da Empresa
               </a>
             </li>
-
             <li>
-              <a class="dropdown-item" routerLink="#" [class.disabled]="logado" [class.text-muted]="logado"
-                [style.pointer-events]="logado ? 'auto' : 'none'">
-                Contrato de prestação de serviço
+              <a class="dropdown-item" routerLink="/contrato" [class.disabled]="logado"
+                 [class.text-muted]="logado" [style.pointer-events]="logado ? 'auto' : 'none'"> 
+                 Planos de Acesso ao Sistema
               </a>
             </li>
-
             <li>
               <a class="dropdown-item" routerLink="/configuracao-documento" [class.disabled]="logado"
                 [class.text-muted]="logado" [style.pointer-events]="logado ? 'auto' : 'none'">
@@ -43,7 +41,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
-            Publicações e Envios
+             Gerenciamento das Requisições
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -56,7 +54,7 @@
             <li>
               <a class="dropdown-item" routerLink="/instrucoes" [class.disabled]="logado" [class.text-muted]="logado"
                 [style.pointer-events]="logado ? 'auto' : 'none'">
-                Enviar MSG pelo serviço manualmente
+                Enviar requisição manualmente
               </a>
             </li>
           </ul>

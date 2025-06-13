@@ -1,8 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
+import { ContratoComponent } from './contrato/contrato.component';
 
 const routes: Routes = [
+{
+    path: '',
+    component: ContratoComponent, // Rota raiz carrega esse componente
+    pathMatch: 'full'
+  },
+  {
+    path: 'contrato',
+    component: ContratoComponent,
+    pathMatch: 'full'
+  },
   {
     path: 'login',
     loadChildren: () =>

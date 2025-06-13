@@ -11,8 +11,9 @@ ng generate service services/painel
 ng generate component app/menu
 ng generate component app/rodape
 ng generate component app/assinatura
+ng generate component app/instrucoes 
+ng generate component app/contrato 
 
-ng generate component app/instrucoes
 
 ng generate module app/component/login --route login --module app/app.module
 ng generate module app/component/grupo-empresas --route grupo-empresas --module app/app.module

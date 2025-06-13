@@ -1,0 +1,75 @@
+/* Container geral */
+.container {
+  background: #ffffff;
+}
+
+/* Card padrão */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: none;
+}
+
+/* Hover elegante */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho */
+.card-header {
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-bottom: none;
+  text-transform: uppercase;
+  color: #f33d6e;
+}
+
+/* Preço */
+.pricing-card-title {
+  font-size: 2rem;
+  color: #212529;
+}
+
+.pricing-card-title small {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+/* Lista de recursos */
+.card ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f1f1;
+  color: #555;
+}
+
+/* Botão padrão */
+.btn {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Botão com cor personalizada */
+.btn-outline-primary {
+  color: #f33d6e;
+  border-color: #f33d6e;
+}
+
+.btn-outline-primary:hover {
+  background-color: #f33d6e;
+  color: #fff;
+  border-color: #f33d6e;
+}
+
+/* Destaque visual para plano em destaque */
+
+.border-danger {
+  border:#f33d6e; 
+}
+
+.border-dark {
+  border: 2px solid rgba(0, 0, 0, 0.3) !important;  
+}

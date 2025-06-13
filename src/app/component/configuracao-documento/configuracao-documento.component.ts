@@ -91,7 +91,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   const dia = String(data.getDate()).padStart(2, '0');
   const mes = String(data.getMonth() + 1).padStart(2, '0');
   const ano = data.getFullYear();
-
   return `${dia}/${mes}/${ano}`;
 }
 
@@ -256,7 +255,3 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     }
   }
 }
-function html2pdf() {
-  throw new Error('Function not implemented.');
-}
-

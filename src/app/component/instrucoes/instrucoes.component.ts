@@ -75,10 +75,7 @@ export class InstrucoesComponent implements OnInit {
     if (!guidCliente) return;
     this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
-        if (dados) {
-          this.toastr.success('Carregado apenas filas ativas.');
-        }
-        this.ConfiguracaoDocumento = dados ?? [];
+       this.ConfiguracaoDocumento = dados ?? [];
 
         if (!dados || dados.length === 0) {
           this.toastr.warning('Nenhuma configuração de documento encontrada.');

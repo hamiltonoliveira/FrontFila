@@ -63,7 +63,7 @@ export class LoginComponent {
           localStorage.setItem('guidCliente', res.guidCliente);
        
           this.Sucesso(`Seja bem-vindo. ${this.nomeFantasia}`);
-          this.router.navigate(['/configuracao-documento']);
+          this.router.navigate(['/contrato']);
         } else {
           this.Erro("Token não recebido!");
         }

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nome": "Básico",
+    "preco": "89,00",
+    "periodicidade": "mês",
+    "destaque": false,
+    "recursos": ["1.000 requisições","Tarifa de R$ 0,50 excedente após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+  },
+  {
+    "id": 2,
+    "nome": "Intermediário",
+    "preco": "120,00",
+    "periodicidade": "mês",
+    "destaque": true,
+    "recursos": ["20.000 requisições","Tarifa de R$ 0,50 excedente após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+  },
+  {
+    "id": 3,
+    "nome": "Premium",
+    "preco": "Combinar",
+    "periodicidade": "mês",
+    "destaque": false,
+    "recursos": ["250.000 requisições","Tarifa R$ 0,50 de excedente após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+  }
+]
