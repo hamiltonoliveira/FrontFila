@@ -5,7 +5,7 @@
     "preco": "89,00",
     "periodicidade": "Mês",
     "destaque": false,
-    "recursos": ["1.000 requisições","Tarifa de R$ 0,50 por dia após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+    "recursos": ["1.000 requisições","Tarifa de R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "preco": "120,00",
     "periodicidade": "Mês",
     "destaque": true,
-    "recursos": ["20.000 requisições","Tarifa de R$ 0,50 por dia após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+    "recursos": ["20.000 requisições","Tarifa de R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
   },
   {
     "id": 3,
@@ -21,6 +21,6 @@
     "preco": "Combinar",
     "periodicidade": "mês",
     "destaque": false,
-    "recursos": ["50.000 requisições","Tarifa R$ 0,50 por dia após 10 dias na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+    "recursos": ["50.000 requisições","Tarifa R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
   }
 ]
