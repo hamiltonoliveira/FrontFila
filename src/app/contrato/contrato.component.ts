@@ -2,7 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import planosJson from './../../assets/plano.json'
- 
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-contrato',
@@ -14,29 +15,30 @@ export class ContratoComponent implements OnInit {
   @ViewChild('assinaturaCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   private ctx!: CanvasRenderingContext2D;
-  
+
   planos: any[] = [];
-  aberturaContratual!:number;
+  aberturaContratual!: number;
   precoPlano!: number;
+  planoEscolhido!: number;
 
   imagemAssinatura: string | null = null;
   codigoAssinatura: string | null = null;
   private desenhando = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.carregarPlanos(); 
+    this.carregarPlanos();
   }
 
   private carregarPlanos(): void {
     this.planos = planosJson;
   }
 
-  escolherPlano(id:number):void{
+  escolherPlano(id: number): void {
     this.aberturaContratual = id;
-    if( this.aberturaContratual > 0 ){
-      alert(id)
+    if (this.aberturaContratual > 0) {
+      this.planoEscolhido = id;
     }
   }
 
@@ -82,4 +84,17 @@ export class ContratoComponent implements OnInit {
     this.ngAfterViewInit();
   }
 
+  salvar(): void {
+    const canvas = this.canvasRef.nativeElement;
+    this.imagemAssinatura = canvas.toDataURL('image/png');
+    const assinaturaValida = this.imagemAssinatura.length > 0;
+    const planoValido = Number(this.planoEscolhido) > 0;
+   
+    if (assinaturaValida && planoValido) {
+      console.log(this.imagemAssinatura)
+      //this.criarAssinatura();
+    } else {
+      this.toastr.error("Ops! Você precisa escolher um plano, assinar digitalmente e salvar para continuar.");
+    }
+  }
 }

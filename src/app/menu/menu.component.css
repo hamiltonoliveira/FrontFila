@@ -28,3 +28,9 @@
   background-color: #d0d0d0; /* Cinza médio no hover */
 }
 
+.letraMenu{
+   font-family: 'Montserrat', sans-serif;
+   font-size: 15px;
+   background-color: #f33d6e;
+   color: white;
+}

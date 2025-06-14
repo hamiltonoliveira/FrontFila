@@ -7,12 +7,17 @@
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">
                             R$ {{ plano.preco }}
-                             <span class="texto-menor-negrito">
+                            <span class="texto-menor-negrito">
                                 {{ plano.id === 3 ? '' : plano.periodicidade }}
-                             </span>
+                            </span>
+                            <span *ngIf="plano.id === planoEscolhido" class="float-right">
+                                <i class="bi bi-check2"></i>
+                            </span>
                         </h1>
                         <ul class="list-unstyled mt-3 mb-4">
-                            <li *ngFor="let item of plano.recursos"><span style="font-size: 18px; font-family: 'Montserrat', sans-serif;">{{ item }}</span></li>
+                            <li *ngFor="let item of plano.recursos"><span
+                                    style="font-size: 18px; font-family: 'Montserrat', sans-serif;">{{ item }}</span>
+                            </li>
                         </ul>
                         <button type="button" class="btn btn-outline-secondary w-100" (click)="escolherPlano(plano.id)">
                             <strong style="font-size: 25px;  font-family: 'Montserrat', sans-serif;">
@@ -30,9 +35,11 @@
             <canvas #assinaturaCanvas (mousedown)="startDrawing($event)" (mouseup)="stopDrawing()"
                 (mouseleave)="stopDrawing()" (mousemove)="draw($event)" style="border: 2px dotted #f33d6e;  ">
             </canvas>
-            <br>
-            <button class="botoes-assinatura" (click)="limpar()">Limpar</button>
+            <div class="btn-group" role="group" aria-label="Exemplo básico">
+                <button type="button" class="btn botoes-assinatura" (click)="limpar()">Limpar</button>
+                <button type="button" class="btn botoes-assinatura" (click)="salvar()">Salvar</button>
+                <button type="button" class="btn botoes-assinatura">Contrato</button>
+            </div>
+            <div class="col-3"></div>
         </div>
-        <div class="col-3"></div>
     </div>
-</div>
