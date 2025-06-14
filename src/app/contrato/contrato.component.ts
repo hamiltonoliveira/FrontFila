@@ -25,7 +25,7 @@ export class ContratoComponent implements OnInit {
   codigoAssinatura: string | null = null;
   private desenhando = false;
 
-  constructor(private http: HttpClient,private toastr: ToastrService) { }
+  constructor(private http: HttpClient, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.carregarPlanos();
@@ -86,15 +86,28 @@ export class ContratoComponent implements OnInit {
 
   salvar(): void {
     const canvas = this.canvasRef.nativeElement;
-    this.imagemAssinatura = canvas.toDataURL('image/png');
-    const assinaturaValida = this.imagemAssinatura.length > 0;
+    const context = canvas.getContext('2d', { willReadFrequently: true });
+    const imageData = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data;
+
+    let hasDrawing = false;
+    for (let i = 0; i < pixels.length; i += 4) {
+      const alpha = pixels[i + 3];
+      if (alpha !== 0) {
+        hasDrawing = true;
+        break;
+      }
+    }
+
     const planoValido = Number(this.planoEscolhido) > 0;
-   
-    if (assinaturaValida && planoValido) {
-      console.log(this.imagemAssinatura)
-      //this.criarAssinatura();
+
+    if (hasDrawing && planoValido) {
+      this.imagemAssinatura = canvas.toDataURL('image/png');
+      console.log(this.imagemAssinatura);
+      // this.criarAssinatura();
     } else {
       this.toastr.error("Ops! Você precisa escolher um plano, assinar digitalmente e salvar para continuar.");
     }
   }
+
 }

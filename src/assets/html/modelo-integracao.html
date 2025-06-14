@@ -42,28 +42,41 @@
   <hr>
 
   <div class="section">
-    <h3>🔹 1. Angular – Serviço para Enviar Requisição</h3>
-    <pre><code>// src/app/services/mensagem.service.ts
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+  <h3>🔹 1. Angular – Serviço para Enviar Requisição (com QueryString)</h3>
+  <pre><code>// src/app/services/mensagem.service.ts
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MensagemService {
-  private apiUrl = 'https://{dominio}/api';
+  private apiUrl = 'https://{dominio}/api'; // Substitua {dominio} pelo endereço real da API
 
   constructor(private http: HttpClient) {}
 
-  enviarMensagem(payload: any, chave: string, token: string) {
+  /**
+   * Envia uma mensagem para a API .NET com parâmetros na query string.
+   * 
+   * @param payload Conteúdo JSON a ser enviado no body
+   * @param guid GUID que será enviado na query string
+   * @param tipoArquivo Tipo do arquivo (parâmetro numérico da query string)
+   * @returns Observable com a resposta da API
+   */
+  enviarMensagem(payload: any, guid: string, tipoArquivo: number): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'chave': chave,
-      'token': token
+      'Content-Type': 'application/json'
     });
 
-    return this.http.post(this.apiUrl, payload, { headers });
+    const params = new HttpParams()
+      .set('guid', guid)
+      .set('TipoArquivo', tipoArquivo.toString());
+
+    return this.http.post(this.apiUrl, payload, { headers, params });
   }
-}</code></pre>
-  </div>
+}
+</code></pre>
+</div>
+
 
   <div class="section">
     <h3>🔹 2. C# .NET – Controller que recebe o JSON com headers</h3>
