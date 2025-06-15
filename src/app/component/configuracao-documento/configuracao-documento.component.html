@@ -36,9 +36,10 @@
             <select id="tipoServico" formControlName="tipoServico" class="form-select"
               [ngClass]="{ 'is-invalid': formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid }">
 
+             
               <option value="" disabled selected>Selecione...</option>
-              <option *ngFor="let tipo of tiposServico" [value]="tipo.valor">
-                {{ tipo.chave }}
+              <option *ngFor="let tipo of Assisnatura" [value]="tipo.planoId">
+                  {{ getTipoServicoDescricao(tipo.planoId) }}
               </option>
             </select>
 

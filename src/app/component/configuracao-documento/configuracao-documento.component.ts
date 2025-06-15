@@ -1,4 +1,3 @@
-// configuracao-documento.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +9,9 @@ import { HttpClient } from '@angular/common/http';
 
 import { TipoServico } from '../../models/tipo-servico.enum';
 import { TipoArquivo } from 'src/app/models/tipo-arquivo.enum';
- 
+import { AssinaturaEletronicaService } from 'src/services/assinatura-eletronica.service';
+import { Assinatura } from 'src/app/models/assinatura-eletronica.model';
+
 
 @Component({
   selector: 'app-configuracao-documento',
@@ -24,18 +25,21 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   statusAtivo: string = 'ON';
   ConfiguracaoDocumento: ConfiguracaoDocumentoMQDTO[] = [];
   Documentacao: ConfiguracaoDocumentoMQDTO[] = [];
+  Assisnatura: Assinatura[] = [];
 
-  tiposServico: { chave: string; valor: number }[] = [];
   tiposArquivo: { chave: string; valor: number }[] = [];
   carregando = false;
   htmlConteudo: string = '';
-  
+
 
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
+    private assinaturaEletronicaService: AssinaturaEletronicaService,
     private localStorageService: LocalStorageService,
     private toastr: ToastrService,
-    private http: HttpClient) { }
+    private http: HttpClient) {
+    this.carregaContratoGuid()
+  }
 
   ngOnInit() {
     this.formulario = this.fb.group({
@@ -52,11 +56,9 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.caracteresDigitados = valor?.length || 0;
     });
     this.spinner(true);
-    this.ServicoEnum();
     this.ServicoArquivioEnum();
     this.carregaDocumentos();
   }
-  
 
   carregarHtml(documento: any) {
     this.http.get('assets/html/modelo-integracao.html', { responseType: 'text' })
@@ -67,9 +69,9 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
           const datafinal = this.formatarData(monstarHTML.dataFinal);
 
           this.htmlConteudo = html.replace('$descricao', monstarHTML.descricao)
-                              .replace('$chave', monstarHTML.guid)
-                              .replace('$dataInicio', datainicio)
-                              .replace('$dataFinal', datafinal);
+            .replace('$chave', monstarHTML.guid)
+            .replace('$dataInicio', datainicio)
+            .replace('$dataFinal', datafinal);
         },
         error: () => {
           this.toastr.error('Erro ao carregar conteúdo HTML.');
@@ -82,26 +84,16 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   }
 
   formatarData(dataString: string): string {
-  const data = new Date(dataString);
+    const data = new Date(dataString);
 
-  if (isNaN(data.getTime())) {
-    throw new Error('Data inválida');
-  }
+    if (isNaN(data.getTime())) {
+      throw new Error('Data inválida');
+    }
 
-  const dia = String(data.getDate()).padStart(2, '0');
-  const mes = String(data.getMonth() + 1).padStart(2, '0');
-  const ano = data.getFullYear();
-  return `${dia}/${mes}/${ano}`;
-}
-
-
-  ServicoEnum() {
-    this.tiposServico = Object.keys(TipoServico)
-      .filter(key => isNaN(Number(key))) // só as chaves (nomes)
-      .map(key => ({
-        chave: key,
-        valor: TipoServico[key as keyof typeof TipoServico]
-      }));
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
   }
 
   ServicoArquivioEnum() {
@@ -179,6 +171,28 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       },
       error: (err) => {
         this.Erro('Erro ao criar fila');
+      }
+    });
+  }
+
+  carregaContratoGuid(): void {
+    const guidCliente = localStorage.getItem('guidCliente');
+    if (!guidCliente) return;
+    this.spinner(true);
+    this.assinaturaEletronicaService.listarContratoGuid(guidCliente).subscribe({
+      next: (dados: Assinatura[]) => {
+        this.Assisnatura = dados ?? [];
+       
+        console.log(this.Assisnatura)
+
+        if (!dados || dados.length === 0) {
+          this.toastr.warning('Atenção: nenhum contrato encontrado.');
+        }
+        this.spinner(false);
+      },
+      error: (erro) => {
+        this.Erro('Erro ao carregar contrato:');
+        this.spinner(false);
       }
     });
   }

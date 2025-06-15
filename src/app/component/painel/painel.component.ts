@@ -35,6 +35,7 @@ export class PainelComponent {
   hoje: Date | undefined;
   valorExcedente: string = '';
   equacao: string = '';
+   
 
   constructor(private painelService: PainelService) {
     this.carregaDocumentos();
@@ -59,7 +60,6 @@ export class PainelComponent {
         if (this.calculadora.length > 0) {
           const calculo = this.calculadora[0];
 
-
           this.dataEnvio = calculo.dataEnvio ?? '';
           this.diasRetencao = calculo.diasRetencao?.toString() ?? '';
           this.limiteRegistrosMensal = calculo.limiteRegistrosMensal?.toString() ?? '';
@@ -69,17 +69,11 @@ export class PainelComponent {
           this.valorMensal = calculo.valorMensal?.toString() ?? '';
           this.valorPorRegistroExcedente = calculo.valorPorRegistroExcedente?.toString() ?? '';
           this.valorRetencaoExtraPorDia = calculo.valorRetencaoExtraPorDia?.toString() ?? '';
-
           this.ativo = calculo.ativo;
 
           const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
-          this.valorExcedente = (dias > 10)
-            ? ((dias - 10) * 0.50).toString()
-            : '0';
-
-
-        this.equacao = "Para dias em atraso superiores a 10, aplica-se a fórmula: (dias - 10) × 0,50";
-
+          this.valorExcedente = (dias > 10) ? ((dias - 10) * 0.50).toString() : '0';
+          this.equacao = "Para dias em atraso superiores a 10, aplica-se a fórmula: (dias - 10) × 0,50";
         }
       },
       error: () => {
@@ -87,8 +81,6 @@ export class PainelComponent {
       }
     });
   }
-
-
 
   carregaDocumentos(): void {
     const guidCliente = localStorage.getItem('guidCliente');
@@ -146,7 +138,7 @@ export class PainelComponent {
 
     if (dias === 0) return 'bg-norma-soft';
     if (dias < 10) return 'bg-atencao-soft';
-    if (dias >= 10) return 'bg-atrasado-soft';
+    if (dias > 10) return 'bg-atrasado-soft';
 
     return 'bg-danger-subtle text-dark'; // Fallback
   }

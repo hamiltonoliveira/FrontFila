@@ -14,12 +14,12 @@
       <tr>
         <td class="alinhado-centro">
           <span class="cor-quadrado bg-atencao-soft"></span>
-          <span class="text-dark-custom">&nbsp;&nbsp;Até 10 dias em atraso&nbsp;&nbsp;</span>
+          <span class="text-dark-custom">&nbsp;&nbsp;Até o décimo dia em atraso&nbsp;&nbsp;</span>
         </td>
         <td class="alinhado-centro">
           <span class="cor-quadrado  bg-atrasado-soft"></span>
           <span class="text-dark-custom">
-            &nbsp;&nbsp;Atrasos acima de 10 dias estão sujeitos à cobrança de tarifa adicional&nbsp;&nbsp;
+            &nbsp;&nbsp;Atrasos acima do décimo dia estão sujeitos à cobrança de tarifa adicional&nbsp;&nbsp;
           </span>
         </td>
       </tr>
@@ -96,7 +96,6 @@
 </div>
 
 
-<!-- Modal -->
 <div class="modal fade" id="calculadoraModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -119,14 +118,14 @@
 
           <tr>
             <td class="justify-text">
-              A cobrança proporcional pelos Dias de Retenção terá início após <b>{{ diasRetencao }}</b> dias corridos do
+              A cobrança proporcional pelos dias de Retenção terá início após <b>{{ diasRetencao }}</b> dias corridos do
               vencimento.
             </td>
           </tr>
 
           <tr>
             <td class="justify-text">Conforme contrato, o valor é único e não varia com o número de filas da prestação.
-              {{ valorMensal | currency:'R$ ':'symbol':'1.2-2' }}</td>
+             <strong>{{ valorMensal | currency:'R$ ':'symbol':'1.2-2' }}</strong> </td>
           </tr>
 
           <tr>
@@ -151,13 +150,12 @@
 
               <tr>
                 <td>
-                  Valor excedente da fila após 10 dias do vencimento:
+                  Valor da tarifa após o décimo do vencimento:
                   <strong>
-                    {{ valorExcedente | currency:'BRL':'symbol':'1.2-2' }}
+                    <strong> {{ valorExcedente | currency:'R$ ':'symbol':'1.2-2' }}</strong> 
                   </strong>
                 </td>
               </tr>
-
             </table>
           </tr>
         </table>
@@ -166,4 +164,3 @@
   </div>
 </div>
 
-<!-- model -->

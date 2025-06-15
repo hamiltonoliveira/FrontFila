@@ -90,7 +90,7 @@
 .botoes-assinatura {
   padding: 0.6rem 1.2rem;
   font-size: 16px;
-  background-color:  #1d3557;  
+  background-color: #423e3e;  
   color: white;
   border: none;
   border-radius: 6px;
@@ -112,4 +112,27 @@
 .texto-menor-negrito {
   font-weight: bold;
   font-size:  18px;
+}
+
+.assinatura-eletronica {
+  display: flex;
+  justify-content: center;  
+  align-items: center;        
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: #ffffff;
+  margin: 5px auto;        
+  max-width: 300px;            
+  padding: 5px 5px;         
+  background-color: #423e3e;   
+  border-radius: 8px;         
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
+  cursor: pointer;
+  text-align: center;        
+  transition: all 0.3s ease;
+}
+
+.assinatura-eletronica:hover {
+  background-color:  #bac6d3;
+  transform: translateY(-2px);
 }

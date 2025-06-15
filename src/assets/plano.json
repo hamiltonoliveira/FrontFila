@@ -18,7 +18,7 @@
   {
     "id": 3,
     "nome": "Premium",
-    "preco": "Combinar",
+    "preco": "180,00",
     "periodicidade": "mês",
     "destaque": false,
     "recursos": ["50.000 requisições","Tarifa R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import planosJson from './../../assets/plano.json'
 import { ToastrService } from 'ngx-toastr';
+import { AssinaturaEletronicaService } from 'src/services/assinatura-eletronica.service';
 
 
 @Component({
@@ -25,7 +26,9 @@ export class ContratoComponent implements OnInit {
   codigoAssinatura: string | null = null;
   private desenhando = false;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) { }
+  constructor(private http: HttpClient, 
+                      private assinaturaEletronicaService: AssinaturaEletronicaService,
+                      private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.carregarPlanos();
@@ -104,10 +107,28 @@ export class ContratoComponent implements OnInit {
     if (hasDrawing && planoValido) {
       this.imagemAssinatura = canvas.toDataURL('image/png');
       console.log(this.imagemAssinatura);
-      // this.criarAssinatura();
+      this.criarAssinatura();
     } else {
       this.toastr.error("Ops! Você precisa escolher um plano, assinar digitalmente e salvar para continuar.");
     }
   }
 
+   criarAssinatura(): void {
+    const guidCliente = localStorage.getItem("guidCliente");
+    const payload = {
+      PlanoId: this.planoEscolhido,
+      GuidCliente: guidCliente,
+      Assinatura: this.imagemAssinatura
+    };
+    this.assinaturaEletronicaService.criarFila(payload).subscribe(
+      dados => {
+        this.toastr.success('Assinatura arquivada.');
+      },
+      erro => {
+        this.toastr.error("Assinatura eletrônica existe.");
+      }
+    );
+  }
+ 
 }
+

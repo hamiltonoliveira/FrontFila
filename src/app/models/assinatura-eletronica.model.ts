@@ -1,6 +1,6 @@
 export interface Assinatura {
-  PlanoId: number;
-  GuidCliente: string;
-  HashDocumento: string; 
-  ArquivoAssinaturaBase64: string;
+  planoId: number;
+  guidCliente: string;
+  hashDocumento: string; 
+  arquivoAssinaturaBase64: string;
 }

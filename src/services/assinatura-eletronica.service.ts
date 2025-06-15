@@ -22,4 +22,14 @@ export class AssinaturaEletronicaService {
     const url = `${this.apiUrl}/Assinatura/Criar/`;
     return this.http.post(url, dados, { headers });
   }
+
+   listarContratoGuid(guid: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    const params = guid;
+    return this.http.get(`${this.apiUrl}/Assinatura/GetGuid/${params}`, { headers });
+  }
 }
