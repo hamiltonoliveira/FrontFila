@@ -58,8 +58,9 @@ input.form-control.form-control-sm.mt-1::placeholder {
 
 .bg-processado-soft{
    background-color: #babffb;  
-  color: #ffffff;
+   color: #ffffff;
 }
+
 
 .text-dark-custom {
   font-family: 'Montserrat', sans-serif;
