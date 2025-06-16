@@ -35,7 +35,7 @@ export class PainelComponent {
   hoje: Date | undefined;
   valorExcedente: string = '';
   equacao: string = '';
-   
+
 
   constructor(private painelService: PainelService) {
     this.carregaDocumentos();
@@ -72,8 +72,17 @@ export class PainelComponent {
           this.ativo = calculo.ativo;
 
           const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
-          this.valorExcedente = (dias > 10) ? ((dias - 10) * 0.50).toString() : '0';
-          this.equacao = "Para dias em atraso superiores a 10, aplica-se a fórmula: (dias - 10) × 0,50";
+
+           this.valorExcedente='';
+
+          if (dias > 10) {
+            this.valorExcedente = ((dias - Number(this.diasRetencao)) * Number(this.valorRetencaoExtraPorDia)).toString();
+          }
+          else{
+            this.valorExcedente= '0';
+          }
+
+          this.equacao = `Atrasos superiores a ${this.diasRetencao}, aplica-se a fórmula: (Dia(s) em atraso - ${this.diasRetencao}) × ${this.valorRetencaoExtraPorDia}`;
         }
       },
       error: () => {
@@ -122,15 +131,13 @@ export class PainelComponent {
   }
 
   getCorLinha(dataEnvio: Date, status: string): string {
- 
-    if (status !== 'Pendente' && status !== 'Atrasado') {
-      return ''; // Classe padrão pode ser 'bg-white', se desejar
-    }
 
+    if (status !== 'Pendente' && status !== 'Atrasado') {
+      return '';
+    }
     const hoje = new Date();
     const envio = new Date(dataEnvio);
 
-    // Normaliza para comparar apenas as datas, ignorando hora
     envio.setHours(0, 0, 0, 0);
     hoje.setHours(0, 0, 0, 0);
 

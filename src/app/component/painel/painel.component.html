@@ -124,11 +124,6 @@
           </tr>
 
           <tr>
-            <td class="justify-text">Conforme contrato, o valor é único e não varia com o número de filas da prestação.
-             <strong>{{ valorMensal | currency:'R$ ':'symbol':'1.2-2' }}</strong> </td>
-          </tr>
-
-          <tr>
             <td>
               <hr class="my-1">
             </td>
@@ -145,14 +140,14 @@
           <tr>
             <table>
               <tr>
-                <td>Equação efetuada:<strong> {{ this.equacao }}</strong></td>
+                <td class="justify-text">Equação efetuada:<strong> {{ this.equacao }}</strong></td>
               </tr>
 
               <tr>
                 <td>
                   Valor da tarifa após o décimo do vencimento:
                   <strong>
-                    <strong> {{ valorExcedente | currency:'R$ ':'symbol':'1.2-2' }}</strong> 
+                    <strong> {{ valorExcedente | currency:'R$ ':'symbol':'1.2-2' }}</strong>
                   </strong>
                 </td>
               </tr>
@@ -163,4 +158,3 @@
     </div>
   </div>
 </div>
-

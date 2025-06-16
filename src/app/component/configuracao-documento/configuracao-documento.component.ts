@@ -11,6 +11,7 @@ import { TipoServico } from '../../models/tipo-servico.enum';
 import { TipoArquivo } from 'src/app/models/tipo-arquivo.enum';
 import { AssinaturaEletronicaService } from 'src/services/assinatura-eletronica.service';
 import { Assinatura } from 'src/app/models/assinatura-eletronica.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
     private assinaturaEletronicaService: AssinaturaEletronicaService,
     private localStorageService: LocalStorageService,
+    private router: Router,
     private toastr: ToastrService,
     private http: HttpClient) {
     this.carregaContratoGuid()
@@ -182,11 +184,10 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.assinaturaEletronicaService.listarContratoGuid(guidCliente).subscribe({
       next: (dados: Assinatura[]) => {
         this.Assisnatura = dados ?? [];
-       
-        console.log(this.Assisnatura)
-
+        
         if (!dados || dados.length === 0) {
-          this.toastr.warning('Atenção: nenhum contrato encontrado.');
+          this.toastr.warning('Atenção: não há contratos disponíveis. Verifique se a fila está cadastrada.');
+          this.router.navigate(['/contrato']);
         }
         this.spinner(false);
       },
