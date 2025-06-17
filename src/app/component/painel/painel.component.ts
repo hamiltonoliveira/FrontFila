@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Calculadora } from 'src/app/models/calculadora.model';
 import { DocumentoMSG } from 'src/app/models/documentoMsg';
 import { PainelService } from 'src/services/painel.service';
@@ -37,7 +38,8 @@ export class PainelComponent {
   equacao: string = '';
 
 
-  constructor(private painelService: PainelService) {
+  constructor(private painelService: PainelService, 
+              private toastr: ToastrService) {
     this.carregaDocumentos();
   }
 
@@ -103,6 +105,7 @@ export class PainelComponent {
       },
       error: () => {
         this.spinner(false);
+            this.toastr.error('Erro, Histórico das filas sem conexão');
       }
     });
   }
