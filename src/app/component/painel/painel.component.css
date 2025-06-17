@@ -47,9 +47,10 @@ input.form-control.form-control-sm.mt-1::placeholder {
 }
 
 .bg-atrasado-soft {
-   background-color:#6f6256;
-  color: #ffffff; 
+  background-color: #f33d6e;
+  color: #ffffff;
 }
+
 
 .bg-pago-soft {
   background-color: #81f1f3;  
@@ -60,7 +61,6 @@ input.form-control.form-control-sm.mt-1::placeholder {
    background-color: #babffb;  
    color: #ffffff;
 }
-
 
 .text-dark-custom {
   font-family: 'Montserrat', sans-serif;

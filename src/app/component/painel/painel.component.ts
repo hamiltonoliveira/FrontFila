@@ -131,7 +131,7 @@ export class PainelComponent {
   }
 
   getCorLinha(dataEnvio: Date, status: string): string {
-    if (status !== 'Pendente' && status !== 'Atrasado') {
+    if (status !== 'Pendente') {
       return '';
     }
     const hoje = new Date();
