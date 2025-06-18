@@ -80,7 +80,7 @@
                 <td>{{ item.tipoArquivo }}</td>
                 <td class="text-center">{{ item.registros }}</td>
                 <td class="text-center align-middle">
-                  <button [disabled]="item.status !== 'Pendente' && item.status !== 'Atrasado'" type="button"
+                  <button [disabled]="item.status !== 'Pendente' && item.status !== 'Recente'" type="button"
                     class="btn btn-light" (click)="abrirCalculadora(item.guid)" data-bs-toggle="modal"
                     data-bs-target="#calculadoraModal">
                     <i class="bi bi-calculator" style="cursor:pointer"></i>
