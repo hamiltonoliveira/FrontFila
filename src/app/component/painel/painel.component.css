@@ -47,10 +47,9 @@ input.form-control.form-control-sm.mt-1::placeholder {
 }
 
 .bg-atrasado-soft {
-  background-color: #c2a6ae;
-  color: #ffffff;
+  background-color: #ffd6d6;  
+  color: #212529;  
 }
-
 
 .bg-pago-soft {
   background-color: #81f1f3;  

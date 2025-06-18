@@ -26,9 +26,12 @@ export class ContratoComponent implements OnInit {
   codigoAssinatura: string | null = null;
   private desenhando = false;
 
-  constructor(private http: HttpClient, 
-                      private assinaturaEletronicaService: AssinaturaEletronicaService,
-                      private toastr: ToastrService) { }
+  htmlConteudo: string = '';
+  Documentacao: any[] = [];
+
+  constructor(private http: HttpClient,
+    private assinaturaEletronicaService: AssinaturaEletronicaService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.carregarPlanos();
@@ -113,7 +116,7 @@ export class ContratoComponent implements OnInit {
     }
   }
 
-   criarAssinatura(): void {
+  criarAssinatura(): void {
     const guidCliente = localStorage.getItem("guidCliente");
     const payload = {
       PlanoId: this.planoEscolhido,
@@ -129,6 +132,79 @@ export class ContratoComponent implements OnInit {
       }
     );
   }
- 
+
+  contrato(): void {
+    this.imprimeContratoGuid();
+  }
+
+  formatarCnpj(cnpj: string): string {
+    if (!cnpj) return '';
+    const cnpjLimpo = cnpj.replace(/\D/g, '');
+    let recebe = cnpjLimpo.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+    return recebe;
+  }
+
+
+
+  carregarHtml(documento: any) {
+    this.http.get('assets/html/contrato.html', { responseType: 'text' })
+      .subscribe({
+        next: (html) => {
+          const monstarHTML = documento;
+
+          let cnpjFormatado = this.formatarCnpj(monstarHTML.cnpjContratante);
+
+          this.htmlConteudo = html.replace('$cnpjContratante', cnpjFormatado)
+                                  .replace('$razaoSocial', monstarHTML.razaoSocial)
+                                  .replace('$valorContrato' , monstarHTML.valorMensal)
+
+        },
+        error: () => {
+          this.toastr.error('Erro ao carregar conteúdo HTML.');
+        }
+      });
+  }
+
+  carregaContratoGuid(): void {
+    const guidCliente = localStorage.getItem("guidCliente") as string;
+    this.assinaturaEletronicaService.listarContratoGuid(guidCliente).subscribe({
+      next: (dados: any) => {
+        this.Documentacao = dados ?? [];
+        this.carregarHtml(this.Documentacao);
+        if (!dados || dados.length === 0) {
+          this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
+        }
+        //this.spinner(false);
+      },
+      // error: (erro) => {
+      // this.Erro('Erro ao carregar configurações de documento:');
+      // this.spinner(false);
+      // }
+    });
+  }
+
+  imprimeContratoGuid(): void {
+    const guidCliente = localStorage.getItem("guidCliente") as string;
+    this.assinaturaEletronicaService.imprimeContratoGuid(guidCliente).subscribe({
+      next: (dados: any) => {
+        this.Documentacao = dados ?? [];
+        this.carregarHtml(this.Documentacao);
+
+        console.log(this.Documentacao)
+
+
+        if (!dados || dados.length === 0) {
+          this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
+        }
+        //this.spinner(false);
+      },
+      // error: (erro) => {
+      // this.Erro('Erro ao carregar configurações de documento:');
+      // this.spinner(false);
+      // }
+    });
+  }
+
+
 }
 

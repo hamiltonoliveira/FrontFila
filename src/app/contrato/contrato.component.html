@@ -1,6 +1,5 @@
 <div class="container py-5">
     <div class="row text-center">
-
         <div class="row">
             <div class="col-md-4 mb-4" *ngFor="let plano of planos">
                 <div class="card shadow-sm h-100" [ngClass]="'border-dark'">
@@ -32,15 +31,35 @@
     <div class="row text-center">
         <div class="col-3"></div>
         <div class="col-5" style="margin-left: 58px;">
-              <span class="assinatura-eletronica">Assinatura eletrônica</span>
+            <span class="assinatura-eletronica">Assinatura eletrônica</span>
             <canvas #assinaturaCanvas (mousedown)="startDrawing($event)" (mouseup)="stopDrawing()"
                 (mouseleave)="stopDrawing()" (mousemove)="draw($event)" style="border: 2px dotted #f33d6e;  ">
             </canvas>
             <div class="btn-group" role="group" aria-label="Exemplo básico">
                 <button type="button" class="btn botoes-assinatura" (click)="limpar()">Limpar</button>
                 <button type="button" class="btn botoes-assinatura" (click)="salvar()">Salvar</button>
-                <button type="button" class="btn botoes-assinatura">Contrato</button>
+                <button type="button" class="btn botoes-assinatura" data-bs-toggle="modal"
+                    data-bs-target="#meuModalScrollable" (click)="contrato()">Contrato
+                </button>
+
             </div>
             <div class="col-3"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="meuModalScrollable" tabindex="-1" aria-labelledby="meuModalScrollableLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="meuModalScrollableLabel">Contrato de Prestação de Serviços de Integração e Mensageria Corporativa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div [innerHTML]="htmlConteudo" class="html-estatico" id="conteudo-pdf"></div>
+                </div>
+            </div>
         </div>
     </div>
