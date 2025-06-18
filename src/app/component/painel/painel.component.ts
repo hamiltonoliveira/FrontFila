@@ -77,7 +77,7 @@ export class PainelComponent {
 
            this.valorExcedente='';
 
-          if (dias > 10) {
+          if (dias > Number(this.diasRetencao)) {
             this.valorExcedente = ((dias - Number(this.diasRetencao)) * Number(this.valorRetencaoExtraPorDia)).toString();
           }
           else{
