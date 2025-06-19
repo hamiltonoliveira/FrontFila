@@ -1,0 +1,106 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #333;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+}
+
+.contrato-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  text-align: center;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 16px;
+  color: #34495e;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+  margin-top: 20px;
+}
+
+p {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+ul {
+  margin: 10px 0 10px 20px;
+  padding-left: 15px;
+}
+
+ul li {
+  margin-bottom: 6px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.assinaturas {
+  margin-top: 40px;
+}
+
+.assinatura-img {
+  width: 300px;
+  height: auto;
+}
+
+@media print {
+  body {
+    background: none;
+    color: #000;
+  }
+
+  .contrato-container {
+    box-shadow: none;
+    border: none;
+  }
+
+  h1,
+  h2 {
+    color: #000;
+  }
+}
+
+.cabecalho-empresa {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.logoContrato {
+  height: 80px;
+  width: auto;
+  margin-right: 20px;
+}
+
+.dados-empresa h2 {
+  margin: 0 0 5px 0;
+  font-size: 1.5em;
+}
+
+.dados-empresa p {
+  margin: 2px 0;
+  font-size: 0.95em;
+}
+
+ 
+ 

@@ -1,6 +1,7 @@
 export enum TipoServico {
-  Basico = 1,
-  Intermediario = 2,
-  Avancado = 3
+   Básico  = 1,
+  Intermediário = 2,
+  Premium = 3
 }
+ 
  

@@ -5,6 +5,10 @@ import planosJson from './../../assets/plano.json'
 import { ToastrService } from 'ngx-toastr';
 import { AssinaturaEletronicaService } from 'src/services/assinatura-eletronica.service';
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { TipoServico } from '../models/tipo-servico.enum';
+
 
 @Component({
   selector: 'app-contrato',
@@ -144,6 +148,33 @@ export class ContratoComponent implements OnInit {
     return recebe;
   }
 
+  formatarData(dataString: string): string {
+    const data = new Date(dataString);
+
+    if (isNaN(data.getTime())) {
+      throw new Error('Data inválida');
+    }
+
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  }
+
+ nomePlanoServico(planoId: string | number): string {
+  const id = Number(planoId);
+
+  switch (id) {
+    case TipoServico.Básico:
+      return 'Plano Básico';
+    case TipoServico.Intermediário:
+      return 'Plano Intermediário';
+    case TipoServico.Premium:
+      return 'Plano Premium';
+    default:
+      return 'Plano Desconhecido';
+  }
+}
 
 
   carregarHtml(documento: any) {
@@ -153,10 +184,17 @@ export class ContratoComponent implements OnInit {
           const monstarHTML = documento;
 
           let cnpjFormatado = this.formatarCnpj(monstarHTML.cnpjContratante);
+          let cadastro = this.formatarData(monstarHTML.dataCadastro);
+          let nomePlano = this.nomePlanoServico(monstarHTML.plano);
 
           this.htmlConteudo = html.replace('$cnpjContratante', cnpjFormatado)
                                   .replace('$razaoSocial', monstarHTML.razaoSocial)
                                   .replace('$valorContrato' , monstarHTML.valorMensal)
+                                  .replace('$plano' , nomePlano)
+                                  .replace('$assinatura', monstarHTML.hashDocumento)
+                                  .replace('$dataCadastro', cadastro)
+                                  .replace(/contenteditable="true"/g, 'contenteditable="false"');
+
 
         },
         error: () => {
@@ -164,6 +202,42 @@ export class ContratoComponent implements OnInit {
         }
       });
   }
+
+gerarEImprimirPDF() {
+  const elemento = document.getElementById('conteudo-para-pdf');
+
+  if (!elemento) {
+    this.toastr.error('Conteúdo para PDF não encontrado.');
+    return;
+  }
+
+  html2canvas(elemento).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const margin = 10; // margem em mm
+
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pageWidth - margin * 2;
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+    let finalPdfHeight = pdfHeight;
+    if (pdfHeight > (pageHeight - margin * 2)) {
+      finalPdfHeight = pageHeight - margin * 2;
+      const finalPdfWidth = (imgProps.width * finalPdfHeight) / imgProps.height;
+      pdf.addImage(imgData, 'PNG', margin, margin, finalPdfWidth, finalPdfHeight);
+    } else {
+      pdf.addImage(imgData, 'PNG', margin, margin, pdfWidth, pdfHeight);
+    }
+    
+    pdf.autoPrint();
+    window.open(pdf.output('bloburl'), '_blank');
+  });
+}
+
 
   carregaContratoGuid(): void {
     const guidCliente = localStorage.getItem("guidCliente") as string;

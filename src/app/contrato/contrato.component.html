@@ -49,16 +49,19 @@
 
     <div class="modal fade" id="meuModalScrollable" tabindex="-1" aria-labelledby="meuModalScrollableLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
-
                 <div class="modal-header">
-                    <h5 class="modal-title" id="meuModalScrollableLabel">Contrato de Prestação de Serviços de Integração e Mensageria Corporativa</h5>
+                    <button (click)="gerarEImprimirPDF()"
+                        style="background-color:  #f33d6e; color: white; border: none; padding: 10px; border-radius: 5px;">
+                        <i class="bi bi-printer"></i>
+                    </button>
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
 
                 <div class="modal-body">
-                    <div [innerHTML]="htmlConteudo" class="html-estatico" id="conteudo-pdf"></div>
+                    <div id="conteudo-para-pdf" [innerHTML]="htmlConteudo"></div>
                 </div>
             </div>
         </div>

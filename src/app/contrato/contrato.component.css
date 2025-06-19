@@ -136,3 +136,9 @@
   background-color:  #bac6d3;
   transform: translateY(-2px);
 }
+
+.modal-content {
+  max-height: none;
+  overflow: visible;
+}
+
