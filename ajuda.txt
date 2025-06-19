@@ -7,6 +7,8 @@ ng generate service services/configuracaoDocumento
 ng generate service services/assinatura-eletronica
 ng generate service services/publicar
 ng generate service services/painel
+ng generate service services/contrato
+
 
 ng generate component app/menu
 ng generate component app/rodape

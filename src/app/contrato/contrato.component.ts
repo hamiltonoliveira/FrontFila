@@ -8,6 +8,7 @@ import { AssinaturaEletronicaService } from 'src/services/assinatura-eletronica.
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { TipoServico } from '../models/tipo-servico.enum';
+import { ContratoService } from 'src/services/contrato.service';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class ContratoComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private assinaturaEletronicaService: AssinaturaEletronicaService,
+    private contratoService:ContratoService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -113,13 +115,14 @@ export class ContratoComponent implements OnInit {
 
     if (hasDrawing && planoValido) {
       this.imagemAssinatura = canvas.toDataURL('image/png');
-      console.log(this.imagemAssinatura);
+     
       this.criarAssinatura();
+      this.criarContrato();
     } else {
       this.toastr.error("Ops! Você precisa escolher um plano, assinar digitalmente e salvar para continuar.");
     }
   }
-
+  
   criarAssinatura(): void {
     const guidCliente = localStorage.getItem("guidCliente");
     const payload = {
@@ -133,6 +136,22 @@ export class ContratoComponent implements OnInit {
       },
       erro => {
         this.toastr.error("Assinatura eletrônica existe.");
+      }
+    );
+  }
+
+  criarContrato(): void {
+    const guidCliente = localStorage.getItem("guidCliente");
+    const payload = {
+      PlanoId: this.planoEscolhido,
+      GuidCliente: guidCliente 
+    };
+    this.contratoService.criarContrato(payload).subscribe(
+      dados => {
+        this.toastr.success('Contrato arquivada.');
+      },
+      erro => {
+        this.toastr.error("Contrato nã0 existe.");
       }
     );
   }
