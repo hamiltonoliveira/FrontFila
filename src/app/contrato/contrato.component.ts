@@ -221,7 +221,7 @@ export class ContratoComponent implements OnInit {
       });
   }
 
-gerarEImprimirPDF() {
+gerarEbaixarPDF() {
   const elemento = document.getElementById('conteudo-para-pdf');
 
   if (!elemento) {
@@ -231,28 +231,28 @@ gerarEImprimirPDF() {
 
   html2canvas(elemento).then(canvas => {
     const imgData = canvas.toDataURL('image/png');
-
     const pdf = new jsPDF('p', 'mm', 'a4');
+
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
-
-    const margin = 10; // margem em mm
+    const margin = 10; // Margem em mm
 
     const imgProps = pdf.getImageProperties(imgData);
     const pdfWidth = pageWidth - margin * 2;
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
     let finalPdfHeight = pdfHeight;
+    let finalPdfWidth = pdfWidth;
+
     if (pdfHeight > (pageHeight - margin * 2)) {
       finalPdfHeight = pageHeight - margin * 2;
-      const finalPdfWidth = (imgProps.width * finalPdfHeight) / imgProps.height;
-      pdf.addImage(imgData, 'PNG', margin, margin, finalPdfWidth, finalPdfHeight);
-    } else {
-      pdf.addImage(imgData, 'PNG', margin, margin, pdfWidth, pdfHeight);
+      finalPdfWidth = (imgProps.width * finalPdfHeight) / imgProps.height;
     }
-    
-    pdf.autoPrint();
-    window.open(pdf.output('bloburl'), '_blank');
+
+    pdf.addImage(imgData, 'PNG', margin, margin, finalPdfWidth, finalPdfHeight);
+
+    // Faz download direto
+    pdf.save('contrato.pdf');
   });
 }
 
