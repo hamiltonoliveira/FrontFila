@@ -13,14 +13,14 @@
     "preco": "120,00",
     "periodicidade": "Mês",
     "destaque": true,
-    "recursos": ["20.000 requisições","Tarifa de R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+    "recursos": ["30.000 requisições","Tarifa de R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
   },
   {
     "id": 3,
     "nome": "Premium",
-    "preco": "180,00",
+    "preco": "250,00",
     "periodicidade": "mês",
     "destaque": false,
-    "recursos": ["50.000 requisições","Tarifa R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
+    "recursos": ["80.000 requisições","Tarifa R$ 0,50 por dia após 10 dias do vencimento na fila","Renovação automática de 1 anos","Ticket via e-mail"] 
   }
 ]

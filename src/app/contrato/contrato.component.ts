@@ -115,7 +115,6 @@ export class ContratoComponent implements OnInit {
 
     if (hasDrawing && planoValido) {
       this.imagemAssinatura = canvas.toDataURL('image/png');
-     
       this.criarAssinatura();
       this.criarContrato();
     } else {
@@ -151,7 +150,7 @@ export class ContratoComponent implements OnInit {
         this.toastr.success('Contrato arquivada.');
       },
       erro => {
-        this.toastr.error("Contrato nã0 existe.");
+        this.toastr.warning("Foi alterado o plano de serviço e seus valores.");
       }
     );
   }

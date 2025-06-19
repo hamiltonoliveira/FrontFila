@@ -7,7 +7,7 @@
                         <h1 class="card-title pricing-card-title">
                             R$ {{ plano.preco }}
                             <span class="texto-menor-negrito">
-                                {{ plano.id === 3 ? '' : plano.periodicidade }}
+                                {{ plano.periodicidade }}
                             </span>
                             <span *ngIf="plano.id === planoEscolhido" class="float-right">
                                 <i class="bi bi-check2"></i>
