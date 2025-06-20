@@ -86,12 +86,6 @@ strong {
   padding-bottom: 10px;
 }
 
-.logoContrato {
-  height: 80px;
-  width: auto;
-  margin-right: 20px;
-}
-
 .dados-empresa h2 {
   margin: 0 0 5px 0;
   font-size: 1.5em;
@@ -102,5 +96,10 @@ strong {
   font-size: 0.95em;
 }
 
- 
- 
+body {
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}

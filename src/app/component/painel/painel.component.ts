@@ -61,30 +61,29 @@ export class PainelComponent {
         this.calculadora = dados ?? [];
         if (this.calculadora.length > 0) {
           const calculo = this.calculadora[0];
-
           this.dataEnvio = calculo.dataEnvio ?? '';
-          this.diasRetencao = calculo.diasRetencao?.toString() ?? '';
           this.limiteRegistrosMensal = calculo.limiteRegistrosMensal?.toString() ?? '';
           this.nomeFila = calculo.nomeFila ?? '';
           this.registros = calculo.registros?.toString() ?? '';
           this.status = calculo.status ?? '';
           this.valorMensal = calculo.valorMensal?.toString() ?? '';
           this.valorPorRegistroExcedente = calculo.valorPorRegistroExcedente?.toString() ?? '';
-          this.valorRetencaoExtraPorDia = calculo.valorRetencaoExtraPorDia?.toString() ?? '';
+          this.valorRetencaoExtraPorDia = '0.50';
           this.ativo = calculo.ativo;
 
-          const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
+        
+          const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo)); 
+ 
+          this.valorExcedente='';
 
-           this.valorExcedente='';
-
-          if (dias > Number(this.diasRetencao)) {
-            this.valorExcedente = ((dias - Number(this.diasRetencao)) * Number(this.valorRetencaoExtraPorDia)).toString();
+          if (dias > 10) {
+            this.valorExcedente = ((dias - 10) * Number(this.valorRetencaoExtraPorDia) * 1).toString();
           }
           else{
             this.valorExcedente= '0';
           }
 
-          this.equacao = `Atrasos superiores a ${this.diasRetencao}, aplica-se a fórmula: (Dia(s) em atraso - ${this.diasRetencao}) × ${this.valorRetencaoExtraPorDia}`;
+          this.equacao = `Atrasos superiores 10, aplica-se a fórmula: (Dia(s) em atraso - 10) × ${this.valorRetencaoExtraPorDia}`;
         }
       },
       error: () => {
@@ -146,7 +145,7 @@ export class PainelComponent {
     const dias = Math.floor((hoje.getTime() - envio.getTime()) / (1000 * 60 * 60 * 24));
 
     if (dias === 0) return 'bg-norma-soft';
-    if (dias >= 1 && dias <= 10) return 'bg-atencao-soft';
+    if (dias >= 0 && dias <= 10) return 'bg-atencao-soft';
     if (dias > 10 ) return 'bg-atrasado-soft';
      
     return 'bg-success-subtle';  
