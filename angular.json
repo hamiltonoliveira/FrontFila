@@ -28,7 +28,13 @@
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "html2canvas",
+              "core-js",
+              "raf",
+              "rgbcolor"
+            ]
           },
           "configurations": {
             "production": {
@@ -44,7 +50,13 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "allowedCommonJsDependencies": [
+                "html2canvas",
+                "core-js",
+                "raf",
+                "rgbcolor"
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -52,7 +64,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "allowedCommonJsDependencies": [
+                "html2canvas",
+                "core-js",
+                "raf",
+                "rgbcolor"
+              ]
             }
           },
           "defaultConfiguration": "production"
