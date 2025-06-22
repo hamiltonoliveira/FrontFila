@@ -84,10 +84,12 @@
               <tr *ngFor="let item of getDocumentacaoFiltrada(); let i = index" class="tr">
                 <td>{{ i + 1 }}</td>
                 <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.status }}</td>
-                <td class="text-center">{{ item.queueName }}</td>
+                 <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">{{ item.queueName }}</td>
                 <td>{{ item.dataEnvio }}</td>
-                <td>{{ item.descricao }}</td>
-                <td>{{ item.tipoArquivo }}</td>
+                <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">
+                  {{ item.descricao }}
+                </td>
+                <td class="text-left">{{ item.tipoArquivo }}</td>
                 <td class="text-center">{{ item.registros }}</td>
                 <td class="text-center align-middle">
                   <button [disabled]="item.status !== 'Pendente'" type="button" class="btn btn-light"

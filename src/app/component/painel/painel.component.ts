@@ -66,11 +66,9 @@ downloadFilaMsg(nomeFila: string): void {
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
   });
-
+  
   this.painelService.DownloadFila(nomeFila).subscribe({
     next: (blob: Blob) => {
-      console.log('Conteúdo recebido (Blob):', blob);
-
       const filename = `Download_${nomeFila}.json`;
       saveAs(blob, filename);
     },
