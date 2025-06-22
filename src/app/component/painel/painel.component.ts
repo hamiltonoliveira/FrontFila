@@ -1,8 +1,13 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Calculadora } from 'src/app/models/calculadora.model';
 import { DocumentoMSG } from 'src/app/models/documentoMsg';
 import { PainelService } from 'src/services/painel.service';
+
+import { saveAs } from 'file-saver';
+
+
 
 @Component({
   selector: 'app-painel',
@@ -38,8 +43,8 @@ export class PainelComponent {
   equacao: string = '';
 
 
-  constructor(private painelService: PainelService, 
-              private toastr: ToastrService) {
+  constructor(private painelService: PainelService,
+    private toastr: ToastrService) {
     this.carregaDocumentos();
   }
 
@@ -54,6 +59,27 @@ export class PainelComponent {
   abrirCalculadora(valor: any): void {
     this.carregaCalculadora(valor);
   }
+
+downloadFilaMsg(nomeFila: string): void {
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  this.painelService.DownloadFila(nomeFila).subscribe({
+    next: (blob: Blob) => {
+      console.log('Conteúdo recebido (Blob):', blob);
+
+      const filename = `Download_${nomeFila}.json`;
+      saveAs(blob, filename);
+    },
+    error: (error) => {
+      console.error('Erro ao fazer download:', error);
+    }
+  });
+}
+
 
   carregaCalculadora(guid: string): void {
     this.painelService.CalculadoraGuid(guid).subscribe({
@@ -71,16 +97,16 @@ export class PainelComponent {
           this.valorRetencaoExtraPorDia = '0.50';
           this.ativo = calculo.ativo;
 
-        
-          const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo)); 
- 
-          this.valorExcedente='';
+
+          const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
+
+          this.valorExcedente = '';
 
           if (dias > 10) {
             this.valorExcedente = ((dias - 10) * Number(this.valorRetencaoExtraPorDia) * 1).toString();
           }
-          else{
-            this.valorExcedente= '0';
+          else {
+            this.valorExcedente = '0';
           }
 
           this.equacao = `Atrasos superiores 10, aplica-se a fórmula: (Dia(s) em atraso - 10) × ${this.valorRetencaoExtraPorDia}`;
@@ -104,7 +130,7 @@ export class PainelComponent {
       },
       error: () => {
         this.spinner(false);
-            this.toastr.error('Erro, Histórico das filas sem conexão');
+        this.toastr.error('Erro, Histórico das filas sem conexão');
       }
     });
   }
@@ -146,9 +172,9 @@ export class PainelComponent {
 
     if (dias === 0) return 'bg-norma-soft';
     if (dias >= 0 && dias <= 10) return 'bg-atencao-soft';
-    if (dias > 10 ) return 'bg-atrasado-soft';
-     
-    return 'bg-success-subtle';  
+    if (dias > 10) return 'bg-atrasado-soft';
+
+    return 'bg-success-subtle';
   }
 
 

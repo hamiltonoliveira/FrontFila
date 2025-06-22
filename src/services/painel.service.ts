@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 })
 export class PainelService {
 
- private apiUrlLista = `${environment.apiUrl}`;
- guidCliente: string | null = null;
+  private apiUrlLista = `${environment.apiUrl}`;
+  guidCliente: string | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class PainelService {
     return this.http.get(`${this.apiUrlLista}/Painel/painel/?guidcliente=${params}`, { headers });
   }
 
-   CalculadoraGuid(guid: string): Observable<any> {
+  CalculadoraGuid(guid: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -32,4 +32,18 @@ export class PainelService {
     const params = guid;
     return this.http.get(`${this.apiUrlLista}/Painel/calculadora/?guid=${params}`, { headers });
   }
+
+ DownloadFila(nomeFila: string): Observable<Blob> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.get(`${this.apiUrlLista}/Publicar/DownloadMSG?nomeFila=${nomeFila}`, { 
+    headers, 
+    responseType: 'blob' 
+  });
+}
+
+
 }
