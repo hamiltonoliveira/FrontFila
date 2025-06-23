@@ -60,23 +60,24 @@ export class PainelComponent {
     this.carregaCalculadora(valor);
   }
 
-downloadFilaMsg(nomeFila: string): void {
-  const token = localStorage.getItem('token');
+  downloadFilaMsg(nomeFila: string): void {
+    this.spinner(true);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
-  
-  this.painelService.DownloadFila(nomeFila).subscribe({
-    next: (blob: Blob) => {
-      const filename = `Download_${nomeFila}.json`;
-      saveAs(blob, filename);
-    },
-    error: (error) => {
-      console.error('Erro ao fazer download:', error);
-    }
-  });
-}
+    this.painelService.DownloadFila(nomeFila).subscribe({
+      next: (blob: Blob) => {
+        const filename = `Download_${nomeFila}.json`;
+        saveAs(blob, filename);
+        this.spinner(false);
+      },
+      error: (error) => {
+        this.spinner(false);
+      }
+    });
+  }
 
 
   carregaCalculadora(guid: string): void {
