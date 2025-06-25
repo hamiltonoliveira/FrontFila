@@ -40,7 +40,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private http: HttpClient) {
-    this.carregaContratoGuid()
+    //this.carregaContratoGuid()
   }
 
   ngOnInit() {

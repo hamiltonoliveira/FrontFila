@@ -127,7 +127,8 @@ export class ContratoComponent implements OnInit {
     const payload = {
       PlanoId: this.planoEscolhido,
       GuidCliente: guidCliente,
-      Assinatura: this.imagemAssinatura
+      Assinatura: this.imagemAssinatura,
+      TipoPagamento: 1
     };
     this.assinaturaEletronicaService.criarFila(payload).subscribe(
       dados => {
