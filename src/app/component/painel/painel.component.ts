@@ -75,6 +75,7 @@ export class PainelComponent {
       },
       error: (error) => {
         this.spinner(false);
+          this.toastr.info('A fila está limpa — nenhuma mensagem disponível.');
       }
     });
   }
