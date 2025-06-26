@@ -22,9 +22,9 @@
               </a>
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/contrato" [class.disabled]="logado"
-                 [class.text-muted]="logado" [style.pointer-events]="logado ? 'auto' : 'none'"> 
-                 Planos de Acesso ao Sistema
+              <a class="dropdown-item" routerLink="/contrato" [class.disabled]="logado" [class.text-muted]="logado"
+                [style.pointer-events]="logado ? 'auto' : 'none'">
+                Planos de Acesso ao Sistema
               </a>
             </li>
             <li>
@@ -63,10 +63,12 @@
 
       <ul class="navbar-nav ms-3 letraMenu">
         <li class="nav-item">
-          <a class="nav-link" routerLink="#">Abertura de chamado</a>
+          <a class="nav-link" routerLink="/chamado" [class.disabled]="logado" [class.text-muted]="logado"
+            [style.pointer-events]="logado ? 'none' : 'auto'">
+            Abertura de chamado
+          </a>
         </li>
       </ul>
-
 
       <!-- Grupo Login alinhado à direita -->
       <ul class="navbar-nav ms-auto letraMenu">
