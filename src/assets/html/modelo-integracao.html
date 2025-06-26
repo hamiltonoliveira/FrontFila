@@ -4,152 +4,159 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./../css/estilo.css">
+  <title>Integração com API - Envio de JSON</title>
 </head>
 
+
 <body>
-  <div class="section">
+  <section class="section">
     <p><span class="label">Descrição da fila:</span> <span class="fst-italic">$descricao</span></p>
     <p>
-      <span class="label">Chave:</span> <b>$chave</b><br>
-      <small>◇ Esta chave é de uso exclusivo da fila cadastrada e somente poderá ser utilizada para essa
-        finalidade.</small>
+      <span class="label">GUID:</span> <strong>$guid</strong><br />
+      <small>◇ O GUID identifica exclusivamente a fila e deve ser enviado como parâmetro na requisição.</small>
     </p>
     <p>
-      <span class="label">Data início:</span> $dataInicio /
-      <span class="label">Data final:</span> $dataFinal<br>
-      <small>◇ A fila possui um período de validade definido. Caso seja necessária uma fila com características
-        semelhantes, será preciso realizar um novo cadastro.</small>
+      <span class="label">Tipo de Arquivo:</span> <strong>$tipoArquivo</strong><br />
+      <small>◇ Número que indica o tipo do arquivo a ser enviado, também enviado como parâmetro.</small>
     </p>
-
     <p>
-      <span class="label">Token:</span><br>
-      <small>◇ Por questões de segurança, é necessário inserir o <b>token</b> no cabeçalho (<b>header</b>) da
-        requisição.
-        O token foi enviado para o e-mail cadastrado.</small>
+      <span class="label">Token (JWT):</span><br />
+      <small>◇ O token JWT deve ser enviado no cabeçalho <strong>Authorization: Bearer &lt;token&gt;</strong>. Ele é obtido após autenticação e armazenado no localStorage.</small>
     </p>
-
     <p>
-      <span class="label">Endpoint:</span> <b>https://{dominio}/api/recurso</b><br>
-      <span class="label">Body:</span> <b>conteúdo da requisição no formato JSON</b><br>
+      <span class="label">Endpoint:</span> <strong>https://{dominio}/Publicar/PublicarMSG</strong><br />
+      <span class="label">Body:</span> <strong>Conteúdo JSON</strong><br />
       <small>
-        ◇ A mensagem no formato JSON deve ser enviada no corpo (<b>body</b>) da requisição, utilizando o método HTTP
-        POST.<br>
-        Certifique-se de que o cabeçalho <code>Content-Type</code> esteja definido como <code>application/json</code>.
+        ◇ Requisição via HTTP <strong>POST</strong>.<br />
+        ◇ Header <code>Content-Type</code> deve ser <code>application/json</code>.<br />
+        ◇ Header <code>Authorization: Bearer &lt;token&gt;</code> obrigatório.<br />
+        ◇ Query params obrigatórios: <code>Guid</code> e <code>TipoArquivo</code>.
       </small>
     </p>
-  </div>
+  </section>
 
-  <hr>
+  <hr />
 
-  <div class="section">
-  <h3>🔹 1. Angular – Serviço para Enviar Requisição (com QueryString)</h3>
-  <pre><code>// src/app/services/mensagem.service.ts
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+  <section class="section">
+    <h3>🔹 1. Angular – Serviço de Envio</h3>
+    <pre><code>import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class MensagemService {
-  private apiUrl = 'https://{dominio}/api'; // Substitua {dominio} pelo endereço real da API
+export class PublicarService {
+  private apiUrl = 'https://{dominio}';
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Envia uma mensagem para a API .NET com parâmetros na query string.
-   * 
-   * @param payload Conteúdo JSON a ser enviado no body
-   * @param guid GUID que será enviado na query string
-   * @param tipoArquivo Tipo do arquivo (parâmetro numérico da query string)
-   * @returns Observable com a resposta da API
-   */
-  enviarMensagem(payload: any, guid: string, tipoArquivo: number): Observable<any> {
+  Publicar(payload: any, guid: string, tipoArquivo: number): Observable&lt;any&gt; {
+    const token = localStorage.getItem('token') ?? '';
     const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
 
     const params = new HttpParams()
-      .set('guid', guid)
+      .set('Guid', guid)
       .set('TipoArquivo', tipoArquivo.toString());
 
-    return this.http.post(this.apiUrl, payload, { headers, params });
+    const url = `${this.apiUrl}/Publicar/PublicarMSG`;
+    return this.http.post(url, payload, { headers, params });
   }
 }
 </code></pre>
-</div>
+  </section>
 
+  <section class="section">
+    <h3>🔹 2. C# .NET – Cliente com HttpClient</h3>
+    <pre><code>using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
-  <div class="section">
-    <h3>🔹 2. C# .NET – Controller que recebe o JSON com headers</h3>
-    <pre><code>// Controllers/MensagemController.cs
-[ApiController]
-[Route("api")]
-public class MensagemController : ControllerBase
+class Program
 {
-    [HttpPost]
-    public IActionResult ReceberMensagem([FromBody] object dados)
+    static async Task Main()
     {
-        var chave = Request.Headers["chave"].ToString();
-        var token = Request.Headers["token"].ToString();
+        var url = "https://{dominio}/Publicar/PublicarMSG?Guid={guid}&TipoArquivo={tipoArquivo}";
+        var json = @"{ ""nome"": ""João"", ""mensagem"": ""Olá, mundo!"" }";
+        var token = "SEU_TOKEN";
 
-        if (string.IsNullOrEmpty(chave) || string.IsNullOrEmpty(token))
-            return BadRequest("Cabeçalhos 'chave' e 'token' são obrigatórios.");
+        using var client = new HttpClient();
+        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-        // Processar a mensagem
-        return Ok(new { mensagem = "Recebido com sucesso!", dados });
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await client.PostAsync(url, content);
+
+        var result = await response.Content.ReadAsStringAsync();
+        Console.WriteLine(result);
     }
-}</code></pre>
-  </div>
+}
+</code></pre>
+  </section>
 
-  <div class="section">
+  <section class="section">
     <h3>🔹 3. Node.js com Express</h3>
-    <pre><code>// index.js
-const express = require('express');
+    <pre><code>const express = require('express');
 const app = express();
+
 app.use(express.json());
 
-app.post('/api', (req, res) => {
-  const chave = req.header('chave');
-  const token = req.header('token');
+app.post('/Publicar/PublicarMSG', (req, res) =&gt; {
+  const authHeader = req.header('authorization');
 
-  if (!chave || !token) {
-    return res.status(400).json({ erro: 'Cabeçalhos "chave" e "token" são obrigatórios.' });
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ erro: 'Header Authorization Bearer token é obrigatório.' });
+  }
+
+  const url = new URL(req.protocol + '://' + req.get('host') + req.originalUrl);
+  const guid = url.searchParams.get('Guid');
+  const tipoArquivo = url.searchParams.get('TipoArquivo');
+
+  if (!guid || !tipoArquivo) {
+    return res.status(400).json({ erro: 'Query params Guid e TipoArquivo são obrigatórios.' });
   }
 
   const dados = req.body;
-  // Processar os dados...
 
-  res.json({ mensagem: 'Mensagem recebida com sucesso!', dados });
+  res.json({ mensagem: 'Mensagem recebida com sucesso!', guid, tipoArquivo, dados });
 });
 
-app.listen(7295, () => console.log('API rodando na porta 7295'));</code></pre>
-  </div>
+app.listen(7295, () =&gt; console.log('API rodando na porta 7295'));
+</code></pre>
+  </section>
 
-  <div class="section">
+  <section class="section">
     <h3>🔹 4. Java com Spring Boot</h3>
-    <pre><code>// MensagemController.java
-@RestController
-@RequestMapping("/api")
-public class MensagemController {
+    <pre><code>@RestController
+@RequestMapping("/Publicar/PublicarMSG")
+public class PublicarController {
 
     @PostMapping
-    public ResponseEntity&lt;?&gt; receberMensagem(
-            @RequestHeader("chave") String chave,
-            @RequestHeader("token") String token,
+    public ResponseEntity&lt;?&gt; publicarMensagem(
+            @RequestHeader("Authorization") String authorization,
+            @RequestParam("Guid") String guid,
+            @RequestParam("TipoArquivo") int tipoArquivo,
             @RequestBody Map&lt;String, Object&gt; dados) {
 
-        if (chave == null || token == null) {
-            return ResponseEntity.badRequest().body("Cabeçalhos 'chave' e 'token' são obrigatórios.");
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Cabeçalho Authorization Bearer token é obrigatório.");
         }
 
-        // Processar os dados...
+        if (guid == null || guid.isBlank() || tipoArquivo <= 0) {
+            return ResponseEntity.badRequest().body("Parâmetros Guid e TipoArquivo são obrigatórios e válidos.");
+        }
+
         return ResponseEntity.ok(Map.of(
             "mensagem", "Mensagem recebida com sucesso!",
+            "guid", guid,
+            "tipoArquivo", tipoArquivo,
             "dados", dados
         ));
     }
-}</code></pre>
-  </div>
-
+}
+</code></pre>
+  </section>
 </body>
 
-</html>
+</html> 
