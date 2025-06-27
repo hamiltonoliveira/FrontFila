@@ -7,16 +7,15 @@ import { Observable, Subscribable } from 'rxjs';
   styleUrls: ['./menu.component.css']
 })
 
-  
+
 export class MenuComponent {
- logado = false;
+  logado = false;
 
- 
+
   constructor() {
-    if (localStorage.getItem('token')) {
-      this.logado =true;
-    }
-
+    const token = localStorage.getItem('token');
+    this.logado = !!token; 
   }
-
 }
+
+
