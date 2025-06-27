@@ -8,6 +8,7 @@ ng generate service services/assinatura-eletronica
 ng generate service services/publicar
 ng generate service services/painel
 ng generate service services/contrato
+ng generate service services/chamado
 
 
 ng generate component app/menu
@@ -23,6 +24,7 @@ ng generate module app/component/ConfiguracaoDocumento --route ConfiguracaoDocum
 ng generate module app/component/assinaturas --route assinaturas --module app/app.module
 ng generate module app/component/instrucoes --route instrucoes --module app/app.module
 ng generate module app/component/painel --route painel --module app/app.module
+ng generate module app/component/chamado --route chamado --module app/app.module
 
 
 
