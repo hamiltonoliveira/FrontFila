@@ -27,6 +27,20 @@ ng generate module app/component/painel --route painel --module app/app.module
 ng generate module app/component/chamado --route chamado --module app/app.module
 
 
++ --------------------------------------------
+ng build --configuration production
+
+npm install -g http-server
+
+cd dist/<nome-do-seu-projeto>
+http-server -p 8080
+
+http://localhost:8080
+
+http-server dist/front-bridge -p 8080
+
++ --------------------------------------------
+
 
 Uso de cookies - Guardamos estatísticas de visitas para melhorar sua experiência de navegação. Ao continuar, você concorda com nossa
 política de privacidade.
