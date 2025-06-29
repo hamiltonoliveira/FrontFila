@@ -1,8 +1,45 @@
-<p>chamado works!</p>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <form [formGroup]="meuForm">
+                <div class="mb-3">
+                    <label>Título</label>
+                    <input type="text" class="form-control" formControlName="titulo">
+                </div>
 
-xccxcx
-xccxcxcxc
-xccxcxcxxc
-xccxcxcxccx
+                <div class="mb-3">
+                    <label>Descrição</label>
+                    <textarea class="form-control" formControlName="descricao"></textarea>
+                </div>
 
+                <div class="mb-3">
+                    <label>Resposta</label>
+                    <textarea class="form-control" formControlName="resposta"></textarea>
+                </div>
 
+                <div class="mb-3">
+                    <label>Data Encerramento</label>
+                    <input type="datetime-local" class="form-control" formControlName="dataEncerramento">
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" formControlName="encerrado">
+                    <label class="form-check-label">Encerrado</label>
+                </div>
+
+                <div class="mb-3">
+                    <label>Status</label>
+                    <select class="form-control" formControlName="status">
+                        <option [value]="0">Pendente</option>
+                        <option [value]="1">Em Andamento</option>
+                        <option [value]="2">Concluído</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" [disabled]="meuForm.invalid">
+                    Salvar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

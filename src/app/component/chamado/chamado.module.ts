@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ChamadoRoutingModule } from './chamado-routing.module';
 import { ChamadoComponent } from './chamado.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { ChamadoComponent } from './chamado.component';
   ],
   imports: [
     CommonModule,
-    ChamadoRoutingModule
+    ChamadoRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ChamadoModule { }
