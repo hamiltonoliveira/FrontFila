@@ -1,44 +1,56 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-10 col-lg-8">
             <form [formGroup]="meuForm">
-                <div class="mb-3">
-                    <label>Título</label>
-                    <input type="text" class="form-control" formControlName="titulo">
+
+                <div class="mb-3 row align-items-center">
+                    <label class="col-sm-3 col-form-label">Título</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" formControlName="titulo">
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Descrição</label>
-                    <textarea class="form-control" formControlName="descricao"></textarea>
+                <div class="mb-3 row align-items-center">
+                    <label class="col-sm-3 col-form-label">Descrição</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" formControlName="descricao"></textarea>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Resposta</label>
-                    <textarea class="form-control" formControlName="resposta"></textarea>
+                <div class="mb-3 row align-items-center">
+                    <label class="col-sm-3 col-form-label">Resposta</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" formControlName="resposta"></textarea>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Data Encerramento</label>
-                    <input type="datetime-local" class="form-control" formControlName="dataEncerramento">
+                <div class="mb-3 row align-items-center">
+                    <label class="col-sm-3 col-form-label">Data Encerramento</label>
+                    <div class="col-sm-9">
+                        <input type="datetime-local" class="form-control" formControlName="dataEncerramento">
+                    </div>
                 </div>
 
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" formControlName="encerrado">
-                    <label class="form-check-label">Encerrado</label>
+
+                <div class="mb-3 row align-items-center">
+                    <label class="col-sm-3 col-form-label">Status</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" formControlName="status">
+                            <option [value]="0">Pendente</option>
+                            <option [value]="1">Em Andamento</option>
+                            <option [value]="2">Concluído</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Status</label>
-                    <select class="form-control" formControlName="status">
-                        <option [value]="0">Pendente</option>
-                        <option [value]="1">Em Andamento</option>
-                        <option [value]="2">Concluído</option>
-                    </select>
+                <div class="row">
+                    <div class="col-sm-9 offset-sm-3">
+                        <button type="submit" class="btn" style="background-color: #1a2c44; color: #ffffff;"  [disabled]="meuForm.invalid">
+                            Salvar
+                        </button>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" [disabled]="meuForm.invalid">
-                    Salvar
-                </button>
             </form>
         </div>
     </div>

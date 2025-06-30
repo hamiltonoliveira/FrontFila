@@ -15,8 +15,7 @@ export class ChamadoComponent implements OnInit {
       titulo: [''],
       descricao: [''],
       resposta: [''], 
-      dataEncerramento: [''],
-      encerrado: [false],
+      dataEncerramento: [''], 
       status: [0]
     });
   }

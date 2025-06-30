@@ -1,0 +1,47 @@
+/* Container geral */
+form {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+form:hover {
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+/* Labels */
+.col-form-label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Inputs e Textareas */
+.form-control {
+    border-radius: 0.75rem;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74,144,226,0.5);
+}
+
+/* Select */
+select.form-control {
+    cursor: pointer;
+}
+
+/* Checkbox */
+.form-check-input {
+    transform: scale(1.3);
+    margin-right: 0.5rem;
+}
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    form {
+        padding: 1.5rem;
+    }
+} 
