@@ -69,7 +69,7 @@ html, body {
 .thead th {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  background-color: #f33d6e;
+  background-color: #38928a;
   color: white;
 }
 
@@ -110,15 +110,15 @@ html, body {
 }
 
 input.form-check-input {
-  background-color: #f33d6e;
-  border-color: #f33d6e;
+  background-color: #38928a;
+  border-color: #38928a;
   color: #fff; /* cor do texto, caso necessário */
 }
 
 /* Opcional: se quiser que o elemento mantenha a cor ao ser marcado */
 input.form-check-input:checked {
-  background-color: #f33d6e;
-  border-color: #f33d6e;
+  background-color: #38928a;
+  border-color: #38928a;
 }
 
  
