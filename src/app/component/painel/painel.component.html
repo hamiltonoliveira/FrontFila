@@ -57,7 +57,7 @@
                     placeholder="Filtrar tipo">
                 </th>
                 <th>
-                  Quantidade registros
+                  Últimos registros
                   <input type="number" class="form-control form-control-sm mt-1" [(ngModel)]="filtroRegistros"
                     placeholder="Filtrar">
                 </th>
@@ -84,7 +84,8 @@
               <tr *ngFor="let item of getDocumentacaoFiltrada(); let i = index" class="tr">
                 <td>{{ i + 1 }}</td>
                 <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.status }}</td>
-                 <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">{{ item.queueName }}</td>
+                <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">{{
+                  item.queueName }}</td>
                 <td>{{ item.dataEnvio }}</td>
                 <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">
                   {{ item.descricao }}
@@ -98,7 +99,8 @@
                   </button>
                 </td>
                 <td class="text-center align-middle">
-                  <button type="button" class="btn btn-light" (click)="downloadFilaMsg(item.queueName)">
+                  <button [disabled]="item.status !== 'Pendente'" type="button" class="btn btn-light"
+                    (click)="downloadFilaMsg(item.queueName)">
                     <i class="bi bi-filetype-json" width="30" height="30"></i>
                   </button>
                 </td>
