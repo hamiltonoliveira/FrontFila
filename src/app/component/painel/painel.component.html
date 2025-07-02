@@ -57,7 +57,7 @@
                     placeholder="Filtrar tipo">
                 </th>
                 <th>
-                  Últimos registros
+                  Total de registros
                   <input type="number" class="form-control form-control-sm mt-1" [(ngModel)]="filtroRegistros"
                     placeholder="Filtrar">
                 </th>
@@ -100,7 +100,7 @@
                 </td>
                 <td class="text-center align-middle">
                   <button [disabled]="item.status !== 'Pendente'" type="button" class="btn btn-light"
-                    (click)="downloadFilaMsg(item.queueName)">
+                    (click)="downloadFilaMsg(item.nomeFila)">
                     <i class="bi bi-filetype-json" width="30" height="30"></i>
                   </button>
                 </td>

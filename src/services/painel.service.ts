@@ -33,17 +33,15 @@ export class PainelService {
     return this.http.get(`${this.apiUrlLista}/Painel/calculadora/?guid=${params}`, { headers });
   }
 
- DownloadFila(nomeFila: string): Observable<Blob> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
+  DownloadFila(nomeFila: string): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  return this.http.get(`${this.apiUrlLista}/Publicar/DownloadMSG?nomeFila=${nomeFila}`, { 
-    headers, 
-    responseType: 'blob' 
-  });
-}
-
-
+    return this.http.get(`${this.apiUrlLista}/Publicar/DownloadMSG?nomeFila=${nomeFila}`, {
+      headers,
+      responseType: 'blob'
+    });
+  }
 }
