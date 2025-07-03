@@ -62,6 +62,11 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.carregaDocumentos();
   }
 
+   obterNomeTipoServico(valor: TipoServico): string {
+    return TipoServico[valor];
+  }
+
+
   carregarHtml(documento: any) {
     this.http.get('assets/html/modelo-integracao.html', { responseType: 'text' })
       .subscribe({
@@ -72,6 +77,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
           this.htmlConteudo = html.replace('$descricao', monstarHTML.descricao)
             .replace('$chave', monstarHTML.guid)
+            .replace('$plano', this.obterNomeTipoServico(monstarHTML.tipoServico))
             .replace('$dataInicio', datainicio)
             .replace('$dataFinal', datafinal);
         },
@@ -138,7 +144,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   }
 
   alternarStatus(guid: string) {
-    console.log(guid)
     this.configuracaoDocumentoService.Status(guid).subscribe({
       next: (res) => {
         this.Sucesso('Status alterado da Fila');
@@ -221,6 +226,10 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.configuracaoDocumentoService.listarConfiguracaoGuid(guid).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
         this.Documentacao = dados ?? [];
+
+      console.log(dados)
+
+
         this.carregarHtml(this.Documentacao);
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');

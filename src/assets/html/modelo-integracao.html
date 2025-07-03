@@ -12,16 +12,16 @@
   <section class="section">
     <p><span class="label">Descrição da fila:</span> <span class="fst-italic">$descricao</span></p>
     <p>
-      <span class="label">GUID:</span> <strong>$guid</strong><br />
+      <span class="label">GUID:</span> <strong>$chave</strong><br />
       <small>◇ O GUID identifica exclusivamente a fila e deve ser enviado como parâmetro na requisição.</small>
     </p>
     <p>
-      <span class="label">Tipo de Arquivo:</span> <strong>$tipoArquivo</strong><br />
-      <small>◇ Número que indica o tipo do arquivo a ser enviado, também enviado como parâmetro.</small>
+      <span class="label">Tipo de Serviço:</span> <strong>$plano</strong><br />
     </p>
     <p>
       <span class="label">Token (JWT):</span><br />
-      <small>◇ O token JWT deve ser enviado no cabeçalho <strong>Authorization: Bearer &lt;token&gt;</strong>. Ele é obtido após autenticação e armazenado no localStorage.</small>
+      <small>◇ O token JWT deve ser enviado no cabeçalho <strong>Authorization: Bearer &lt;token&gt;</strong>. Ele é
+        obtido após autenticação e armazenado no localStorage.</small>
     </p>
     <p>
       <span class="label">Endpoint:</span> <strong>https://{dominio}/Publicar/PublicarMSG</strong><br />
@@ -159,4 +159,4 @@ public class PublicarController {
   </section>
 </body>
 
-</html> 
+</html>
