@@ -28,6 +28,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   Documentacao: ConfiguracaoDocumentoMQDTO[] = [];
   Assisnatura: Assinatura[] = [];
 
+  tiposServico: { chave: string; valor: number }[] = [];
   tiposArquivo: { chave: string; valor: number }[] = [];
   carregando = false;
   htmlConteudo: string = '';
@@ -58,11 +59,12 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       this.caracteresDigitados = valor?.length || 0;
     });
     this.spinner(true);
+    this.ServicoServicoEnum();
     this.ServicoArquivioEnum();
     this.carregaDocumentos();
   }
 
-   obterNomeTipoServico(valor: TipoServico): string {
+  obterNomeTipoServico(valor: TipoServico): string {
     return TipoServico[valor];
   }
 
@@ -102,6 +104,15 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
     return `${dia}/${mes}/${ano}`;
+  }
+
+  ServicoServicoEnum() {
+    this.tiposServico = Object.keys(TipoServico)
+      .filter(key => isNaN(Number(key))) // só as chaves (nomes)
+      .map(key => ({
+        chave: key,
+        valor: TipoServico[key as keyof typeof TipoServico]
+      }));
   }
 
   ServicoArquivioEnum() {
@@ -189,7 +200,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.assinaturaEletronicaService.listarContratoGuid(guidCliente).subscribe({
       next: (dados: Assinatura[]) => {
         this.Assisnatura = dados ?? [];
-        
+
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: não há contratos disponíveis. Verifique se a fila está cadastrada.');
           this.router.navigate(['/contrato']);
@@ -210,6 +221,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
         this.ConfiguracaoDocumento = dados ?? [];
+
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
         }
@@ -226,10 +238,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.configuracaoDocumentoService.listarConfiguracaoGuid(guid).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
         this.Documentacao = dados ?? [];
-
-      console.log(dados)
-
-
         this.carregarHtml(this.Documentacao);
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');

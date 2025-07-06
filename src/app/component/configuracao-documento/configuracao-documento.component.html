@@ -17,8 +17,8 @@
 
           <div class="col-md-1 d-flex align-items-center">
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox"
-                id="ativo" formControlName="ativo" checked (change)="mudarStatus()">
+              <input class="form-check-input" type="checkbox" id="ativo" formControlName="ativo" checked
+                (change)="mudarStatus()">
               <label class="form-check-label" for="ativo"
                 [ngStyle]="{color: statusAtivo === 'ON' ? 'black' : 'red', 'font-weight': 'normal'}"
                 style="font-size: 0.75rem; font-family: 'Montserrat', sans-serif;">
@@ -36,11 +36,11 @@
             <select id="tipoServico" formControlName="tipoServico" class="form-select"
               [ngClass]="{ 'is-invalid': formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid }">
 
-             
               <option value="" disabled selected>Selecione...</option>
-              <option *ngFor="let tipo of Assisnatura" [value]="tipo.planoId">
-                  {{ getTipoServicoDescricao(tipo.planoId) }}
+              <option *ngFor="let tipo of tiposServico" [value]="tipo.valor">
+                {{ tipo.chave }}
               </option>
+
             </select>
 
             <div class="invalid-feedback"
@@ -183,7 +183,8 @@
           <div class="modal-content">
 
             <div class="modal-header">
-              <h5 class="modal-title" id="meuModalScrollableLabel">Procedimento de integração da fila selecionada via mensageria</h5>
+              <h5 class="modal-title" id="meuModalScrollableLabel">Procedimento de integração da fila selecionada via
+                mensageria</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
 
