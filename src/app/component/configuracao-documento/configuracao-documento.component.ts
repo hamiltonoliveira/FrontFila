@@ -142,7 +142,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     const inicio = new Date(form.get('dataInicio')?.value);
     const fim = new Date(form.get('dataFinal')?.value);
 
-    return fim >= inicio ? null : { dataInvalida: true };
+    return fim > inicio ? null : { dataInvalida: true };
   }
 
   setarDataAtual(): void {
