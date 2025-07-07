@@ -1,7 +1,7 @@
 input.form-control.form-control-sm.mt-1 {
   padding: 6px 12px;
   font-size: 0.9rem;
-  border: 2px solid  #f33d6e;  
+  border: 2px solid   #38928a;;  
   border-radius: 8px;
   background-color: #f8f9fa;  
   box-shadow: inset 1px 1px 5px rgba(0, 123, 255, 0.15);
@@ -9,7 +9,7 @@ input.form-control.form-control-sm.mt-1 {
 }
 
 input.form-control.form-control-sm.mt-1:focus {
-  border-color:  #f33d6e; 
+  border-color:  #38928a; 
   background-color: #ffffff;
   box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
   outline: none;
