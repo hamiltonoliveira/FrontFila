@@ -41,11 +41,11 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private http: HttpClient) {
-    //this.carregaContratoGuid()
   }
 
   ngOnInit() {
     this.formulario = this.fb.group({
+      id: [null],
       ativo: [true],
       tipoServico: [null, Validators.required],
       tipoArquivo: [null, Validators.required],
@@ -67,7 +67,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   obterNomeTipoServico(valor: TipoServico): string {
     return TipoServico[valor];
   }
-
 
   carregarHtml(documento: any) {
     this.http.get('assets/html/modelo-integracao.html', { responseType: 'text' })
@@ -145,6 +144,15 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     return fim > inicio ? null : { dataInvalida: true };
   }
 
+  alterar(fila: any): void {
+    this.formulario.patchValue({
+      ...fila,
+      dataInicio: fila.dataInicio?.substring(0, 10),
+      dataFinal: fila.dataFinal?.substring(0, 10),
+      id: fila.id
+    });
+  }
+
   setarDataAtual(): void {
     const hoje = new Date();
     this.dataHoje = hoje.toISOString().split('T')[0]; // usado no atributo [min]
@@ -179,7 +187,8 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       dataInicio: new Date(dados.dataInicio).toISOString(),
       dataFinal: new Date(dados.dataFinal).toISOString(),
       tipoServico: Number(this.formulario.value.tipoServico),
-      tipoArquivo: Number(this.formulario.value.tipoArquivo)
+      tipoArquivo: Number(this.formulario.value.tipoArquivo),
+      id: Number(this.formulario.value.id)
     };
 
     this.configuracaoDocumentoService.criarFila(guidCliente, payload).subscribe({
@@ -221,7 +230,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
         this.ConfiguracaoDocumento = dados ?? [];
-
+        this.formulario.reset();
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
         }

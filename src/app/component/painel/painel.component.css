@@ -42,7 +42,7 @@ input.form-control.form-control-sm.mt-1::placeholder {
 }
 
 .bg-norma-soft {
-  background-color: #e3e1da;  
+  background-color: #fdeba9;  
   color: #212529;  
 }
 
@@ -57,6 +57,11 @@ input.form-control.form-control-sm.mt-1::placeholder {
 }
 
 .bg-processado-soft{
+   background-color:  #e5f5f4;  
+   color: #000;
+}
+
+.bg-normal-soft {
    background-color:  #e5f5f4;  
    color: #000;
 }

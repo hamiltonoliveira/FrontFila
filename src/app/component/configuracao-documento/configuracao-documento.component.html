@@ -10,7 +10,7 @@
         aguarde...</span></p>
   </div>
 
-  <div class="card shadow p-4" style="width: 100%; max-width: 1000px;">
+  <div class="card shadow p-4" style="width: 100%; max-width: 1200px;">
     <div class="card-body">
       <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
         <div class="row g-3 align-items-end">
@@ -129,6 +129,7 @@
           <table class="table  table-bordered small-font table-striped">
             <thead class="thead">
               <tr>
+                <th class="text-center">Alterar</th>
                 <th class="text-center">Tipo de Serviço</th>
                 <th class="text-center">Tipo de Arquivo</th>
                 <th class="text-center">Data Início</th>
@@ -141,7 +142,10 @@
 
             <tr *ngFor="let fila of ConfiguracaoDocumento" class="tr">
               <td class="text-center">
-                {{ getTipoServicoDescricao(+fila.tipoServico) }}
+                 <i class="bi bi-pencil-square" (click)="alterar(fila)"></i> 
+              </td>
+              <td class="text-center">
+               {{ getTipoServicoDescricao(+fila.tipoServico) }}
               </td>
               <td class="text-justify">
                 {{ getTipoArquivoDescricao(+fila.tipoArquivo) }}
