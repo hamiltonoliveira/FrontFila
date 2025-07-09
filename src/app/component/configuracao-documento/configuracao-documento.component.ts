@@ -32,7 +32,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
   tiposArquivo: { chave: string; valor: number }[] = [];
   carregando = false;
   htmlConteudo: string = '';
-
+  _id:number = 0;
 
   constructor(private fb: FormBuilder,
     private configuracaoDocumentoService: ConfiguracaoDocumentoService,
@@ -45,7 +45,6 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
 
   ngOnInit() {
     this.formulario = this.fb.group({
-      id: [null],
       ativo: [true],
       tipoServico: [null, Validators.required],
       tipoArquivo: [null, Validators.required],
@@ -148,9 +147,9 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.formulario.patchValue({
       ...fila,
       dataInicio: fila.dataInicio?.substring(0, 10),
-      dataFinal: fila.dataFinal?.substring(0, 10),
-      id: fila.id
-    });
+      dataFinal: fila.dataFinal?.substring(0, 10)
+     });
+        this._id = fila.id
   }
 
   setarDataAtual(): void {
@@ -188,14 +187,15 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
       dataFinal: new Date(dados.dataFinal).toISOString(),
       tipoServico: Number(this.formulario.value.tipoServico),
       tipoArquivo: Number(this.formulario.value.tipoArquivo),
-      id: Number(this.formulario.value.id)
+      ativo: true,
+      id: this._id
     };
 
     this.configuracaoDocumentoService.criarFila(guidCliente, payload).subscribe({
       next: (res) => {
         this.Sucesso('Fila criada com sucesso');
         this.carregaDocumentos();
-      },
+       },
       error: (err) => {
         this.Erro('Erro ao criar fila');
       }

@@ -20,7 +20,7 @@ export class ConfiguracaoDocumentoService {
       'Authorization': `Bearer ${token}`
     });
 
-    const url = `${this.apiUrl}/ConfiguracaoDocumento/Criar?guid=${guidCliente}`;
+    const url = `${this.apiUrl}/ConfiguracaoDocumento/criar?guidCliente=${guidCliente}`;
     return this.http.post(url, dados, { headers });
   }
 
