@@ -52,7 +52,7 @@ input.form-control.form-control-sm.mt-1::placeholder {
 }
 
 .bg-pago-soft {
-  background-color: #81f1f3;  
+  background-color: #f3f381;  
   color: #ffffff;   
 }
 
@@ -63,6 +63,11 @@ input.form-control.form-control-sm.mt-1::placeholder {
 
 .bg-normal-soft {
    background-color:  #e5f5f4;  
+   color: #000;
+}
+
+.bg-pendente-soft {
+   background-color:  #d5cd96;  
    color: #000;
 }
 
