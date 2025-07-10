@@ -34,6 +34,16 @@ npm install -g http-server
 
 http-server dist/front-bridge -p 8080
 
+-gerar imagem
+docker build -t meu-angular-app .
+
+-rodar a imagem no container - descktop rodando
+docker run -d -p 8080:80 meu-angular-app
+
+-saber se está instalado o docker-compose
+docker-compose --version
+
+
 + --------------------------------------------
 
 

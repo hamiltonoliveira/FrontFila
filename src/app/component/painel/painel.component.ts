@@ -167,13 +167,12 @@ export class PainelComponent {
 
     const dias = Math.floor((hoje.getTime() - envio.getTime()) / (1000 * 60 * 60 * 24));
 
-    if(status == 'Consumido') return 'bg-processado-soft';
-    if(status == 'Pendente') return 'bg-pendente-soft';
+    if(status == 'Consumido') return 'bg-processado-soft'; 
 
-    if (dias === 0) return 'bg-norma-soft';
-    if (dias >= 5 && dias <= 10) return 'bg-atencao-soft';
-    if (dias > 10) return 'bg-atrasado-soft';
-     
+    if (status == 'Pendente' && dias === 0) return 'bg-norma-soft';
+    if (status == 'Pendente' &&  dias >= 1 && dias <= 5) return 'bg-pendente-soft';
+    if (status == 'Pendente' &&  dias >= 5 && dias <= 10) return 'bg-atrasado-soft';
+        
     return 'bg-normal-soft';
   }
 
