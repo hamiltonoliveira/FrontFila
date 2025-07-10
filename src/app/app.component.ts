@@ -13,10 +13,10 @@ export class AppComponent implements OnInit {
               private localStorage: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.verificarAutenticacao();
+    this.checkAuthentication();
   }
 
-  verificarAutenticacao(): void {
+  checkAuthentication(): void {
     const token = localStorage.getItem('token');
     if (!token) {
       this.router.navigate(['/login']);
