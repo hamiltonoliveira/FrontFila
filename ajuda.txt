@@ -44,6 +44,7 @@ docker build -t meu-front-bridge .
 
 -rodar a imagem no container - descktop rodando
 docker run -d -p 8080:80 meu-front-bridge
+docker run -p 80:80 meu-front-bridge
 
 -roda no browser
 http://localhost:8080
@@ -51,6 +52,7 @@ http://localhost:8080
 
 -rodar o docker-compose
 docker-compose up --build -d
+
 
 -parar o docker-compose
 docker-compose down
