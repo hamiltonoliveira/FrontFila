@@ -1,6 +1,9 @@
+version: "3.8"
+
 services:
-  angular-app:
+  front-bridge:
     build: .
     ports:
-      - "80:80"
-    container_name: angular_app
+      - "8080:80"
+    container_name: front-bridge
+    restart: always
