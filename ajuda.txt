@@ -40,11 +40,11 @@ http-server dist/front-bridge -p 8080 --spa
 + --------------------------------------------
 
 -gerar imagem
-docker build -t meu-front-bridge .
+docker build -t saas-bridge .
 
 -rodar a imagem no container - descktop rodando
-docker run -d -p 8080:80 meu-front-bridge
-docker run -p 80:80 meu-front-bridge
+docker run -d -p 8080:80 saas-bridge
+ 
 
 -roda no browser
 http://localhost:8080
