@@ -33,10 +33,6 @@ npm install -g http-server
 ng build 
 http-server dist/front-bridge -p 8080 --spa
 
-
-
-
-
 + --------------------------------------------
 
 -gerar imagem
