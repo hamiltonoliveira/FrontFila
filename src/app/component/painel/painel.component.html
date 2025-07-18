@@ -14,12 +14,12 @@
       <tr>
         <td class="alinhado-centro">
           <span class="cor-quadrado bg-atencao-soft"></span>
-          <span class="text-dark-custom">&nbsp;&nbsp;Até o quinto dia em atraso&nbsp;&nbsp;</span>
+          <span class="text-dark-custom">&nbsp;&nbsp;Até o segundo dia em atraso&nbsp;&nbsp;</span>
         </td>
         <td class="alinhado-centro">
           <span class="cor-quadrado bg-atrasado-soft"></span>
           <span class="text-dark-custom">
-            &nbsp;&nbsp;Atrasos acima do décimo dia estão sujeitos à cobrança de tarifa adicional&nbsp;&nbsp;
+            &nbsp;&nbsp;Atrasos acima do terceiro dia estão sujeitos à cobrança de tarifa adicional&nbsp;&nbsp;
           </span>
         </td>
       </tr>
@@ -99,7 +99,7 @@
                   </button>
                 </td>
                 <td class="text-center align-middle">
-                  <button [disabled]="item.status !== 'Pendente'" type="button" class="btn btn-light"
+                  <button type="button" class="btn btn-light"
                     (click)="downloadFilaMsg(item.nomeFila)">
                     <i class="bi bi-filetype-json" width="30" height="30"></i>
                   </button>
@@ -168,8 +168,8 @@
             <table>
               <tr>
                 <td class="justify-text">
-                  Tarifa cobrada ( dias * 0.5 ):
-                  <strong>R$ {{ tarifa | number:'1.2-2' }}</strong>
+                  Tarifa cobrada ( Dias em atraso * Valor por dia em atrado ):<br>
+                  <strong style="color: red;">R$ {{ tarifa | number:'1.2-2' }}</strong>
                 </td>
               </tr>
             </table>

@@ -176,8 +176,9 @@ export class PainelComponent {
     if(status == 'Consumido') return 'bg-processado-soft'; 
 
     if (status == 'Pendente' && dias === 0) return 'bg-norma-soft';
-    if (status == 'Pendente' &&  dias >= 1 && dias <= 10) return 'bg-atencao-soft';
-    if (status == 'Pendente' &&  dias > 10) return 'bg-atrasado-soft';
+    if (status == 'Pendente' &&  dias >= 1 && dias < 3) return 'bg-atencao-soft';
+    
+    if (status == 'Tarifado' &&  dias > 3) return 'bg-atrasado-soft';
         
     return 'bg-normal-soft';
   }
