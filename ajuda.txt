@@ -38,6 +38,12 @@ http-server dist/front-bridge -p 8080 --spa
 -gerar imagem
 docker build -t saas-bridge .
 
+
+-caso tenha atualizado o frontend
+docker stop servico
+docker rm servico
+
+
 -rodar a imagem no container - descktop rodando
 docker run -d -p 8080:80 --name servico saas-bridge
  
