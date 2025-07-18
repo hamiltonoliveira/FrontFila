@@ -43,7 +43,7 @@ http-server dist/front-bridge -p 8080 --spa
 docker build -t saas-bridge .
 
 -rodar a imagem no container - descktop rodando
-docker run -d -p 8080:80 saas-bridge
+docker run -d -p 8080:80 --name servico saas-bridge
  
 
 -roda no browser

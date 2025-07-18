@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: 'configuracao-documento', loadChildren: () => import('./component/configuracao-documento/configuracao-documento.module').then(m => m.ConfiguracaoDocumentoModule) },
   { path: 'instrucoes', loadChildren: () => import('./component/instrucoes/instrucoes.module').then(m => m.InstrucoesModule) },
   { path: 'painel', loadChildren: () => import('./component/painel/painel.module').then(m => m.PainelModule) },
-  { path: 'chamado', loadChildren: () => import('./component/chamado/chamado.module').then(m => m.ChamadoModule) },
 
   // Rota coringa: redireciona para a raiz
   { path: '**', redirectTo: '' }

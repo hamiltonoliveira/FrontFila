@@ -93,8 +93,8 @@
                 <td class="text-left">{{ item.tipoArquivo }}</td>
                 <td class="text-center">{{ item.registros }}</td>
                 <td class="text-center align-middle">
-                  <button [disabled]="item.status !== 'Pendente'" type="button" class="btn btn-light"
-                    (click)="abrirCalculadora(item.guid)" data-bs-toggle="modal" data-bs-target="#calculadoraModal">
+                  <button type="button" class="btn btn-light" (click)="abrirCalculadora(item.guid)"
+                    data-bs-toggle="modal" data-bs-target="#calculadoraModal">
                     <i class="bi bi-calculator" style="cursor:pointer"></i>
                   </button>
                 </td>
@@ -137,7 +137,7 @@
 
           <tr>
             <td class="justify-text">
-              A cobrança proporcional pelos dias de Retenção terá início após <b>10</b> dias corridos do
+              A cobrança proporcional pelos dias de Retenção terá início após <b>3</b> dias corridos do
               vencimento.
             </td>
           </tr>
@@ -157,17 +157,19 @@
           </tr>
 
           <tr>
+            <td>Tamanho em KB:<strong>{{ quantidadeBytes }}</strong></td>
+          </tr>
+
+          <tr>
+            <td>Valor por dia em atrado: R$<strong>{{ valorRetencaoExtraPorDia }}</strong></td>
+          </tr>
+
+          <tr>
             <table>
               <tr>
-                <td class="justify-text">Equação efetuada:<strong> {{ this.equacao }}</strong></td>
-              </tr>
-
-              <tr>
-                <td>
-                  Valor da tarifa após o 10º dia do vencimento:
-                  <strong>
-                    <strong> {{ valorExcedente | currency:'R$ ':'symbol':'1.2-2' }}</strong>
-                  </strong>
+                <td class="justify-text">
+                  Tarifa cobrada ( dias * 0.5 ):
+                  <strong>R$ {{ tarifa | number:'1.2-2' }}</strong>
                 </td>
               </tr>
             </table>

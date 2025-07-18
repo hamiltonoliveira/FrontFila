@@ -42,6 +42,10 @@ export class PainelComponent {
   valorExcedente: string = '';
   equacao: string = '';
 
+  quantidadeBytes: string = '';
+  tempoDecorridoMs: number = 0;
+  dias:number = 0;
+  tarifa:number =0; 
 
   constructor(private painelService: PainelService,
     private toastr: ToastrService) {
@@ -94,22 +98,24 @@ export class PainelComponent {
           this.status = calculo.status ?? '';
           this.valorMensal = calculo.valorMensal?.toString() ?? '';
           this.valorPorRegistroExcedente = calculo.valorPorRegistroExcedente?.toString() ?? '';
-          this.valorRetencaoExtraPorDia = '0.50';
+          this.valorRetencaoExtraPorDia = '0.5';
           this.ativo = calculo.ativo;
-
-
-          const dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
+          this.quantidadeBytes = calculo.quantidadeBytes.toString() ?? '';
+          this.tempoDecorridoMs = calculo.tempoDecorridoMs;
+         
+          this.dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
 
           this.valorExcedente = '';
 
-          if (dias > 10) {
-            this.valorExcedente = ((dias - 10) * Number(this.valorRetencaoExtraPorDia) * 1).toString();
+          if (this.dias >= 3) {
+            this.valorExcedente = ((this.dias - 3) * Number(this.valorRetencaoExtraPorDia) * 1).toString();
           }
           else {
             this.valorExcedente = '0';
           }
+          this.tarifa = this.dias * 0.5;
+          this.equacao = `R$ ${this.tarifa}`;
 
-          this.equacao = `Atrasos superiores 10, aplica-se a fórmula: (Dia(s) em atraso - 10) × ${this.valorRetencaoExtraPorDia}`;
         }
       },
       error: () => {

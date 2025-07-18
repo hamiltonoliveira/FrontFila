@@ -11,4 +11,8 @@ export interface Calculadora {
   valorMensal: number;
   valorPorRegistroExcedente: number;
   valorRetencaoExtraPorDia: number;
+  quantidadeByte:number;
+  precoPorRegistro:number;
+  tempoDecorridoMs:number;
+  precoPorDiaNaFila: Number;
 }
