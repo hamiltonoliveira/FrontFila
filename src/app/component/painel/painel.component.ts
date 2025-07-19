@@ -49,7 +49,7 @@ export class PainelComponent {
 
   constructor(private painelService: PainelService,
     private toastr: ToastrService) {
-    this.carregaDocumentos();
+    this.carregaDocumentos(0);
   }
 
   ngOnInit() {
@@ -124,11 +124,18 @@ export class PainelComponent {
     });
   }
 
-  carregaDocumentos(): void {
+  onStatusChange(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const selectedValue = parseInt(selectElement.value); 
+  
+  this. carregaDocumentos(selectedValue);
+}
+
+  carregaDocumentos(selectedValue: number): void {
     const guidCliente = localStorage.getItem('guidCliente');
     if (!guidCliente) return;
     this.spinner(true);
-    this.painelService.listarMGS(guidCliente).subscribe({
+    this.painelService.listarMGS(guidCliente,selectedValue).subscribe({
       next: (dados: DocumentoMSG[]) => {
         this.documentacaoOriginal = dados ?? [];
         this.Documentacao = [...this.documentacaoOriginal];

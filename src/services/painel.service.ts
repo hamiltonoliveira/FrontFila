@@ -13,14 +13,15 @@ export class PainelService {
 
   constructor(private http: HttpClient) { }
 
-  listarMGS(guidCliente: string): Observable<any> {
+  listarMGS(guidCliente: string, selectedValue:number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    const params = guidCliente;
-    return this.http.get(`${this.apiUrlLista}/Painel/painel/?guidcliente=${params}`, { headers });
+    const params1 = guidCliente;
+    const params2 = selectedValue;
+    return this.http.get(`${this.apiUrlLista}/Painel/painel/?guidcliente=${params1}&status=${params2}`, { headers });
   }
 
   CalculadoraGuid(guid: string): Observable<any> {
