@@ -1,11 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Calculadora } from 'src/app/models/calculadora.model';
 import { DocumentoMSG } from 'src/app/models/documentoMsg';
 import { PainelService } from 'src/services/painel.service';
 
 import { saveAs } from 'file-saver';
+import { LocalStorageService } from 'src/app/local-storage.service';
 
 
 
@@ -44,17 +45,77 @@ export class PainelComponent {
 
   quantidadeBytes: string = '';
   tempoDecorridoMs: number = 0;
-  dias:number = 0;
-  tarifa:number =0; 
+  dias: number = 0;
+  tarifa: number = 0;
+  private timerId: any;
+  countTime: number = 0;
+
 
   constructor(private painelService: PainelService,
-    private toastr: ToastrService) {
-    this.carregaDocumentos(0);
+    private toastr: ToastrService,
+    private ngZone: NgZone,
+    private localStorageService: LocalStorageService) {
+    const tipoServico = Number(this.localStorageService.getItem("tipoServico"));
+    if (tipoServico) {
+      this.carregaDocumentos(tipoServico);
+    } else {
+      this.localStorageService.setItem("tipoServico", 0);
+      this.carregaDocumentos(tipoServico);
+    }
   }
+
 
   ngOnInit() {
     this.hoje = new Date();
+
+    const savedInterval = this.localStorageService.getItem("time");
+    this.countTime = Number(savedInterval);
+    if (savedInterval) {
+      const intervalMs = Number(savedInterval);
+      this.countTime = intervalMs;
+ 
+
+      this.timerId = setTimeout(() => {
+        location.reload();
+      }, intervalMs);
+      
+
+      const countdownInterval = setInterval(() => {
+        this.countTime -= 1000;
+
+
+        if (this.countTime <= 0) {
+          clearInterval(countdownInterval);
+            this.countTime = 0;
+        }
+
+      }, 1000);
+    }else{
+         this.localStorageService.setItem("time",60000)
+         location.reload();
+    }
   }
+
+  ngOnDestroy(): void {
+    this.clearTimer();
+  }
+
+  startTimer(_reloadInterval: number): void {
+    this.localStorageService.setItem("time", _reloadInterval);
+    this.localStorageService.setItem("tipoServico", _reloadInterval);
+ 
+    const savedInterval = Number(_reloadInterval);
+    this.countTime = Number(savedInterval);
+    this.carregaDocumentos(_reloadInterval);
+  }
+
+  clearTimer() {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId = null;
+    }
+  }
+
 
   spinner(valor: boolean) {
     this.carregando = valor;
@@ -79,7 +140,7 @@ export class PainelComponent {
       },
       error: (error) => {
         this.spinner(false);
-          this.toastr.info('A fila está limpa — nenhuma mensagem disponível.');
+        this.toastr.info('A fila está limpa — nenhuma mensagem disponível.');
       }
     });
   }
@@ -102,7 +163,7 @@ export class PainelComponent {
           this.ativo = calculo.ativo;
           this.quantidadeBytes = calculo.quantidadeBytes.toString() ?? '';
           this.tempoDecorridoMs = calculo.tempoDecorridoMs;
-         
+
           this.dias = Number(this.diasAtraso(this.dataEnvio, this.ativo));
 
           this.valorExcedente = '';
@@ -125,17 +186,17 @@ export class PainelComponent {
   }
 
   onStatusChange(event: Event) {
-  const selectElement = event.target as HTMLSelectElement;
-  const selectedValue = parseInt(selectElement.value); 
-  
-  this. carregaDocumentos(selectedValue);
-}
+    const selectElement = event.target as HTMLSelectElement;
+    this.localStorageService.setItem("tipoServico", selectElement.value);
+    this.carregaDocumentos(Number(selectElement.value));
+  }
+
 
   carregaDocumentos(selectedValue: number): void {
     const guidCliente = localStorage.getItem('guidCliente');
     if (!guidCliente) return;
     this.spinner(true);
-    this.painelService.listarMGS(guidCliente,selectedValue).subscribe({
+    this.painelService.listarMGS(guidCliente, selectedValue).subscribe({
       next: (dados: DocumentoMSG[]) => {
         this.documentacaoOriginal = dados ?? [];
         this.Documentacao = [...this.documentacaoOriginal];
@@ -180,13 +241,13 @@ export class PainelComponent {
 
     const dias = Math.floor((hoje.getTime() - envio.getTime()) / (1000 * 60 * 60 * 24));
 
-    if(status == 'Consumido') return 'bg-processado-soft'; 
+    if (status == 'Consumido') return 'bg-processado-soft';
 
     if (status == 'Pendente' && dias === 0) return 'bg-norma-soft';
-    if (status == 'Pendente' &&  dias >= 1 && dias < 3) return 'bg-atencao-soft';
-    
-    if (status == 'Tarifado' &&  dias > 3) return 'bg-atrasado-soft';
-        
+    if (status == 'Pendente' && dias >= 1 && dias < 3) return 'bg-atencao-soft';
+
+    if (status == 'Tarifado' && dias > 3) return 'bg-atrasado-soft';
+
     return 'bg-normal-soft';
   }
 

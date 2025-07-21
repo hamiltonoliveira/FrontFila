@@ -23,14 +23,48 @@
           </span>
         </td>
         <td>
-          <div style="margin-right: 10px;">
-          <select class="form-select form-select-sm" (change)="onStatusChange($event)" style="font-family: 'Montserrat', sans-serif; font-size: 15px;">
-            <option value="0" selected>Pendente</option>
-            <option value="1">Consumido</option>
-            <option value="3">Excluído</option>
-          </select>
+          <table>
+            <tr>
+              <td>
+                &nbsp;
+              </td>
+              <td>
+                <div style="margin-right: 10px;">
+                  <select class="form-select form-select-sm" (change)="onStatusChange($event)"
+                    style="font-family: 'Montserrat', sans-serif; font-size: 15px;">
+                    <option value="99" selected>Escolha o movimento</option>
+                    <option value="0">Pendente</option>
+                    <option value="1">Consumido</option>
+                    <option value="3">Excluído</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+       
+
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-stopwatch" style="height: 50px;"></i> Cronometrada <span
+                class="rounded-pill fs-6 px-3 py-2 countTime">{{countTime}}</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><button class="dropdown-item" (click)="startTimer(20000)">20 segundos</button></li>
+              <li><button class="dropdown-item" (click)="startTimer(30000)">30 segundos</button></li>
+              <li><button class="dropdown-item" (click)="startTimer(40000)">40 segundos</button></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><button class="dropdown-item" (click)="startTimer(60000)">1 minutos</button></li>
+              <li><button class="dropdown-item" (click)="startTimer(0)">Parar o refresh</button></li>
+            </ul>
           </div>
         </td>
+         
+     
       </tr>
     </table>
     <div class="card-body p-0">
@@ -102,13 +136,14 @@
                 <td class="text-left">{{ item.tipoArquivo }}</td>
                 <td class="text-center">{{ item.registros }}</td>
                 <td class="text-center align-middle">
-                  <button type="button" class="btn btn-light" [disabled]="item.status === 'Consumido'" (click)="abrirCalculadora(item.guid)"
-                    data-bs-toggle="modal" data-bs-target="#calculadoraModal">
+                  <button type="button" class="btn btn-light" [disabled]="item.status === 'Consumido'"
+                    (click)="abrirCalculadora(item.guid)" data-bs-toggle="modal" data-bs-target="#calculadoraModal">
                     <i class="bi bi-calculator" style="cursor:pointer"></i>
                   </button>
                 </td>
                 <td class="text-center align-middle">
-                  <button type="button" class="btn btn-light" [disabled]="item.status === 'Consumido'" (click)="downloadFilaMsg(item.nomeFila)">
+                  <button type="button" class="btn btn-light" [disabled]="item.status === 'Consumido'"
+                    (click)="downloadFilaMsg(item.nomeFila)">
                     <i class="bi bi-filetype-json" width="30" height="30"></i>
                   </button>
                 </td>

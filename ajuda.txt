@@ -32,10 +32,10 @@ npm install -g http-server
 
 ng build 
 http-server dist/front-bridge -p 8080 --spa
-
 + --------------------------------------------
 
--gerar imagem se quiser garantir que ele reconstrua tudo
+-gerar imagem se quiser garantir que ele reconstrua tudo ou o que foi implementado
+ docker build -t saas-bridge .
  docker build --no-cache -t saas-bridge .
 
 
