@@ -22,35 +22,29 @@
             &nbsp;&nbsp;Atrasos acima do terceiro dia estão sujeitos à cobrança de tarifa adicional&nbsp;&nbsp;
           </span>
         </td>
+
+
         <td>
-          <table>
-            <tr>
-              <td>
-                &nbsp;
-              </td>
-              <td>
-                <div style="margin-right: 10px;">
-                  <select class="form-select form-select-sm" (change)="onStatusChange($event)"
-                    style="font-family: 'Montserrat', sans-serif; font-size: 15px;">
-                    <option value="99" selected>Escolha o movimento</option>
-                    <option value="0">Pendente</option>
-                    <option value="1">Consumido</option>
-                    <option value="3">Excluído</option>
-                  </select>
-                </div>
-              </td>
-            </tr>
-          </table>
+
+          <div style="margin-right: 10px;">
+            <select class="form-select form-select-sm TipoServico" (change)="onStatusChange($event)">
+              <option value="99" selected>Escolha o movimento</option>
+              <option value="0">Pendente</option>
+              <option value="1">Consumido</option>
+              <option value="3">Excluído</option>
+            </select>
+          </div>
         </td>
-       
+
 
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+            <button type="button" class="btn btn-danger dropdown-toggle" style="height: 50px;" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <i class="bi bi-stopwatch" style="height: 50px;"></i> Cronometrada <span
+              <i class="bi bi-stopwatch"></i> Cronometrada <span
                 class="rounded-pill fs-6 px-3 py-2 countTime">{{countTime}}</span>
             </button>
+
             <ul class="dropdown-menu">
               <li><button class="dropdown-item" (click)="startTimer(20000)">20 segundos</button></li>
               <li><button class="dropdown-item" (click)="startTimer(30000)">30 segundos</button></li>
@@ -59,12 +53,11 @@
                 <hr class="dropdown-divider">
               </li>
               <li><button class="dropdown-item" (click)="startTimer(60000)">1 minutos</button></li>
-              <li><button class="dropdown-item" (click)="startTimer(0)">Parar o refresh</button></li>
+              <li><button class="dropdown-item" (click)="startTimer(null)">Parada</button></li>
             </ul>
           </div>
         </td>
-         
-     
+
       </tr>
     </table>
     <div class="card-body p-0">

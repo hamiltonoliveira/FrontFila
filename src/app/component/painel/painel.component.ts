@@ -67,47 +67,25 @@ export class PainelComponent {
 
   ngOnInit() {
     this.hoje = new Date();
-
-    const savedInterval = this.localStorageService.getItem("time");
-    this.countTime = Number(savedInterval);
-    if (savedInterval) {
-      const intervalMs = Number(savedInterval);
-      this.countTime = intervalMs;
- 
-
-      this.timerId = setTimeout(() => {
-        location.reload();
-      }, intervalMs);
-      
-
-      const countdownInterval = setInterval(() => {
-        this.countTime -= 1000;
-
-
-        if (this.countTime <= 0) {
-          clearInterval(countdownInterval);
-            this.countTime = 0;
-        }
-
-      }, 1000);
-    }else{
-         this.localStorageService.setItem("time",60000)
-         location.reload();
-    }
+    this.iniciar();
   }
 
   ngOnDestroy(): void {
     this.clearTimer();
   }
 
-  startTimer(_reloadInterval: number): void {
+  startTimer(_reloadInterval: number | null): void {
+    this.localStorageService.removeItem("time");
+
+    const intervaloFinal = _reloadInterval ?? 0;
     this.localStorageService.setItem("time", _reloadInterval);
-    this.localStorageService.setItem("tipoServico", _reloadInterval);
- 
-    const savedInterval = Number(_reloadInterval);
-    this.countTime = Number(savedInterval);
-    this.carregaDocumentos(_reloadInterval);
+
+    this.countTime = intervaloFinal;
+
+    if (_reloadInterval != null)
+       this.iniciar();
   }
+
 
   clearTimer() {
     if (this.timerId) {
@@ -183,6 +161,37 @@ export class PainelComponent {
         this.spinner(false);
       }
     });
+  }
+
+  iniciar(): void {
+    const savedInterval = this.localStorageService.getItem("time");
+
+    if (savedInterval == null) return;
+
+    if (savedInterval) {
+      const intervalMs = Number(savedInterval);
+      this.countTime = intervalMs;
+
+      const startCountdown = () => {
+        // Atualiza o contador visual a cada segundo
+        const countdownInterval = setInterval(() => {
+          this.countTime -= 1000;
+
+          if (this.countTime <= 0) {
+            clearInterval(countdownInterval); // Limpa o contador atual
+            this.countTime = intervalMs;      // Reinicia o tempo
+            location.reload();              // Recarrega a página
+          }
+        }, 1000);
+      };
+
+      startCountdown();
+
+    } else {
+      // Define valor padrão e força reload
+      this.localStorageService.setItem("time", 60000);
+      location.reload();
+    }
   }
 
   onStatusChange(event: Event) {
