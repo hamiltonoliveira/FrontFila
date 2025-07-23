@@ -95,8 +95,8 @@
                     placeholder="Filtrar tipo">
                 </th>
                 <th>
-                  Total de registros
-                  <input type="number" class="form-control form-control-sm mt-1" [(ngModel)]="filtroRegistros"
+                  Quantidade de Bytes
+                  <input type="number" class="form-control form-control-sm mt-1" [(ngModel)]="filtroQuantidadeBytes"
                     placeholder="Filtrar">
                 </th>
                 <th class="text-center align-middle">
@@ -119,7 +119,7 @@
                   {{ item.descricao }}
                 </td>
                 <td class="text-left">{{ item.tipoArquivo }}</td>
-                <td class="text-center">{{ item.registros }}</td>
+                <td class="text-center">{{ item.quantidadeBytes }}</td>
                 <td class="text-center align-middle">
                   <button type="button" class="btn btn-light" [disabled]="item.status === 'Consumido'"
                     (click)="abrirCalculadora(item.guid)" data-bs-toggle="modal" data-bs-target="#calculadoraModal">

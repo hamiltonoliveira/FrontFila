@@ -28,6 +28,7 @@ export class PainelComponent {
   filtroDescricao: string = '';
   filtroTipo: string = '';
   filtroRegistros?: number;
+  filtroQuantidadeBytes?: number;
 
   dataEnvio!: Date;
   ativo: boolean = true;
@@ -83,7 +84,7 @@ export class PainelComponent {
     this.countTime = intervaloFinal;
 
     if (_reloadInterval != null)
-       this.iniciar();
+      this.iniciar();
   }
 
 
@@ -230,16 +231,20 @@ export class PainelComponent {
       const dataEnvioStr = item.dataEnvio ? item.dataEnvio.toString() : '';
       const dataEnvioMatch = !this.filtroData || dataEnvioStr.toLowerCase().includes(this.filtroData.toLowerCase());
 
+      const matchQuantidadeBytes = !this.filtroQuantidadeBytes ||
+        item.quantidadeBytes.toString().includes(this.filtroQuantidadeBytes.toString());
+
       return (
         includesIgnoreCase(item.status, this.filtroStatus) &&
         includesIgnoreCase(item.queueName, this.filtroFila) &&
         dataEnvioMatch &&
         includesIgnoreCase(item.descricao, this.filtroDescricao) &&
         includesIgnoreCase(item.tipoArquivo, this.filtroTipo) &&
-        (!this.filtroRegistros || item.registros === this.filtroRegistros)
+        matchQuantidadeBytes
       );
     });
   }
+
 
   getCorLinha(dataEnvio: Date, status: string): string {
     const hoje = new Date();
