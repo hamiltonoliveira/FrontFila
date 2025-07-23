@@ -102,14 +102,17 @@ hr.my-2 {
   border-top: 1px solid #ccc;
 }
  
-.countTime{
+.countTime {
   background-color: white;
-  color: black; 
-  height: 24px;  
-  line-height: 24px;  
+  color: black;  
   padding-top: 0;
   padding-bottom: 0;
+  margin-top: 2px;
+  min-width: 60px;         /* garante uma largura mínima */
+  text-align: center;
+  display: inline-block;   /* necessário para respeitar largura */
 }
+
 
 .TipoServico{
   font-family: 'Montserrat', sans-serif;

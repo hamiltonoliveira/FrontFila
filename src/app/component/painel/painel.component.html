@@ -1,4 +1,5 @@
 <div class="d-flex justify-content-center mt-5">
+  <!-- Loader -->
   <div *ngIf="carregando" class="d-flex justify-content-center align-items-center flex-column"
     style="position: fixed; inset: 0; width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.8); z-index: 1050;">
     <div class="spinner-grow text-dark" role="status" style="width: 3rem; height: 3rem;">
@@ -9,64 +10,65 @@
     </p>
   </div>
 
+  <!-- Card principal -->
   <div class="card w-65 shadow">
-    <table style="margin-left: 15px; margin-top: 20px; margin-bottom: 20px;">
-      <tr>
-        <td class="alinhado-centro">
-          <span class="cor-quadrado bg-atencao-soft"></span>
-          <span class="text-dark-custom">&nbsp;&nbsp;Até o segundo dia em atraso&nbsp;&nbsp;</span>
-        </td>
-        <td class="alinhado-centro">
-          <span class="cor-quadrado bg-atrasado-soft"></span>
-          <span class="text-dark-custom">
-            &nbsp;&nbsp;Atrasos acima do terceiro dia estão sujeitos à cobrança de tarifa adicional&nbsp;&nbsp;
-          </span>
-        </td>
+    <!-- Informações e filtros -->
+    <div class="mx-3"> <!-- Margem horizontal de ~16px com Bootstrap -->
+      <div style="margin-left: 4px; margin-right: 4px;"> <!-- Complementa para total de 20px -->
+        <table class="w-100 mt-3 mb-3">
+          <tr>
+            <td class="alinhado-centro">
+              <span class="cor-quadrado bg-atencao-soft"></span>
+              <span class="text-dark-custom">&nbsp;&nbsp;Até o segundo dia em atraso&nbsp;&nbsp;</span>
+            </td>
+            <td class="alinhado-centro">
+              <span class="cor-quadrado bg-atrasado-soft"></span>
+              <span class="text-dark-custom">
+                &nbsp;&nbsp;Atrasos acima do terceiro dia estão sujeitos à cobrança de tarifa adicional&nbsp;&nbsp;
+              </span>
+            </td>
+            <td colspan="2" class="text-end">
+              <div class="d-flex justify-content-end gap-2">
+                <select class="form-select form-select-sm TipoServico w-auto" (change)="onStatusChange($event)">
+                  <option value="99" selected>Escolha o movimento</option>
+                  <option value="0">Pendente</option>
+                  <option value="1">Consumido</option>
+                  <option value="3">Excluído</option>
+                </select>
 
+                <div class="btn-group">
+                  <button type="button" class="btn btn-danger dropdown-toggle" style="height: 50px;"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-stopwatch"></i> Cronometrada
+                    <span class="rounded-pill fs-6 px-3 py-2 countTime">{{countTime / 1000}}</span>
+                  </button>
+                  
+                  <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" (click)="startTimer(20000)">20 segundos</button></li>
+                    <li><button class="dropdown-item" (click)="startTimer(30000)">30 segundos</button></li>
+                    <li><button class="dropdown-item" (click)="startTimer(40000)">40 segundos</button></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><button class="dropdown-item" (click)="startTimer(60000)">1 minuto</button></li>
+                    <li><button class="dropdown-item" (click)="startTimer(null)">Parada do time</button></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-        <td>
-
-          <div style="margin-right: 10px;">
-            <select class="form-select form-select-sm TipoServico" (change)="onStatusChange($event)">
-              <option value="99" selected>Escolha o movimento</option>
-              <option value="0">Pendente</option>
-              <option value="1">Consumido</option>
-              <option value="3">Excluído</option>
-            </select>
-          </div>
-        </td>
-
-
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-danger dropdown-toggle" style="height: 50px;" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="bi bi-stopwatch"></i> Cronometrada <span
-                class="rounded-pill fs-6 px-3 py-2 countTime">{{countTime}}</span>
-            </button>
-
-            <ul class="dropdown-menu">
-              <li><button class="dropdown-item" (click)="startTimer(20000)">20 segundos</button></li>
-              <li><button class="dropdown-item" (click)="startTimer(30000)">30 segundos</button></li>
-              <li><button class="dropdown-item" (click)="startTimer(40000)">40 segundos</button></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><button class="dropdown-item" (click)="startTimer(60000)">1 minuto</button></li>
-              <li><button class="dropdown-item" (click)="startTimer(null)">Parada do time</button></li>
-            </ul>
-          </div>
-        </td>
-
-      </tr>
-    </table>
+    <!-- Tabela de dados -->
     <div class="card-body p-0">
       <div class="scroll-box" style="max-height: 70vh; overflow-y: auto;">
-        <div class="table table-responsive">
+        <div class="table-responsive">
           <table class="table table-bordered small-font table-striped">
             <thead class="thead align-middle">
               <tr>
-                <th> </th>
+                <th></th>
                 <th>
                   Status atual
                   <input type="text" class="form-control form-control-sm mt-1" [(ngModel)]="filtroStatus"
@@ -98,21 +100,10 @@
                     placeholder="Filtrar">
                 </th>
                 <th class="text-center align-middle">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                    class="bi bi-calculator-fill" viewBox="0 0 16 16">
-                    <path
-                      d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z" />
-                  </svg>
+                  <i class="bi bi-calculator-fill fs-5"></i>
                 </th>
-
                 <th class="text-center align-middle">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                    class="bi bi-file-arrow-down" viewBox="0 0 16 16">
-                    <path
-                      d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5" />
-                    <path
-                      d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1" />
-                  </svg>
+                  <i class="bi bi-file-arrow-down fs-5"></i>
                 </th>
               </tr>
             </thead>
@@ -120,8 +111,9 @@
               <tr *ngFor="let item of getDocumentacaoFiltrada(); let i = index" class="tr">
                 <td>{{ i + 1 }}</td>
                 <td [ngClass]="[getCorLinha(item.dataEnvio, item.status)]">{{ item.status }}</td>
-                <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">{{
-                  item.queueName }}</td>
+                <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">
+                  {{ item.queueName }}
+                </td>
                 <td>{{ item.dataEnvio }}</td>
                 <td class="text-start" style="max-width: 400px; word-break: break-word; white-space: normal;">
                   {{ item.descricao }}
@@ -137,7 +129,7 @@
                 <td class="text-center align-middle">
                   <button type="button" class="btn btn-light" [disabled]="item.status === 'Consumido'"
                     (click)="downloadFilaMsg(item.nomeFila)">
-                    <i class="bi bi-filetype-json" width="30" height="30"></i>
+                    <i class="bi bi-filetype-json"></i>
                   </button>
                 </td>
               </tr>
@@ -149,66 +141,51 @@
   </div>
 </div>
 
-
+<!-- Modal de cálculo -->
 <div class="modal fade" id="calculadoraModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalLabel"><strong>Cálculo da tarifa com base na data atual, aplicável apenas em
-            caso de cobrança.</strong></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="ModalLabel">
+          <strong>Cálculo da tarifa com base na data atual, aplicável apenas em caso de cobrança.</strong>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
         <table class="table table-borderless">
           <tr>
-            <td>
-              Situação:<strong>{{status}}</strong>
-              <small class="text-muted fst-italic">Visualizado em:{{hoje | date:'dd/MM/yyyy HH:mm'}}</small>
-            </td>
+            <td>Situação: <strong>{{status}}</strong> <small class="text-muted fst-italic">Visualizado em: {{hoje |
+                date:'dd/MM/yyyy HH:mm'}}</small></td>
           </tr>
-
           <tr>
-            <td>Data do envio:{{ dataEnvio }}</td>
+            <td>Data do envio: {{ dataEnvio }}</td>
           </tr>
-
           <tr>
-            <td class="justify-text">
-              A cobrança proporcional pelos dias de Retenção terá início após <b>3</b> dias corridos do
-              vencimento.
-            </td>
+            <td class="justify-text">A cobrança proporcional pelos dias de Retenção terá início após <b>3</b> dias
+              corridos do vencimento.</td>
           </tr>
-
           <tr>
             <td>
               <hr class="my-1">
             </td>
           </tr>
-
           <tr>
-            <td>Registros publicados:<strong>{{ registros }}</strong></td>
+            <td>Registros publicados: <strong>{{ registros }}</strong></td>
           </tr>
-
           <tr>
-            <td>Dias em atraso:<strong>{{ diasAtraso(dataEnvio, ativo) }}</strong></td>
+            <td>Dias em atraso: <strong>{{ diasAtraso(dataEnvio, ativo) }}</strong></td>
           </tr>
-
           <tr>
-            <td>Tamanho em KB:<strong>{{ quantidadeBytes }}</strong></td>
+            <td>Tamanho em KB: <strong>{{ quantidadeBytes }}</strong></td>
           </tr>
-
           <tr>
-            <td>Valor por dia em atrado: R$<strong>{{ valorRetencaoExtraPorDia }}</strong></td>
+            <td>Valor por dia em atraso: R$ <strong>{{ valorRetencaoExtraPorDia }}</strong></td>
           </tr>
-
           <tr>
-            <table>
-              <tr>
-                <td class="justify-text">
-                  Tarifa cobrada ( Dias em atraso * Valor por dia em atrado ):<br>
-                  <strong style="color: red;">R$ {{ tarifa | number:'1.2-2' }}</strong>
-                </td>
-              </tr>
-            </table>
+            <td class="justify-text">
+              Tarifa cobrada (Dias em atraso * Valor por dia em atraso):<br>
+              <strong style="color: red;">R$ {{ tarifa | number:'1.2-2' }}</strong>
+            </td>
           </tr>
         </table>
       </div>
