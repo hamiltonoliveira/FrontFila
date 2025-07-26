@@ -34,15 +34,14 @@ ng build
 http-server dist/front-bridge -p 8080 --spa
 + --------------------------------------------
 
--gerar imagem se quiser garantir que ele reconstrua tudo ou o que foi implementado
- docker build -t saas-bridge .
- docker build --no-cache -t saas-bridge .
-
-
 -caso tenha atualizado o frontend
  docker stop servico
  docker rm servico
 
+
+-gerar imagem se quiser garantir que ele reconstrua tudo ou o que foi implementado
+ docker build -t saas-bridge .
+ docker build --no-cache -t saas-bridge .
 
 -rodar a imagem no container - descktop rodando
  docker run -d -p 8080:80 --name servico saas-bridge
