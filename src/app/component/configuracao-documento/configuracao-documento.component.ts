@@ -230,6 +230,9 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     this.configuracaoDocumentoService.listarConfiguracao(guidCliente).subscribe({
       next: (dados: ConfiguracaoDocumentoMQDTO[]) => {
         this.ConfiguracaoDocumento = dados ?? [];
+
+        console.log(dados)
+
         this.formulario.reset();
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
