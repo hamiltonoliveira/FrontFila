@@ -47,7 +47,12 @@ input.form-control.form-control-sm.mt-1::placeholder {
 }
 
 .bg-atrasado-soft {
-  background-color: #fe6763;  
+  background-color: #e1788b;  
+  color: #ffffff;  
+}
+
+.bg-atrasadoMaior5D-soft {
+  background-color: #999a93;  
   color: #ffffff;  
 }
 

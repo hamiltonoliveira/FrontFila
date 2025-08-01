@@ -260,6 +260,8 @@ export class PainelComponent {
     if (status == 'Pendente' && dias === 0) return 'bg-norma-soft';
     if (status == 'Pendente' && dias >= 1 && dias < 3) return 'bg-atencao-soft';
 
+    if (status == 'Pendente' && dias > 3 ) return 'bg-atrasadoMaior5D-soft ';
+
     if (status == 'Tarifado' && dias > 3) return 'bg-atrasado-soft';
 
     return 'bg-normal-soft';
