@@ -63,4 +63,14 @@ docker-compose --version
 
 
 + --------------------------------------------
+-builde docker postgres
 
+# docker build -f Dockerfile.postgres -t imagem-postgres .
+# docker run --name meu-postgres -p 5432:5432 -d imagem-postgres
+
+
+--rodar o compose e faz tudo compila, gera image e roda
+docker-compose -f docker-compose.postgres.yml up -d
+
+--para o 
+docker-compose -f docker-compose.postgres.yml down
