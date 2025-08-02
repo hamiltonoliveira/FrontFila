@@ -143,15 +143,7 @@ export class ConfiguracaoDocumentoComponent implements OnInit {
     return fim > inicio ? null : { dataInvalida: true };
   }
 
-  alterar(fila: any): void {
-    this.formulario.patchValue({
-      ...fila,
-      dataInicio: fila.dataInicio?.substring(0, 10),
-      dataFinal: fila.dataFinal?.substring(0, 10)
-     });
-        this._id = fila.id
-  }
-
+ 
   setarDataAtual(): void {
     const hoje = new Date();
     this.dataHoje = hoje.toISOString().split('T')[0]; // usado no atributo [min]

@@ -1,48 +1,39 @@
-<div class="container mt-5 d-flex justify-content-center">
-  <div *ngIf="carregando" class="d-flex justify-content-center align-items-center flex-column"
-    style="position: fixed; inset: 0; width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.8); z-index: 1050;">
+<div class="container-fluid mt-5 d-flex justify-content-center">
+  <div class="card shadow w-100" style="max-width: 1200px;">
 
-    <div class="spinner-grow text-dark" role="status" style="width: 3rem; height: 3rem;">
-      <span class="visually-hidden">Carregando...</span>
+    <div *ngIf="carregando" class="loading-overlay d-flex justify-content-center align-items-center flex-column">
+      <br><br>
+      <div class="spinner-grow text-dark" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+      <p class="mt-3 fs-5 fw-medium">
+        <span class="text-primary">Por favor, aguarde...</span>
+      </p>
     </div>
 
-    <p class="mt-3 fs-5 fw-medium"><span style="font-family: 'Montserrat', sans-serif; color: #38928a;">Por favor,
-        aguarde...</span></p>
-  </div>
-
-  <div class="card w-65 shadow">
     <div class="card-body">
       <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
         <div class="row g-3 align-items-end">
-
+          <!-- Ativo Switch -->
           <div class="col-md-1 d-flex align-items-center">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="ativo" formControlName="ativo" checked
                 (change)="mudarStatus()">
               <label class="form-check-label" for="ativo"
-                [ngStyle]="{color: statusAtivo === 'ON' ? 'black' : 'red', 'font-weight': 'normal'}"
-                style="font-size: 0.75rem; font-family: 'Montserrat', sans-serif;">
+                [ngStyle]="{color: statusAtivo === 'ON' ? 'black' : 'red', 'font-weight': 'normal'}" class="small-font">
                 {{ statusAtivo }}
               </label>
             </div>
           </div>
 
           <!-- Tipo de Serviço -->
-          <div class="col-md-3" style="margin-left: 29px;">
-            <label for="tipoServico" class="form-label">
-              Tipo de Serviço <span class="text-danger">*</span>
-            </label>
-
+          <div class="col-md-3 ms-3">
+            <label for="tipoServico" class="form-label">Tipo de Serviço <span class="text-danger">*</span></label>
             <select id="tipoServico" formControlName="tipoServico" class="form-select"
-              [ngClass]="{ 'is-invalid': formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid }">
-
+              [ngClass]="{'is-invalid': formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid}">
               <option value="" disabled selected>Selecione...</option>
-              <option *ngFor="let tipo of tiposServico" [value]="tipo.valor">
-                {{ tipo.chave }}
-              </option>
-
+              <option *ngFor="let tipo of tiposServico" [value]="tipo.valor">{{ tipo.chave }}</option>
             </select>
-
             <div class="invalid-feedback"
               *ngIf="formulario.get('tipoServico')?.touched && formulario.get('tipoServico')?.invalid">
               Campo obrigatório.
@@ -53,11 +44,9 @@
           <div class="col-md-3">
             <label for="tipoArquivo" class="form-label">Tipo de Arquivo <span class="text-danger">*</span></label>
             <select id="tipoArquivo" formControlName="tipoArquivo" class="form-select"
-              [ngClass]="{ 'is-invalid': formulario.get('tipoArquivo')?.touched && formulario.get('tipoArquivo')?.invalid }">
+              [ngClass]="{'is-invalid': formulario.get('tipoArquivo')?.touched && formulario.get('tipoArquivo')?.invalid}">
               <option value="" disabled selected>Selecione...</option>
-              <option *ngFor="let tipo of tiposArquivo" [value]="tipo.valor">
-                {{ tipo.chave }}
-              </option>
+              <option *ngFor="let tipo of tiposArquivo" [value]="tipo.valor">{{ tipo.chave }}</option>
             </select>
             <div class="invalid-feedback"
               *ngIf="formulario.get('tipoArquivo')?.touched && formulario.get('tipoArquivo')?.invalid">
@@ -69,7 +58,7 @@
           <div class="col-md-2">
             <label for="dataInicio" class="form-label">Data Início <span class="text-danger">*</span></label>
             <input id="dataInicio" formControlName="dataInicio" type="date" class="form-control" [attr.min]="dataHoje"
-              [ngClass]="{ 'is-invalid': formulario.get('dataInicio')?.touched && formulario.get('dataInicio')?.invalid }" />
+              [ngClass]="{'is-invalid': formulario.get('dataInicio')?.touched && formulario.get('dataInicio')?.invalid}" />
             <div class="invalid-feedback"
               *ngIf="formulario.get('dataInicio')?.touched && formulario.get('dataInicio')?.invalid">
               A data de início não pode ser anterior a hoje.
@@ -80,7 +69,7 @@
           <div class="col-md-2">
             <label for="dataFinal" class="form-label">Data Final <span class="text-danger">*</span></label>
             <input id="dataFinal" formControlName="dataFinal" type="date" class="form-control" [attr.min]="dataHoje"
-              [ngClass]="{ 'is-invalid': formulario.get('dataFinal')?.touched && formulario.get('dataFinal')?.invalid }" />
+              [ngClass]="{'is-invalid': formulario.get('dataFinal')?.touched && formulario.get('dataFinal')?.invalid}" />
             <div class="invalid-feedback"
               *ngIf="formulario.get('dataFinal')?.touched && formulario.get('dataFinal')?.invalid">
               Campo obrigatório ou data inferior a hoje.
@@ -88,34 +77,24 @@
           </div>
         </div>
 
-        <!-- Textarea + Botão lado a lado -->
+        <!-- Descrição + Botão -->
         <div class="row mt-4">
           <div class="col-md-12 d-flex align-items-end">
-
             <div class="flex-grow-1 me-3">
-              <label for="descricao" class="form-label">
-                Descrição sobre a Fila <span class="text-danger">*</span>
-              </label>
-
-              <textarea id="descricao" style="resize: none;" formControlName="descricao" class="form-control" [ngClass]="{
-                'is-invalid': formulario.get('descricao')?.touched && formulario.get('descricao')?.invalid}" rows="2"
-                maxlength="200" placeholder="Descreva os detalhes da fila..." (input)="atualizarContador()">
-              </textarea>
-
-              <div class="form-text text-end text-muted">
-                Caracteres: {{ caracteresDigitados }}/200
-              </div>
-
+              <label for="descricao" class="form-label">Descrição sobre a Fila <span
+                  class="text-danger">*</span></label>
+              <textarea id="descricao" formControlName="descricao" class="form-control" style="resize: none;" rows="3"
+                maxlength="200"
+                [ngClass]="{'is-invalid': formulario.get('descricao')?.touched && formulario.get('descricao')?.invalid}"
+                placeholder="Descreva os detalhes da fila..." (input)="atualizarContador()"></textarea>
+              <div class="form-text text-end text-muted">Caracteres: {{ caracteresDigitados }}/200</div>
               <div class="invalid-feedback"
                 *ngIf="formulario.get('descricao')?.touched && formulario.get('descricao')?.invalid">
                 Campo obrigatório. Mínimo de 10 caracteres.
               </div>
             </div>
-
-            <!-- Botão ao lado -->
             <div>
-              <button type="submit" class="btn-custom"
-                style="position: relative; top:-35px; width: 40px; height: 40px;">
+              <button type="submit" class="btn-custom btn-sm" style="position: relative; margin-top: -80px; width: 40px; height: 40px;">
                 <i class="bi bi-check"></i>
               </button>
             </div>
@@ -124,12 +103,13 @@
       </form>
 
       <br>
+
+      <!-- Tabela -->
       <div class="scroll-box">
-        <div class="table table-responsive">
-          <table class="table  table-bordered small-font table-striped">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped small-font">
             <thead class="thead">
               <tr>
-                <th class="text-center">Alterar</th>
                 <th class="text-center">Tipo de Serviço</th>
                 <th class="text-center">Tipo de Arquivo</th>
                 <th class="text-center">Data Início</th>
@@ -139,66 +119,56 @@
                 <th class="text-center">Guia de Implementação</th>
               </tr>
             </thead>
-
-            <tr *ngFor="let fila of ConfiguracaoDocumento" class="tr">
-              <td class="text-center">
-                 <i class="bi bi-pencil-square" (click)="alterar(fila)"></i> 
-              </td>
-              <td class="text-center">
-               {{ getTipoServicoDescricao(+fila.tipoServico) }}
-              </td>
-              <td class="text-justify">
-                {{ getTipoArquivoDescricao(+fila.tipoArquivo) }}
-              </td>
-              <td class="text-center">
-                {{fila.dataInicio | date: 'dd/MM/yyyy'}}
-              </td>
-              <td class="text-center">
-                {{fila.dataFinal | date: 'dd/MM/yyyy'}}
-              </td>
-              <td>
-                <div style="white-space: pre-wrap; border: 1px solid #ccc; padding: 4px; border-radius: 4px;">
-                  {{fila.descricao}}
-                </div>
-              </td>
-              <td class="text-center">
-                <div class="dropdown">
-                  <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ fila.ativo? 'Disponível' : 'Inativo' }}
+            <tbody>
+              <tr *ngFor="let fila of ConfiguracaoDocumento">
+                <td class="text-center">{{ getTipoServicoDescricao(+fila.tipoServico) }}</td>
+                <td class="text-justify">{{ getTipoArquivoDescricao(+fila.tipoArquivo) }}</td>
+                <td class="text-center">{{ fila.dataInicio | date: 'dd/MM/yyyy' }}</td>
+                <td class="text-center">{{ fila.dataFinal | date: 'dd/MM/yyyy' }}</td>
+                <td>
+                  <div class="p-2 border rounded" style="min-height: 60px;">
+                    {{ fila.descricao }}
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div class="dropdown">
+                    <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                      {{ fila.ativo ? 'Disponível' : 'Inativo' }}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" (click)="alternarStatus(fila.guid)">On/Off</a></li>
+                    </ul>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#meuModalScrollable"
+                    (click)="baixarArquivo(fila.guid)">
+                    <i class="bi bi-download"></i>
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" (click)="alternarStatus(fila.guid)">On/Off</a></li>
-                  </ul>
-                </div>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#meuModalScrollable"
-                  (click)="baixarArquivo(fila.guid)"><i class="bi bi-download"></i>
-                </button>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
-      <!-- aqui -->
+
       <!-- Modal -->
       <div class="modal fade" id="meuModalScrollable" tabindex="-1" aria-labelledby="meuModalScrollableLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
           <div class="modal-content">
-
             <div class="modal-header">
               <h5 class="modal-title" id="meuModalScrollableLabel">Procedimento de integração da fila selecionada via
                 mensageria</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-
             <div class="modal-body">
               <div [innerHTML]="htmlConteudo" class="html-estatico" id="conteudo-pdf"></div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
+</div>

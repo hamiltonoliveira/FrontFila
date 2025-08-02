@@ -113,9 +113,9 @@ hr.my-2 {
   padding-top: 0;
   padding-bottom: 0;
   margin-top: 2px;
-  min-width: 60px;         /* garante uma largura mínima */
+  min-width: 60px;         
   text-align: center;
-  display: inline-block;   /* necessário para respeitar largura */
+  display: inline-block;    
 }
 
 
