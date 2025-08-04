@@ -36,7 +36,7 @@ export class ContratoComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private assinaturaEletronicaService: AssinaturaEletronicaService,
-    private contratoService:ContratoService,
+    private contratoService: ContratoService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -121,7 +121,7 @@ export class ContratoComponent implements OnInit {
       this.toastr.error("Ops! Você precisa escolher um plano, assinar digitalmente e salvar para continuar.");
     }
   }
-  
+
   criarAssinatura(): void {
     const guidCliente = localStorage.getItem("guidCliente");
     const payload = {
@@ -144,7 +144,7 @@ export class ContratoComponent implements OnInit {
     const guidCliente = localStorage.getItem("guidCliente");
     const payload = {
       PlanoId: this.planoEscolhido,
-      GuidCliente: guidCliente 
+      GuidCliente: guidCliente
     };
     this.contratoService.criarContrato(payload).subscribe(
       dados => {
@@ -180,20 +180,20 @@ export class ContratoComponent implements OnInit {
     return `${dia}/${mes}/${ano}`;
   }
 
- nomePlanoServico(planoId: string | number): string {
-  const id = Number(planoId);
+  nomePlanoServico(planoId: string | number): string {
+    const id = Number(planoId);
 
-  switch (id) {
-    case TipoServico.Básico:
-      return 'Plano Básico';
-    case TipoServico.Intermediário:
-      return 'Plano Intermediário';
-    case TipoServico.Premium:
-      return 'Plano Premium';
-    default:
-      return 'Plano Desconhecido';
+    switch (id) {
+      case TipoServico.Básico:
+        return 'Plano Básico';
+      case TipoServico.Intermediário:
+        return 'Plano Intermediário';
+      case TipoServico.Premium:
+        return 'Plano Premium';
+      default:
+        return 'Plano Desconhecido';
+    }
   }
-}
 
 
   carregarHtml(documento: any) {
@@ -207,12 +207,12 @@ export class ContratoComponent implements OnInit {
           let nomePlano = this.nomePlanoServico(monstarHTML.plano);
 
           this.htmlConteudo = html.replace('$cnpjContratante', cnpjFormatado)
-                                  .replace('$razaoSocial', monstarHTML.razaoSocial)
-                                  .replace('$valorContrato' , monstarHTML.valorMensal)
-                                  .replace('$plano' , nomePlano)
-                                  .replace('$assinatura', monstarHTML.hashDocumento)
-                                  .replace('$dataCadastro', cadastro)
-                                  .replace(/contenteditable="true"/g, 'contenteditable="false"');
+            .replace('$razaoSocial', monstarHTML.razaoSocial)
+            .replace('$valorContrato', monstarHTML.valorMensal)
+            .replace('$plano', nomePlano)
+            .replace('$assinatura', monstarHTML.hashDocumento)
+            .replace('$dataCadastro', cadastro)
+            .replace(/contenteditable="true"/g, 'contenteditable="false"');
 
 
         },
@@ -222,40 +222,40 @@ export class ContratoComponent implements OnInit {
       });
   }
 
-gerarEbaixarPDF() {
-  const elemento = document.getElementById('conteudo-para-pdf');
+  gerarEbaixarPDF() {
+    const elemento = document.getElementById('conteudo-para-pdf');
 
-  if (!elemento) {
-    this.toastr.error('Conteúdo para PDF não encontrado.');
-    return;
-  }
-
-  html2canvas(elemento).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
-
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const margin = 10; // Margem em mm
-
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pageWidth - margin * 2;
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-    let finalPdfHeight = pdfHeight;
-    let finalPdfWidth = pdfWidth;
-
-    if (pdfHeight > (pageHeight - margin * 2)) {
-      finalPdfHeight = pageHeight - margin * 2;
-      finalPdfWidth = (imgProps.width * finalPdfHeight) / imgProps.height;
+    if (!elemento) {
+      this.toastr.error('Conteúdo para PDF não encontrado.');
+      return;
     }
 
-    pdf.addImage(imgData, 'PNG', margin, margin, finalPdfWidth, finalPdfHeight);
+    html2canvas(elemento).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
 
-    // Faz download direto
-    pdf.save('contrato.pdf');
-  });
-}
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 10; // Margem em mm
+
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pageWidth - margin * 2;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      let finalPdfHeight = pdfHeight;
+      let finalPdfWidth = pdfWidth;
+
+      if (pdfHeight > (pageHeight - margin * 2)) {
+        finalPdfHeight = pageHeight - margin * 2;
+        finalPdfWidth = (imgProps.width * finalPdfHeight) / imgProps.height;
+      }
+
+      pdf.addImage(imgData, 'PNG', margin, margin, finalPdfWidth, finalPdfHeight);
+
+      // Faz download direto
+      pdf.save('contrato.pdf');
+    });
+  }
 
 
   carregaContratoGuid(): void {
@@ -267,12 +267,7 @@ gerarEbaixarPDF() {
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
         }
-        //this.spinner(false);
       },
-      // error: (erro) => {
-      // this.Erro('Erro ao carregar configurações de documento:');
-      // this.spinner(false);
-      // }
     });
   }
 
@@ -289,12 +284,7 @@ gerarEbaixarPDF() {
         if (!dados || dados.length === 0) {
           this.toastr.warning('Atenção: esta fila ainda não possui configuração de documentos.');
         }
-        //this.spinner(false);
       },
-      // error: (erro) => {
-      // this.Erro('Erro ao carregar configurações de documento:');
-      // this.spinner(false);
-      // }
     });
   }
 

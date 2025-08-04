@@ -23,9 +23,4 @@ export class ContratoService {
       const url = `${this.apiUrl}/Contrato/Criar/`;
       return this.http.post(url, dados, { headers });
     }
-  
-
-
-
-
 }
